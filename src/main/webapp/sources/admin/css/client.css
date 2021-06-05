@@ -1,0 +1,244 @@
+@import
+	url('https://fonts.googleapis.com/css2?family=Gudea:wght@400;700&display=swap')
+	;
+
+html, body {
+	overflow-x: hidden;
+}
+
+* {
+	padding: 0;
+	margin: 0;
+	font-family: 'Gudea', sans-serif;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: none !important;
+}
+
+#app {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	width: 100vw;
+	border-radius: 2px;
+	background-color: #192231;
+}
+
+.app__content {
+	width: 750px;
+	height: 600px;
+	background-color: #ccc;
+	color: #fff;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	border-radius: 4px;
+	-webkit-box-shadow: 0px 0px 27px 2px #3D3D3D;
+	box-shadow: 0px 0px 27px 2px #3D3D3D;
+}
+
+.header {
+	background-color: #24344d;
+	color: #cccccc;
+	padding: 32px 0;
+	overflow: hidden;
+}
+
+.header__title {
+	text-align: center;
+	font-size: 26px;
+	letter-spacing: 4px;
+	text-transform: uppercase;
+	font-weight: 600;
+	animation: left-to-right linear 10s infinite;
+}
+
+.body {
+	display: flex;
+	height: 100%;
+}
+
+.body__left {
+	width: 50%;
+	max-width: 50%;
+	background-color: transparent;
+	display: flex;
+}
+
+.body__right {
+	width: 50%;
+	max-width: 50%;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	background-color: transparent;
+	display: flex;
+}
+
+.btn.btn--ticket {
+	color: #cccccc;
+	border: none;
+	width: 80%;
+	max-width: 200px;
+	padding: 20px 10px !important;
+	background-color: #5893df !important;
+	text-transform: uppercase;
+	border-radius: 4px;
+	font-weight: 600;
+	letter-spacing: 2px;
+	-webkit-box-shadow: 0px 0px 19px -1px #7B7B7B;
+	box-shadow: 0px 0px 19px -1px #7B7B7B;
+}
+
+.btn.btn--danger{
+	background-color: #ec5e69 !important;
+	color: #fff;
+}
+
+.btn.btn--info{
+	background-color: #5893df !important;
+	color: #fff;
+}
+
+.btn.btn--warning{
+	background-color: #f1c205 !important;
+	color: #fff;
+}
+
+.btn.btn--success{
+	background-color: #2ec5d3 !important;
+	color: #fff;
+}
+
+.btn.btn--ticket:hover {
+	background-color: #24344d !important;
+}
+
+.footer {
+	margin-bottom: 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+.footer__item {
+	text-align: center;
+	list-style: none;
+	width: 100%;
+	background-color: #24344d;
+	font-size: 22px;
+	font-weight: 700;
+	letter-spacing: 4px;
+	border-right: 1px solid #ccc;
+}
+
+.footer .footer__item:last-child {
+	border-right: none;
+}
+
+.footer__item.active {
+	background-color: #5893df;
+}
+
+.footer__item:hover a {
+	background-color: #5893df;
+	color: #fff;
+}
+
+.footer__item a {
+	text-decoration: none;
+	color: #cccccc;
+	text-transform: uppercase;
+	padding: 24px 0;
+	display: block;
+	transition: 0.2s;
+}
+
+.form.form--ticket {
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+	margin: auto;
+	border-radius: 4px;
+	-webkit-box-shadow: 0px 0px 19px -1px #7B7B7B;
+	box-shadow: 0px 0px 19px -1px #7B7B7B;
+}
+
+.form--ticket {
+	padding: 25px;
+	background-color: #5893df;
+}
+
+form.form.form--ticket label {
+	font-size: 14px;
+}
+
+.form--ticket .form-title {
+	margin-bottom: 0px;
+}
+
+.form--ticket label {
+margin-bottom: 0;
+}
+
+.form--ticket .form-control {
+	border: none;
+	background: #fff;
+}
+
+.form--ticket .form-control:focus {
+	box-shadow: none;
+}
+
+.form--ticket .form-input, .form--ticket .form-input:focus {
+	color: #ccc;
+}
+
+.form--ticket .form-input:focus {
+	background-color: #fff;
+}
+
+.form--ticket .btn.btn-success {
+	background-color: #9f7ce1;
+	border: none;
+}
+
+.form--ticket .btn.btn-success:active, .form--ticket .btn.btn-success:hover
+	{
+	background-color: #8869c2 !important;
+}
+
+.form--ticket .btn:focus {
+	box-shadow: none !important;
+	border: none !important;
+}
+
+.modal-content--transparent{
+	background-color: transparent;
+}
+
+.modal-dialog--center-height{
+	display: flex;
+	align-items: center;
+	height: 80vh;
+}
+
+.modal-body--act{
+	display: flex;
+	justify-content: space-around;
+}
+
+@keyframes left-to-right {
+	from {transform: translateX(-80%);
+}
+
+to {
+	transform: translateX(80%);
+}
+}
