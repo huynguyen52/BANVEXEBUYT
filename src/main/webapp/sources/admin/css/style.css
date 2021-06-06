@@ -513,6 +513,7 @@ a:hover {
 	color: #fff;
 	cursor: pointer;
 	min-width: 100%;
+	transition: 0.3s;
 }
 
 .box:hover{
