@@ -676,9 +676,9 @@
 					</div>
 				</div>
 				<div class="custom-file">
-					<input name="image" type="file" id="validatedCustomFile"
+					<input name="image" type="file" id="validatedCustomFile2"
 						class="custom-file-input"> <label
-						class="custom-file-label" for="validatedCustomFile">Choose
+						class="custom-file-label" for="validatedCustomFile2">Choose
 						file...</label> <span class="error-message"></span>
 				</div>
 			</div>
