@@ -99,7 +99,7 @@
 				<div class="row">
 					<c:forEach var="tuyen" items="${listTuyenXes }">
 						<div class="col-3 mb-3">
-							<a href="" class="box"> <span class="box__header">${tuyen.maTuyen }</span>
+							<a href="route-detail?tuyen=${tuyen.maTuyen }" class="box"> <span class="box__header">${tuyen.maTuyen }</span>
 								<p class="box__content">${tuyen.mocTuyen1 } - ${tuyen.mocTuyen2 }</p>
 							</a>
 						</div>
