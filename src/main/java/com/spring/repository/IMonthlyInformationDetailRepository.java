@@ -30,4 +30,7 @@ public interface IMonthlyInformationDetailRepository extends CrudRepository<Thon
 
 	@Query(value = "select t from ThongTinVeThangDetail t where t.ngayMua between :fromDate and :toDate")
 	public List<ThongTinVeThangDetail> getDataByDateToDate(@Param("fromDate") Date fromDate, @Param("toDate") Date toDate);
+	
+	@Query(value= "SELECT DISTINCT ngayMua FROM ThongTinVeThangDetail")
+	public List<Date> getNgayMua();
 }

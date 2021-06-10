@@ -57,4 +57,8 @@ public class MonlyInformationDetailService {
 	public List<ThongTinVeThangDetail> getDataByDateToDate(Date fromDate, Date toDate){
 		return repo.getDataByDateToDate(fromDate, toDate);
 	}
+	
+	public List<Date> getNgayMua(){
+		return repo.getNgayMua();
+	}
 }
