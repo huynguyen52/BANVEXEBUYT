@@ -3,7 +3,7 @@
 <%@include file="/common/taglib.jsp"%>
 <body>
 	<div class="container-fluid">
-		
+
 		<!-- Current page- url -->
 		<%
 			session.setAttribute("current-url", (String) request.getAttribute("javax.servlet.forward.request_uri"));
@@ -76,21 +76,34 @@
 											<span data-toggle="tooltip" title="Edit!"> <i
 												class="fas fa-info"></i>
 											</span>
-										</button>
-
-										<!-- <button data-toggle="modal" data-target="#deleteroute"
+										</button> <!-- <button data-toggle="modal" data-target="#deleteroute"
 											class="btn btn-danger btn-sm delete">
 											<span data-toggle="tooltip" title="Delete!"> <i
 												class="fas fa-ban "></i>
 											</span>
-										</button> --> 
-										<input type="hidden" class="id" value="${tuyen.maTuyen}" />
+										</button> --> <input type="hidden" class="id"
+										value="${tuyen.maTuyen}" />
 									</td>
 								</tr>
 							</c:forEach>
 
 						</tbody>
 					</table>
+				</div>
+			</div>
+		</div>
+
+		<div class="card shadow mb-4">
+			<div class="card-header"></div>
+			<div class="card-body">
+				<div class="row">
+					<c:forEach var="tuyen" items="${listTuyenXes }">
+						<div class="col-3 mb-3">
+							<a href="route-detail?tuyen=${tuyen.maTuyen }" class="box"> <span class="box__header">${tuyen.maTuyen }</span>
+								<p class="box__content">${tuyen.mocTuyen1 } - ${tuyen.mocTuyen2 }</p>
+							</a>
+						</div>
+					</c:forEach>
 				</div>
 			</div>
 		</div>

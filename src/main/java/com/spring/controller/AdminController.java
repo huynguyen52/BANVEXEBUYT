@@ -1269,6 +1269,26 @@ public class AdminController {
 		redirectAttributes.addFlashAttribute("active", "route");
 		return "redirect:/admin/route";
 	}
+	
+	//chi tiết tuyến xe
+	@RequestMapping(value = "/route-detail")
+	public ModelAndView routeDetailPage(@RequestParam(value = "tuyen") Integer maTuyen) {
+		ModelAndView mav = new ModelAndView("admin/route-detail");
+		List<ChuyenXe> listChuyenXes = tripService.getDataByMaTuyen(maTuyen);
+		TuyenXe tuyenXe = routeService.get(maTuyen);
+		List<GiaVeLuot> listGiaVeLuots = ticketPriceService.listAll();
+		List<GiaVeThang> listGiaVeThangs = monthlyTicketPriceService.listAll();
+		List<CheDo> listCheDos = modeService.listAll();
+		
+		mav.addObject("tuyenXe", tuyenXe);
+		mav.addObject("listChuyenXes", listChuyenXes);
+		mav.addObject("listCheDos", listCheDos);
+		mav.addObject("listGiaVeLuots", listGiaVeLuots);
+		mav.addObject("listGiaVeThangs", listGiaVeThangs);
+		mav.addObject("active", "route");
+		
+		return mav;
+	}
 
 	// Nhân viên
 	@RequestMapping(value = "/staff", method = RequestMethod.GET)
