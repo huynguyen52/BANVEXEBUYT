@@ -2,41 +2,6 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-var xyz = JSON.parse(localStorage.getItem("thongtinveluot"));
-var dayArr = [];
-var dataArr = [];
-var dataLength = xyz.data.length;
-dataLength = dataLength < 8 ? dataLength : 7;
-for (let i = 0; i < dataLength; i++) {
-	var tempDate = new Date(xyz.data[i].ngay);
-	var day_name = '';
-	switch (tempDate.getDay()) {
-		case 0:
-			day_name = "Chủ nhật";
-			break;
-		case 1:
-			day_name = "Thứ hai";
-			break;
-		case 2:
-			day_name = "Thứ ba";
-			break;
-		case 3:
-			day_name = "Thứ tư";
-			break;
-		case 4:
-			day_name = "Thứ năm";
-			break;
-		case 5:
-			day_name = "Thứ sau";
-			break;
-		case 6:
-			day_name = "Thứ bảy";
-	}
-	dayArr.push(day_name);
-	dataArr.push(xyz.data[i].soLuong);
-}
-
-
 
 function number_format(number, decimals, dec_point, thousands_sep) {
 	// *     example: number_format(1234.56, 2, ',', ' ');
@@ -68,13 +33,20 @@ var ctx = document.getElementById("myBarChart");
 var myBarChart = new Chart(ctx, {
 	type: 'bar',
 	data: {
-		labels: dayArr,
+		//labels: dayArr,
 		datasets: [{
-			label: "Revenue",
+			label: "Thường",
 			backgroundColor: "#5893df",
 			hoverBackgroundColor: "#5893df",
 			borderColor: "#4e73df",
-			data: dataArr,
+			//data: dataArr,
+		},
+		{
+			label: "Ưu tiên",
+			backgroundColor: "#c87f13",
+			hoverBackgroundColor: "#c87f13",
+			borderColor: "#c87f13",
+			//data: dataArr,
 		}],
 	},
 	options: {

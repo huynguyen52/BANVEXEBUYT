@@ -1,6 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <script>
+	
+	let tabs = document.querySelectorAll('.card .nav-item');
+	for(tab of tabs){
+		tab.onclick = function(e){
+			if(e.target.id == 'luot'){
+				for(t of tabs){
+					t.classList.remove('active');
+				}
+				e.target.classList.add('active');
+				document.querySelector('.card table#tabluot').classList.remove('disable');
+				document.querySelector('.card table#tabthang').classList.add('disable');
+			}else if(e.target.id == 'thang'){
+				for(t of tabs){
+					t.classList.remove('active');
+				}
+				e.target.classList.add('active');
+				document.querySelector('.card table#tabthang').classList.remove('disable');
+				document.querySelector('.card table#tabluot').classList.add('disable');
+			}
+		}
+	}
+	
+
 	//load active element
 	const activeElement = document.getElementById('activeElement').value;
 	const tabElement = document.getElementById('tabElement').value;

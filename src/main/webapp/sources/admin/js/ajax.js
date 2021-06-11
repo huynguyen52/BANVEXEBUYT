@@ -58,7 +58,7 @@ $(document).ready(function() {
 				},
 				success: function(data) {
 					localStorage.setItem("thongtinveluot", JSON.stringify(data));
-					location.reload();
+					//location.reload();
 				}
 			});
 		}
@@ -66,17 +66,7 @@ $(document).ready(function() {
 
 
 
-	//area chart
-	$.ajax({
-		type: "POST",
-		contentType: "application/json",
-		url: "get-data-by-month",
-		dataType: 'json',
-		data: {},
-		success: function(data) {
-			localStorage.setItem("thongTinVeThangDetail", JSON.stringify(data));
-		}
-	});
+
 
 
 	//==============================End: dashboard===============================
