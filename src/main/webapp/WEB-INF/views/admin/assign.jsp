@@ -6,7 +6,7 @@
 
 		<!-- Current page- url -->
 		<%
-		session.setAttribute("current-url", (String) request.getAttribute("javax.servlet.forward.request_uri"));
+			session.setAttribute("current-url", (String) request.getAttribute("javax.servlet.forward.request_uri"));
 		%>
 
 		<!-- Page Heading -->
@@ -25,57 +25,99 @@
 			</div>
 			<div class="card-body">
 				<div class="row mb-4">
-					<div class="col-6 d-flex justify-content-start align-items-center">
+					<div class="col-3">
 						<button data-toggle="modal" data-target="#addCTChuyenXe"
 							class="btn btn-success add">New assignment</button>
 					</div>
+					<div class="col-6">
+						<form class="form d-flex">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<input list="routes" value="" type="text" class="form-control form-input "
+										placeholder="Nhập tuyến xe">
+									<datalist id="routes">
+										<option value="Tuyến 58">
+										<option value="Tuyến 56">
+										<option value="Tuyến 57">
+										<option value="Tuyến 54">
+									</datalist>
+								</div>
+								<div class="form-group col-md-6">
+									<input value="" name="email" type="date"
+										class="form-control form-input ">
+								</div>
+							</div>
+							<button style="height: 100%" type="submit" class="btn btn-violet">Submit</button>
+						</form>
+					</div>
 				</div>
 				<div class="table-responsive">
-					<table class="table table-bordered" id="dataTable" width="100%"
+					<table class="table table-bordered data-table" id=""
 						cellspacing="0">
 						<thead>
 							<tr>
-								<th>Nhân viên</th>
-								<th>Biển số xe</th>
-								<th>Ngày</th>
-								<th></th>
+								<th class="data-table__header">Lê Văn Luyện | xxx-xxxx</th>
+								<th class="data-table__header">Phạm Thái Học | xxx-xxxx</th>
+								<th class="data-table__header">Đinh Công Mạnh | xxx-xxxx</th>
+								<th class="data-table__header">Hoàng Văn Đậu | xxx-xxxx</th>
+								<th class="data-table__header">Hà Tiều Phu | xxx-xxxx</th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<th>Nhân viên</th>
-								<th>Biển số xe</th>
-								<th>Ngày</th>
-								<th></th>
-							</tr>
-						</tfoot>
 						<tbody>
-							<c:forEach var="phanCong" items="${listPhanCongs}">
-								<tr>
-									<td>${phanCong.nhanVien.hoTen }</td>
-									<td>${phanCong.bienSoXe }</td>
-									<td><fmt:formatDate value="${phanCong.ngay }" type="date" /></td>
-									
-									<td>
-										<!-- <button data-toggle="modal" data-target="#editCTChuyenXe"
-											class="btn btn-info btn-sm edit">
-											<span data-toggle="tooltip" title="Edit!"> <i
-												class="fas fa-info"></i>
-											</span>
-										</button> -->
+							<tr>
+								<td>
+									<p class="data-table__label">03:00</p>
+									<p class="data-table__label data-table__label--primary">03:00</p>
 
-										<!-- <button data-toggle="modal" data-target="#deleteCTChuyenXe"
-											class="btn btn-danger btn-sm delete">
-											<span data-toggle="tooltip" title="Delete!"> <i
-												class="fas fa-ban "></i>
-											</span>
-										</button>  -->
-										<input type="hidden" class="id" value="${phanCong.idPhanCong}" />
-									</td>
-								</tr>
-							</c:forEach>
+									<p class="data-table__label data-table__label--success">03:00</p>
 
+									<p class="data-table__label data-table__label--info">03:00</p>
+
+									<p class="data-table__label data-table__label--warning">03:00</p>
+									<p class="data-table__label data-table__label--danger">03:00</p>
+								</td>
+								<td>
+									<p class="data-table__label">03:00</p>
+									<p class="data-table__label data-table__label--primary">03:00</p>
+
+									<p class="data-table__label data-table__label--success">03:00</p>
+
+									<p class="data-table__label data-table__label--info">03:00</p>
+
+									<p class="data-table__label data-table__label--warning">03:00</p>
+								</td>
+								<td>
+									<p class="data-table__label">03:00</p>
+									<p class="data-table__label data-table__label--primary">03:00</p>
+
+									<p class="data-table__label data-table__label--success">03:00</p>
+
+								</td>
+								<td>
+									<p class="data-table__label">03:00</p>
+									<p class="data-table__label data-table__label--primary">03:00</p>
+
+									<p class="data-table__label data-table__label--success">03:00</p>
+
+									<p class="data-table__label data-table__label--info">03:00</p>
+
+									<p class="data-table__label data-table__label--warning">03:00</p>
+								</td>
+								<td>
+									<p class="data-table__label">03:00</p>
+									<p class="data-table__label data-table__label--primary">03:00</p>
+
+									<p class="data-table__label data-table__label--success">03:00</p>
+
+									<p class="data-table__label data-table__label--info">03:00</p>
+
+								</td>
+							</tr>
 						</tbody>
+
+
+
+
 					</table>
 				</div>
 			</div>
