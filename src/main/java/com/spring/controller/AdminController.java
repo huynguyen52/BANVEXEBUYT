@@ -127,13 +127,15 @@ public class AdminController {
 //		}
 //
 //	}
-
-	public void filter() throws ParseException {
+	
+	@RequestMapping(value = "/dashboard-veluot")
+	public @ResponseBody List<QLVe> filter(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
 
 		String pattern = "yyyy-MM-dd";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		Date dateFrom = simpleDateFormat.parse("2021-06-04");
-		Date dateTo = simpleDateFormat.parse("2021-06-06");
+//		Date dateFrom = simpleDateFormat.parse("2021-06-10");
+//		Date dateTo = simpleDateFormat.parse("2021-06-16");
 		System.out.println("ngay bat dau: " + dateFrom);
 		System.out.println("ngay ket thuc: " + dateTo);
 
@@ -192,9 +194,14 @@ public class AdminController {
 					}
 				}
 			}
-			listQLs.add(qlVe);
+			if (qlVe.getNgay() == null) {
+				continue;
+			} else {
+				listQLs.add(qlVe);
+			}
 		}
-
+		System.out.println(listQLs);
+		return listQLs;
 	}
 
 	public int veToTuyen(int maVeThang) {
@@ -274,11 +281,13 @@ public class AdminController {
 		return BigDecimal.valueOf(0);
 	}
 
-	public void filrer1() throws ParseException {
+	@RequestMapping(value = "/dashboard-vethang")
+	public @ResponseBody List<QLVe> filrer1(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
 		String pattern = "yyyy-MM-dd";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		Date dateFrom = simpleDateFormat.parse("2021-06-09");
-		Date dateTo = simpleDateFormat.parse("2021-06-12");
+//		Date dateFrom = simpleDateFormat.parse("2021-06-09");
+//		Date dateTo = simpleDateFormat.parse("2021-06-16");
 		System.out.println("ngay bat dau: " + dateFrom);
 		System.out.println("ngay ket thuc: " + dateTo);
 
@@ -337,9 +346,10 @@ public class AdminController {
 					listQLVe.add(qlVe);
 				}
 			}
+			
 
 		}
-		System.out.println("aaaa");
+		return listQLVe;
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -1188,7 +1198,7 @@ public class AdminController {
 	public ModelAndView routePage() throws ParseException {
 		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
 
-		filrer1();
+		
 
 		ModelAndView mav = new ModelAndView("admin/route");
 		List<TuyenXe> listTuyenXes = routeService.listAll();
