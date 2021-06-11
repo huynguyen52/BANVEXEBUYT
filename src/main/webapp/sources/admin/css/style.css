@@ -283,7 +283,8 @@ button {
 	animation: fa-spin 2s infinite linear;
 }
 
-@keyframes fa-spin {
+@
+keyframes fa-spin {
 	from {transform: rotate(0deg);
 }
 
@@ -690,4 +691,65 @@ a:hover {
 
 .card-info__header p {
 	margin: 0;
+}
+
+.data-table {
+	
+}
+
+.data-table thead > tr > th, .data-table tfoot > tr > th {
+    border: 1px solid #324462;
+    max-width: 200px;
+}
+
+.data-table tbody > tr{
+	background-color: transparent;
+}
+
+.data-table tbody > tr > td{
+	max-width: 200px;
+	border-right: 1px solid #324462;
+}
+
+.data-table tbody > tr > td:first-child{
+	border-left: 1px solid #324462;
+}
+
+.data-table__header {
+	
+}
+
+.data-table__label {
+	background-color: #2b3854;
+	border-radius: 4px;
+	padding-left: 10px;
+	color: rgba(225, 235, 245, .9);
+	font-size: 16px;
+	border: 1px solid #2f4060;
+	margin-bottom: 0;
+}
+
+.data-table__label--primary{
+	background-color: #8869c2;
+	border-color: #8869c2;
+}
+
+.data-table__label--success{
+	background-color: #29b3c0;
+	border-color: #29b3c0;
+}
+
+.data-table__label--info{
+	background-color: #4d80c2;
+	border-color: #4d80c2;
+}
+
+.data-table__label--warning{
+	background-color: #d7ad03;
+	border-color: #d7ad03;
+}
+
+.data-table__label--danger{
+	background-color: #cf525c;
+	border-color: #cf525c;
 }
