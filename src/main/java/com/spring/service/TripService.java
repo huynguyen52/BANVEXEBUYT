@@ -40,4 +40,9 @@ public class TripService {
 		updateById(id, chuyen, maTuyen, gioXuatPhat, gioQuayVe, bienSoXe, maNhanVien);
 	}
 	
+	public List<ChuyenXe> getDataByMaTuyen(Integer maTuyen){
+		
+		return repo.getDataByMatuyen(maTuyen);
+	}
+	
 }

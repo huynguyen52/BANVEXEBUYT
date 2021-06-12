@@ -32,6 +32,7 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.spring.entities.CTChuyen;
 import com.spring.entities.CheDo;
 import com.spring.entities.ChuyenXe;
 import com.spring.entities.GiaVeLuot;
@@ -46,8 +47,10 @@ import com.spring.entities.ThongTinVeThang;
 import com.spring.entities.ThongTinVeThangDetail;
 import com.spring.entities.TuyenXe;
 import com.spring.entities.Xe;
+import com.spring.java.QLVe;
 import com.spring.service.AccountService;
 import com.spring.service.BusService;
+import com.spring.service.DetailTripService;
 import com.spring.service.KhachThangService;
 import com.spring.service.ModeService;
 import com.spring.service.MonlyInformationDetailService;
@@ -96,6 +99,8 @@ public class AdminController {
 	private TicketPriceService ticketPriceService;
 	@Autowired
 	private PhanCongService phanCongService;
+	@Autowired
+	private DetailTripService detailTripService;
 
 //	public void checkCTChuyen() throws ParseException {
 //		Scanner scanner=new Scanner(System.in);
@@ -122,6 +127,230 @@ public class AdminController {
 //		}
 //
 //	}
+	
+	@RequestMapping(value = "/dashboard-veluot")
+	public @ResponseBody List<QLVe> filter(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
+
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//		Date dateFrom = simpleDateFormat.parse("2021-06-10");
+//		Date dateTo = simpleDateFormat.parse("2021-06-16");
+		System.out.println("ngay bat dau: " + dateFrom);
+		System.out.println("ngay ket thuc: " + dateTo);
+
+		List<PhanCong> listPhanCongs = phanCongService.listAll();
+		List<ThongTinVeLuot> listThongTinVeLuots = ticketInformationService.listAll();
+		List<CTChuyen> listCTChuyens = detailTripService.listAll();
+		List<ChuyenXe> listChuyens = tripService.listAll();
+		List<GiaVeLuot> listGiaVeLuots = ticketPriceService.listAll();
+		List<QLVe> listQLs = new ArrayList<QLVe>();
+		for (int k = 0; k < listPhanCongs.size(); k++) {
+			int idPhanCong = 0;
+			QLVe qlVe = new QLVe();
+			int idChuyen = 0;
+			if (listPhanCongs.get(k).getNgay().compareTo(dateFrom) >= 0
+					&& listPhanCongs.get(k).getNgay().compareTo(dateTo) <= 0) {
+				qlVe.setNgay(listPhanCongs.get(k).getNgay());
+				idPhanCong = listPhanCongs.get(k).getIdPhanCong();
+				for (int i = 0; i < listCTChuyens.size(); i++) {
+					if (listCTChuyens.get(i).getIdPhanCong() == idPhanCong) {
+						idChuyen = listCTChuyens.get(i).getIdChuyen();
+						break;
+					}
+				}
+				for (int i = 0; i < listChuyens.size(); i++) {
+					if (listChuyens.get(i).getId() == idChuyen) {
+						qlVe.setMaTuyen(listChuyens.get(i).getMaTuyen());
+					}
+				}
+				List<Integer> listMaGia = new ArrayList<Integer>();
+				for (int i = 0; i < listThongTinVeLuots.size(); i++) {
+					if (listThongTinVeLuots.get(i).getMaPhanCong() == idPhanCong) {
+						listMaGia.add(listThongTinVeLuots.get(i).getMaGiaLuot());
+					}
+				}
+				for (int i = 0; i < listGiaVeLuots.size(); i++) {
+					if (listGiaVeLuots.get(i).getMaGia() == listMaGia.get(i)) {
+						if (listGiaVeLuots.get(i).getMaCheDo().equals("thuong")) {
+							qlVe.setGiaTienThuong(listGiaVeLuots.get(i).getGiaVeLuot());
+							for (int j = 0; j < listThongTinVeLuots.size(); j++) {
+								if (listThongTinVeLuots.get(j).getMaPhanCong() == idPhanCong
+										&& listGiaVeLuots.get(i).getMaGia() == listMaGia.get(i)) {
+									qlVe.setSoLuongThuong(listThongTinVeLuots.get(j).getSoLuong());
+									break;
+								}
+							}
+						} else if (listGiaVeLuots.get(i).getMaCheDo().equals("uutien")) {
+							qlVe.setGiaTienUuTien(listGiaVeLuots.get(i).getGiaVeLuot());
+							for (int j = 0; j < listThongTinVeLuots.size(); j++) {
+								if (listThongTinVeLuots.get(j).getMaPhanCong() == idPhanCong
+										&& listGiaVeLuots.get(i).getMaGia() == listMaGia.get(i)) {
+									qlVe.setSoLuongUuTien(listThongTinVeLuots.get(j).getSoLuong());
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+			if (qlVe.getNgay() == null) {
+				continue;
+			} else {
+				listQLs.add(qlVe);
+			}
+		}
+		System.out.println(listQLs);
+		return listQLs;
+	}
+
+	public int veToTuyen(int maVeThang) {
+		List<ThongTinVeThang> listTTVT = monthlyInformationService.listAll();
+		for (int i = 0; i < listTTVT.size(); i++) {
+			if (maVeThang == listTTVT.get(i).getMaVeThang())
+				return listTTVT.get(i).getMaTuyenXe();
+		}
+		return 0;
+	}
+
+	public boolean checkMaTuyen(int maTuyen) {
+		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
+		for (int i = 0; i < listThongTinVeThangDetails.size(); i++) {
+			if (maTuyen == veToTuyen(listThongTinVeThangDetails.get(i).getMaVeThang())) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public List<Integer> getListId(Date date) {
+		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
+		List<Integer> listIds = new ArrayList<Integer>();
+		for (int i = 0; i < listThongTinVeThangDetails.size(); i++) {
+			if (listThongTinVeThangDetails.get(i).getNgayMua().compareTo(date) == 0) {
+				listIds.add(listThongTinVeThangDetails.get(i).getId());
+			}
+		}
+		return listIds;
+	}
+
+	public int getListMaVeThang(int id) {
+		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
+		for (int i = 0; i < listThongTinVeThangDetails.size(); i++) {
+			if (id == listThongTinVeThangDetails.get(i).getId()) {
+				return listThongTinVeThangDetails.get(i).getMaVeThang();
+			}
+		}
+		return 0;
+	}
+
+	public int idToMaGia(int id) {
+		List<ThongTinVeThangDetail> listTTVTDTs = monthlyInformationDetailService.listAll();
+		for (int i = 0; i < listTTVTDTs.size(); i++) {
+			if (id == listTTVTDTs.get(i).getId())
+				return listTTVTDTs.get(i).getMaGiaThang();
+		}
+		return 0;
+	}
+
+	public HashMap<String, BigDecimal> hCheDo_GiaVe(int maGia) {
+		HashMap<String, BigDecimal> listHashMap = new HashMap<String, BigDecimal>();
+		List<GiaVeThang> listGiaVeThangs = monthlyTicketPriceService.listAll();
+		for (int i = 0; i < listGiaVeThangs.size(); i++) {
+			if (maGia == listGiaVeThangs.get(i).getMaGia())
+				listHashMap.put(listGiaVeThangs.get(i).getMaCheDo(), listGiaVeThangs.get(i).getGiaVeThang());
+		}
+		return listHashMap;
+	}
+
+	public String getMaCheDo(int maGia) {
+		List<GiaVeThang> listGiaVeThangs = monthlyTicketPriceService.listAll();
+		for (int i = 0; i < listGiaVeThangs.size(); i++) {
+			if (maGia == listGiaVeThangs.get(i).getMaGia())
+				return listGiaVeThangs.get(i).getMaCheDo();
+		}
+		return "";
+	}
+
+	public BigDecimal getTien(String maCheDo) {
+		List<GiaVeThang> listGiaVeThangs = monthlyTicketPriceService.listAll();
+		for (int i = 0; i < listGiaVeThangs.size(); i++) {
+			if (maCheDo.equals(listGiaVeThangs.get(i).getMaCheDo()))
+				return listGiaVeThangs.get(i).getGiaVeThang();
+		}
+		return BigDecimal.valueOf(0);
+	}
+
+	@RequestMapping(value = "/dashboard-vethang")
+	public @ResponseBody List<QLVe> filrer1(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//		Date dateFrom = simpleDateFormat.parse("2021-06-09");
+//		Date dateTo = simpleDateFormat.parse("2021-06-16");
+		System.out.println("ngay bat dau: " + dateFrom);
+		System.out.println("ngay ket thuc: " + dateTo);
+
+		List<Integer> listMaGia = new ArrayList<Integer>();
+		List<QLVe> listQLV = new ArrayList<QLVe>();
+		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
+
+		List<GiaVeThang> listGVTs = monthlyTicketPriceService.listAll();
+		List<TuyenXe> listTuyenXes = routeService.listAll();
+
+		List<Date> listDays = new ArrayList<Date>();
+		List<QLVe> listQLVe = new ArrayList<QLVe>();
+
+		listDays = monthlyInformationDetailService.getNgayMua();
+		List<Integer> listIds = new ArrayList<Integer>();
+		for (int j = 0; j < listTuyenXes.size(); j++) {
+			int soLuong_thuong = 0;
+			int soLuong_uuTien = 0;
+			for (int i = 0; i < listDays.size(); i++) {
+				QLVe qlVe = new QLVe();
+				soLuong_thuong = 0;
+				soLuong_uuTien = 0;
+				if (listDays.get(i).compareTo(dateFrom) >= 0 && listDays.get(i).compareTo(dateTo) <= 0) {
+					/* hashId_Ve = (Entry<Integer, Integer>) listId_Ve(listDays.get(i)); */
+					listIds = getListId(listDays.get(i));
+					for (int k = 0; k < listIds.size(); k++) {
+						if (listTuyenXes.get(j).getMaTuyen() == veToTuyen(getListMaVeThang(listIds.get(k)))) {
+							qlVe.setMaTuyen(listTuyenXes.get(j).getMaTuyen());
+							qlVe.setNgay(listDays.get(i));
+							int maGia = 0;
+							maGia = idToMaGia(listIds.get(k));
+							String maCheDo = "";
+							maCheDo = getMaCheDo(maGia);
+							/* hashCheDo_GiaVe = (Entry<String, BigDecimal>) hCheDo_GiaVe(maGia); */
+
+							if (maCheDo.equals("thuong")) {
+								BigDecimal giaVeThuong = BigDecimal.valueOf(0);
+								giaVeThuong = getTien(maCheDo);
+								qlVe.setGiaTienThuong(giaVeThuong);
+								soLuong_thuong++;
+							} else if (maCheDo.equals("uutien")) {
+								BigDecimal giaVeUuTien = BigDecimal.valueOf(0);
+								giaVeUuTien = getTien(maCheDo);
+								qlVe.setGiaTienUuTien(giaVeUuTien);
+								soLuong_uuTien++;
+							}
+
+						}
+					}
+				}
+				qlVe.setSoLuongThuong(soLuong_thuong);
+				qlVe.setSoLuongUuTien(soLuong_uuTien);
+				if (qlVe.getNgay() == null) {
+					continue;
+				} else {
+					listQLVe.add(qlVe);
+				}
+			}
+			
+
+		}
+		return listQLVe;
+	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView indexPage() {
@@ -966,7 +1195,11 @@ public class AdminController {
 
 	// tuyen xe
 	@RequestMapping(value = "/route", method = RequestMethod.GET)
-	public ModelAndView routePage() {
+	public ModelAndView routePage() throws ParseException {
+		System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+		
+
 		ModelAndView mav = new ModelAndView("admin/route");
 		List<TuyenXe> listTuyenXes = routeService.listAll();
 
@@ -1045,6 +1278,26 @@ public class AdminController {
 		redirectAttributes.addFlashAttribute("message", message);
 		redirectAttributes.addFlashAttribute("active", "route");
 		return "redirect:/admin/route";
+	}
+	
+	//chi tiết tuyến xe
+	@RequestMapping(value = "/route-detail")
+	public ModelAndView routeDetailPage(@RequestParam(value = "tuyen") Integer maTuyen) {
+		ModelAndView mav = new ModelAndView("admin/route-detail");
+		List<ChuyenXe> listChuyenXes = tripService.getDataByMaTuyen(maTuyen);
+		TuyenXe tuyenXe = routeService.get(maTuyen);
+		List<GiaVeLuot> listGiaVeLuots = ticketPriceService.listAll();
+		List<GiaVeThang> listGiaVeThangs = monthlyTicketPriceService.listAll();
+		List<CheDo> listCheDos = modeService.listAll();
+		
+		mav.addObject("tuyenXe", tuyenXe);
+		mav.addObject("listChuyenXes", listChuyenXes);
+		mav.addObject("listCheDos", listCheDos);
+		mav.addObject("listGiaVeLuots", listGiaVeLuots);
+		mav.addObject("listGiaVeThangs", listGiaVeThangs);
+		mav.addObject("active", "route");
+		
+		return mav;
 	}
 
 	// Nhân viên

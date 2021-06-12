@@ -1,6 +1,7 @@
 package com.spring.repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
@@ -19,4 +20,6 @@ public interface ITripRepository extends CrudRepository<ChuyenXe, Integer>{
 			@Param("bienSoXe") String bienSoXe,
 			@Param("maNhanVien") Integer maNhanVien);
 	
+	@Query(value = "from ChuyenXe cx where cx.maTuyen = :maTuyen")
+	public List<ChuyenXe> getDataByMatuyen(@Param("maTuyen") Integer maTuyen);
 }
