@@ -283,8 +283,7 @@ button {
 	animation: fa-spin 2s infinite linear;
 }
 
-@
-keyframes fa-spin {
+@keyframes fa-spin {
 	from {transform: rotate(0deg);
 }
 

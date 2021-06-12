@@ -43,9 +43,41 @@
 
 <body id="page-top">
 
+	<div id="app">
+		<div class="app__content" style="position: relative;">
+			<decorator:body></decorator:body>
+			<!-- start: toast -->
+			<div class="toast-area" aria-live="polite" aria-atomic="true"
+				style="position: absolute; top: 2%; left: 50%; transform: translateX(-50%); text-align: center;">
+				<c:if test="${message eq 'success' }">
+					<div class="toast toast--success" role="alert"
+						aria-live="assertive" aria-atomic="true" data-delay="2500"
+						style="min-width: 200px;">
+						<div class="toast__icon">
+							<i class="fas fa-check"></i>
+						</div>
+						<div class="toast__content">
+							<div class="toast-body">Success!</div>
+						</div>
+					</div>
+				</c:if>
+				<c:if test="${message eq 'error' }">
+					<div class="toast toast--error" role="alert"
+						aria-live="assertive" aria-atomic="true" data-delay="2500"
+						style="min-width: 200px;">
+						<div class="toast__icon">
+							<i class="fas fa-exclamation"></i>
+						</div>
+						<div class="toast__content">
+							<div class="toast-body">Error!!!</div>
+						</div>
+					</div>
+				</c:if>
+			</div>
+			<!-- end: toast -->
+		</div>
+	</div>
 
-
-	<decorator:body></decorator:body>
 
 
 
@@ -58,9 +90,6 @@
 	<input type="text" value="${active }" id="activeElement" hidden="true" />
 
 
-	<!-- Show toast -->
-	<%@include file="/common/admin/toast.jsp"%>
-
 	<!-- Validator -->
 	<script src='<c:url value="/sources/admin/js/validator.js" />'></script>
 
@@ -69,6 +98,12 @@
 	<!-- Bootstrap core JavaScript-->
 	<script
 		src='<c:url value="/sources/admin/vendor/jquery/jquery.min.js" />'></script>
+
+	<script>
+		$(document).ready(function() {
+			$('.toast').toast('show');
+		});
+	</script>
 	<script
 		src='<c:url value="/sources/admin/vendor/bootstrap/js/bootstrap.bundle.min.js"/>'></script>
 
