@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.spring.entities.ThongTinVeLuot;
@@ -32,6 +33,12 @@ public class TicketInformationService {
 
 	public List<ThongTinVeLuot> getDataByMaPhanCong(int maPhanCong) {
 		return repo.getDataByMaPhanCong(maPhanCong);
+	}
+	public List<Integer> listMaGiaLuot(int idPhanCong){
+		return repo.listMaGiaLuot(idPhanCong);
+	}
+	public Integer getSoLuong(int idPhanCong, int maGiaLuot) {
+		return repo.getSoLuong(idPhanCong, maGiaLuot);
 	}
 
 }

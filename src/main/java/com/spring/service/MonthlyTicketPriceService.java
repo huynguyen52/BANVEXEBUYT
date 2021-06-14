@@ -1,5 +1,7 @@
 package com.spring.service;
 
+import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,5 +29,14 @@ public class MonthlyTicketPriceService {
 
 	public void save(GiaVeThang giaVeThang) {
 		repo.save(giaVeThang);
+	}
+	public HashMap<String, BigDecimal> hCheDo_GiaVe(int maGia){
+		return repo.hCheDo_GiaVe(maGia);
+	}
+	public String getMaCheDo(int maGia) {
+		return repo.getMaCheDo(maGia);
+	}
+	public BigDecimal getTien(String maCheDo) {
+		return repo.getTien(maCheDo);
 	}
 }

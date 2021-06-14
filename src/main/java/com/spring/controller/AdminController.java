@@ -128,82 +128,8 @@ public class AdminController {
 //
 //	}
 	
-	@RequestMapping(value = "/dashboard-veluot")
-	public @ResponseBody List<QLVe> filter(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
-			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
-
-		String pattern = "yyyy-MM-dd";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-//		Date dateFrom = simpleDateFormat.parse("2021-06-10");
-//		Date dateTo = simpleDateFormat.parse("2021-06-16");
-		System.out.println("ngay bat dau: " + dateFrom);
-		System.out.println("ngay ket thuc: " + dateTo);
-
-		List<PhanCong> listPhanCongs = phanCongService.listAll();
-		List<ThongTinVeLuot> listThongTinVeLuots = ticketInformationService.listAll();
-		List<CTChuyen> listCTChuyens = detailTripService.listAll();
-		List<ChuyenXe> listChuyens = tripService.listAll();
-		List<GiaVeLuot> listGiaVeLuots = ticketPriceService.listAll();
-		List<QLVe> listQLs = new ArrayList<QLVe>();
-		for (int k = 0; k < listPhanCongs.size(); k++) {
-			int idPhanCong = 0;
-			QLVe qlVe = new QLVe();
-			int idChuyen = 0;
-			if (listPhanCongs.get(k).getNgay().compareTo(dateFrom) >= 0
-					&& listPhanCongs.get(k).getNgay().compareTo(dateTo) <= 0) {
-				qlVe.setNgay(listPhanCongs.get(k).getNgay());
-				idPhanCong = listPhanCongs.get(k).getIdPhanCong();
-				for (int i = 0; i < listCTChuyens.size(); i++) {
-					if (listCTChuyens.get(i).getIdPhanCong() == idPhanCong) {
-						idChuyen = listCTChuyens.get(i).getIdChuyen();
-						break;
-					}
-				}
-				for (int i = 0; i < listChuyens.size(); i++) {
-					if (listChuyens.get(i).getId() == idChuyen) {
-						qlVe.setMaTuyen(listChuyens.get(i).getMaTuyen());
-					}
-				}
-				List<Integer> listMaGia = new ArrayList<Integer>();
-				for (int i = 0; i < listThongTinVeLuots.size(); i++) {
-					if (listThongTinVeLuots.get(i).getMaPhanCong() == idPhanCong) {
-						listMaGia.add(listThongTinVeLuots.get(i).getMaGiaLuot());
-					}
-				}
-				for (int i = 0; i < listGiaVeLuots.size(); i++) {
-					if (listGiaVeLuots.get(i).getMaGia() == listMaGia.get(i)) {
-						if (listGiaVeLuots.get(i).getMaCheDo().equals("thuong")) {
-							qlVe.setGiaTienThuong(listGiaVeLuots.get(i).getGiaVeLuot());
-							for (int j = 0; j < listThongTinVeLuots.size(); j++) {
-								if (listThongTinVeLuots.get(j).getMaPhanCong() == idPhanCong
-										&& listGiaVeLuots.get(i).getMaGia() == listMaGia.get(i)) {
-									qlVe.setSoLuongThuong(listThongTinVeLuots.get(j).getSoLuong());
-									break;
-								}
-							}
-						} else if (listGiaVeLuots.get(i).getMaCheDo().equals("uutien")) {
-							qlVe.setGiaTienUuTien(listGiaVeLuots.get(i).getGiaVeLuot());
-							for (int j = 0; j < listThongTinVeLuots.size(); j++) {
-								if (listThongTinVeLuots.get(j).getMaPhanCong() == idPhanCong
-										&& listGiaVeLuots.get(i).getMaGia() == listMaGia.get(i)) {
-									qlVe.setSoLuongUuTien(listThongTinVeLuots.get(j).getSoLuong());
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
-			if (qlVe.getNgay() == null) {
-				continue;
-			} else {
-				listQLs.add(qlVe);
-			}
-		}
-		System.out.println(listQLs);
-		return listQLs;
-	}
-
+	//select thongtinvethang.maTuyenXe from thongtinvethang where ThongTinVeThang.maVeThang=:maVeThang
+	
 	public int veToTuyen(int maVeThang) {
 		List<ThongTinVeThang> listTTVT = monthlyInformationService.listAll();
 		for (int i = 0; i < listTTVT.size(); i++) {
@@ -216,13 +142,13 @@ public class AdminController {
 	public boolean checkMaTuyen(int maTuyen) {
 		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
 		for (int i = 0; i < listThongTinVeThangDetails.size(); i++) {
-			if (maTuyen == veToTuyen(listThongTinVeThangDetails.get(i).getMaVeThang())) {
+			if (maTuyen ==monthlyInformationService.maVeThangToMaTuyen(listThongTinVeThangDetails.get(i).getMaVeThang())) {
 				return true;
 			}
 		}
 		return false;
 	}
-
+	//select thongtinvethangdetail.id from thongtinvethangdetail where thongtinvethangdetail.ngayMua=:ngay
 	public List<Integer> getListId(Date date) {
 		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
 		List<Integer> listIds = new ArrayList<Integer>();
@@ -233,6 +159,7 @@ public class AdminController {
 		}
 		return listIds;
 	}
+// select thongtinvethangdetail.maVeThang from thongtinvethangdetail where thongtinvethangdetail.id=:id
 
 	public int getListMaVeThang(int id) {
 		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
@@ -243,6 +170,7 @@ public class AdminController {
 		}
 		return 0;
 	}
+//select thongtinvethangdetail.maGiaThang from thongtinvethangdetail where thongtinvethangdetail.id=:id
 
 	public int idToMaGia(int id) {
 		List<ThongTinVeThangDetail> listTTVTDTs = monthlyInformationDetailService.listAll();
@@ -252,7 +180,7 @@ public class AdminController {
 		}
 		return 0;
 	}
-
+//select GiaVeThang.maCheDo,giaVeThang.giaVeThang from GiaVeThang where GiaVeThang.maGia=:maGia
 	public HashMap<String, BigDecimal> hCheDo_GiaVe(int maGia) {
 		HashMap<String, BigDecimal> listHashMap = new HashMap<String, BigDecimal>();
 		List<GiaVeThang> listGiaVeThangs = monthlyTicketPriceService.listAll();
@@ -262,7 +190,7 @@ public class AdminController {
 		}
 		return listHashMap;
 	}
-
+// select GiaVeThang.maCheDo from GiaVeThang where GiaVeThang.maGia=:maGia
 	public String getMaCheDo(int maGia) {
 		List<GiaVeThang> listGiaVeThangs = monthlyTicketPriceService.listAll();
 		for (int i = 0; i < listGiaVeThangs.size(); i++) {
@@ -271,7 +199,7 @@ public class AdminController {
 		}
 		return "";
 	}
-
+//select GiaVeThang.giaVeThang from GiaVeThang where GiaVeThang.maCheDo=:maCheDo
 	public BigDecimal getTien(String maCheDo) {
 		List<GiaVeThang> listGiaVeThangs = monthlyTicketPriceService.listAll();
 		for (int i = 0; i < listGiaVeThangs.size(); i++) {
@@ -280,14 +208,17 @@ public class AdminController {
 		}
 		return BigDecimal.valueOf(0);
 	}
-
+	/*
+	 * Lấy list Tuyến xe-> lấy 1 tuyến
+	 * Lấy list day thỏa input -> 1 ngày -> lấy id thông tin detail hôm đó -> matuyen
+	 * kiểm tra matuyen có phải là tuyến hôm đó kh rồi set matuyen,ngay hôm đó. 1 id mathang tháng gồm 2 chế độ thuong và ưu tiên.
+	 *  
+	 */
 	@RequestMapping(value = "/dashboard-vethang")
-	public @ResponseBody List<QLVe> filrer1(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+	public @ResponseBody List<QLVe> filter1(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
 			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
 		String pattern = "yyyy-MM-dd";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-//		Date dateFrom = simpleDateFormat.parse("2021-06-09");
-//		Date dateTo = simpleDateFormat.parse("2021-06-16");
 		System.out.println("ngay bat dau: " + dateFrom);
 		System.out.println("ngay ket thuc: " + dateTo);
 
@@ -314,23 +245,23 @@ public class AdminController {
 					/* hashId_Ve = (Entry<Integer, Integer>) listId_Ve(listDays.get(i)); */
 					listIds = getListId(listDays.get(i));
 					for (int k = 0; k < listIds.size(); k++) {
-						if (listTuyenXes.get(j).getMaTuyen() == veToTuyen(getListMaVeThang(listIds.get(k)))) {
+						if (listTuyenXes.get(j).getMaTuyen() == monthlyInformationService.maVeThangToMaTuyen(getListMaVeThang(listIds.get(k)))) {
 							qlVe.setMaTuyen(listTuyenXes.get(j).getMaTuyen());
 							qlVe.setNgay(listDays.get(i));
 							int maGia = 0;
-							maGia = idToMaGia(listIds.get(k));
+							maGia = monthlyInformationDetailService.idToMaGia(listIds.get(k));
 							String maCheDo = "";
-							maCheDo = getMaCheDo(maGia);
+							maCheDo = monthlyTicketPriceService.getMaCheDo(maGia);
 							/* hashCheDo_GiaVe = (Entry<String, BigDecimal>) hCheDo_GiaVe(maGia); */
 
 							if (maCheDo.equals("thuong")) {
 								BigDecimal giaVeThuong = BigDecimal.valueOf(0);
-								giaVeThuong = getTien(maCheDo);
+								giaVeThuong = monthlyTicketPriceService.getTien(maCheDo);
 								qlVe.setGiaTienThuong(giaVeThuong);
 								soLuong_thuong++;
 							} else if (maCheDo.equals("uutien")) {
 								BigDecimal giaVeUuTien = BigDecimal.valueOf(0);
-								giaVeUuTien = getTien(maCheDo);
+								giaVeUuTien = monthlyTicketPriceService.getTien(maCheDo);
 								qlVe.setGiaTienUuTien(giaVeUuTien);
 								soLuong_uuTien++;
 							}
@@ -351,7 +282,60 @@ public class AdminController {
 		}
 		return listQLVe;
 	}
+	@RequestMapping(value = "/dashboard-veluot")
+	public @ResponseBody List<QLVe> filter(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
+			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
 
+		String pattern = "yyyy-MM-dd";
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+		System.out.println("ngay bat dau: " + dateFrom);
+		System.out.println("ngay ket thuc: " + dateTo);
+
+		List<Integer> listMaTuyenXes=tripService.listTuyenXes(dateFrom,dateTo);
+		List<Date> listNgays=phanCongService.getListDays(dateFrom,dateTo);
+		List<QLVe> listQlVes=new ArrayList<QLVe>();
+		for(int i=0;i<listNgays.size();i++) {
+			for(int j=0;j<listMaTuyenXes.size();j++) {
+				System.out.println("tuyen: "+listMaTuyenXes.get(j));
+				QLVe qlve=new QLVe();
+				qlve.setNgay(listNgays.get(i));
+				qlve.setMaTuyen(listMaTuyenXes.get(j));
+				List<Integer> listMaPhanCong=phanCongService.getListMaPhanCong(listNgays.get(i));
+				for(int k=0;k<listMaPhanCong.size();k++) {
+					List<Integer> listChuyens=detailTripService.listChuyens(listMaPhanCong.get(k));
+					for(int m=0;m<listChuyens.size();m++) {
+						int matuyen=tripService.getMaTuyens(listChuyens.get(m));
+						int matuyen2=listMaTuyenXes.get(j);
+						if(matuyen==matuyen2) {
+							List<Integer> listMaGiaL=ticketInformationService.listMaGiaLuot(listMaPhanCong.get(k));
+							for(int n=0;n<listMaGiaL.size();n++) {
+								if(ticketPriceService.getMaCheDo(listMaGiaL.get(n)).equals("thuong")) {
+									int sl=ticketInformationService.getSoLuong(listMaPhanCong.get(k), listMaGiaL.get(n))+qlve.getSoLuongThuong();
+									qlve.setSoLuongThuong(sl);
+									qlve.setGiaTienThuong(ticketPriceService.getGiaVeLuot(listMaGiaL.get(n)));
+								}else if(ticketPriceService.getMaCheDo(listMaGiaL.get(n)).equals("uutien")) {
+									int sl=ticketInformationService.getSoLuong(listMaPhanCong.get(k), listMaGiaL.get(n))+qlve.getSoLuongUuTien();
+									qlve.setSoLuongUuTien(sl);
+									qlve.setGiaTienUuTien(ticketPriceService.getGiaVeLuot(listMaGiaL.get(n)));
+								}
+							}
+						}
+					}
+				}
+				if(!(qlve.getSoLuongThuong()==0 && qlve.getSoLuongUuTien()==0)) {
+					listQlVes.add(qlve);
+				}else {
+					continue;
+				}
+			}
+		}
+		return listQlVes;
+	}
+
+
+	
+	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public ModelAndView indexPage() {
 		ModelAndView mav = new ModelAndView("admin/index");
@@ -1735,8 +1719,10 @@ public class AdminController {
 		List<PhanCong> listPhanCongs = phanCongService.listAll();
 		List<ChuyenXe> listChuyenXes = tripService.listAll();
 		List<NhanVien> listNhanViens = staffService.listAll();
+		List<TuyenXe> listTuyenXes=routeService.listAll();
+		
 		List<Xe> listXes = busService.listAll();
-
+		mav.addObject("listTuyenXes", listTuyenXes);
 		mav.addObject("listXes", listXes);
 		mav.addObject("listNhanViens", listNhanViens);
 		mav.addObject("listChuyenXes", listChuyenXes);

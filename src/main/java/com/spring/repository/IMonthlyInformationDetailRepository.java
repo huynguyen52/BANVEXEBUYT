@@ -33,4 +33,10 @@ public interface IMonthlyInformationDetailRepository extends CrudRepository<Thon
 	
 	@Query(value= "SELECT DISTINCT ngayMua FROM ThongTinVeThangDetail")
 	public List<Date> getNgayMua();
+	
+	@Query(value="select t.id from ThongTinVeThangDetail t where t.ngayMua=:ngay")
+	public Integer getListIDs(@Param("ngay")Date date);
+	
+	@Query(value="select t.maGiaThang from ThongTinVeThangDetail t where t.id=:id")
+	public Integer idToMaGia(@Param("id")int id);
 }

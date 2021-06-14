@@ -32,4 +32,8 @@ public class MonthlyInformationService {
 	public Integer getHighestMaVeThang() {
 		return repo.getHighestMaVeThang();
 	}
+	public Integer maVeThangToMaTuyen(Integer maTuyen) {
+		return repo.veToMTuyen(maTuyen);
+	}
+
 }
