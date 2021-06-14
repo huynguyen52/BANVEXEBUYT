@@ -30,4 +30,8 @@ public class TicketPriceService {
 	public void save(GiaVeLuot giaVeLuot) {
 		repo.save(giaVeLuot);
 	}
+	
+	public GiaVeLuot getByMaCheDo(String loai) {
+		return repo.getByMaCheDo(loai);
+	}
 }

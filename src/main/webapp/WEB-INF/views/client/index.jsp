@@ -34,13 +34,13 @@
 			<div class="modal-content modal-content--transparent">
 				<div class="modal-body modal-body--act">
 				<c:set var = "xehientai" scope = "session" value = "${sessionScope.xe}"/>
-					<form action="add-veluot">
+					<form action="add-to-cart">
 						<input hidden="" name="loai" value="thuong" /> <input hidden=""
 							name="biensoxe" value="${xehientai }" />
 						<button class="btn btn-default btn--ticket btn--success"
 							type="submit">Thường</button>
 					</form>
-					<form action="add-veluot">
+					<form action="add-to-cart">
 						<input hidden="" name="loai" value="uutien" /> <input hidden=""
 							name="biensoxe" value="${xehientai }" />
 						<button class="btn btn-default btn--ticket btn--success"

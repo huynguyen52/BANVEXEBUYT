@@ -33,5 +33,9 @@ public class TicketInformationService {
 	public List<ThongTinVeLuot> getDataByMaPhanCong(int maPhanCong) {
 		return repo.getDataByMaPhanCong(maPhanCong);
 	}
+	
+	public ThongTinVeLuot getByMaPhanCongAndMaGiaLuot(int maPhanCong, int maGiaLuot) {
+		return repo.getByMaPhanCongAndMaGiaLuot(maPhanCong, maGiaLuot);
+	}
 
 }

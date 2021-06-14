@@ -17,7 +17,21 @@
 					<option value="${xe.bienSoXe }"/>
 				</c:forEach>
 				</datalist>
-				<input type="submit">
+				<button type="submit">Xác nhận</button>
+			</form>
+			<c:set var = "veluot" scope = "session" value = "${sessionScope.veluot}"/>
+			<c:set var = "xehientai" scope = "session" value = "${sessionScope.xe}"/>
+			<div>
+				<p>Số lượng vé thường: <span>${veluot.thuong }</span></p>
+			</div>
+			<div>				
+				<p>Số lượng vé ưu tiên: <span>${veluot.uutien}</span></p>
+			</div>
+			<div>
+				<p>Xe: <span>${xehientai != null ? xehientai : 'Chưa có xe' }</span></p>
+			</div>
+			<form action="add-veluot" method="post">
+				<button type="submit">Chốt</button>
 			</form>
 
 		</div>
