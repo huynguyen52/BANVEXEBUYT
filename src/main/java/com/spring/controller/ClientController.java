@@ -1,7 +1,10 @@
 package com.spring.controller;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -80,44 +83,100 @@ public class ClientController {
 		return date;
 	}
 
-	@RequestMapping("/add-veluot")
-	public String addVeLuot(@RequestParam("loai") String loai,
-			@RequestParam(value = "biensoxe") String bienSoXe,
+	// Lưu vé lượt trong session
+	@RequestMapping(value = "/add-to-cart")
+	public String addVeLuotToCart(HttpSession session, @RequestParam("loai") String loai,
 			RedirectAttributes redirectAttributes) {
-		
-		System.out.println("xe hien tai:" + bienSoXe);
-
-		Date date = toDay();
-		List<PhanCong> listPhanCongs = phanCongService.listAll();
-		int idPhanCong = 0;
-		for (int i = 0; i < listPhanCongs.size(); i++) {
-			if (listPhanCongs.get(i).getNgay().compareTo(date) == 0
-					&& bienSoXe.equals(listPhanCongs.get(i).getBienSoXe())) {
-				idPhanCong = listPhanCongs.get(i).getIdPhanCong();
-			}
-		}
-		int idThongTinVeLuot = 0;
-		List<ThongTinVeLuot> thongTinVeLuots = ticketInformationService.listAll();
-		for (int i = 0; i < thongTinVeLuots.size(); i++) {
-			GiaVeLuot giaVeLuot = ticketPriceService.get(thongTinVeLuots.get(i).getMaGiaLuot());
-			if (thongTinVeLuots.get(i).getMaPhanCong() == idPhanCong && loai.equals(giaVeLuot.getMaCheDo())) {
-				idThongTinVeLuot = thongTinVeLuots.get(i).getId();
-			}
-		}
-		ThongTinVeLuot thongTinVeLuot = ticketInformationService.get(idThongTinVeLuot);
-		thongTinVeLuot.setSoLuong(thongTinVeLuot.getSoLuong() + 1);
 		String message;
+		if (session.getAttribute("xe") == null) {
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/index";
+		}
+
+		if (session.getAttribute("veluot") == null) {
+			HashMap<String, Integer> data = new HashMap<String, Integer>();
+			data.put("thuong", 0);
+			data.put("uutien", 0);
+			if (loai.equals("thuong"))
+				data.put("thuong", data.get("thuong") + 1);
+			else if (loai.equals("uutien"))
+				data.put("uutien", data.get("uutien") + 1);
+			session.setAttribute("veluot", data);
+			message = "success";
+		} else {
+			@SuppressWarnings("unchecked")
+			HashMap<String, Integer> data = (HashMap<String, Integer>) session.getAttribute("veluot");
+			if (loai.equals("thuong"))
+				data.put("thuong", data.get("thuong") + 1);
+			else if (loai.equals("uutien"))
+				data.put("uutien", data.get("uutien") + 1);
+			session.setAttribute("veluot", data);
+			message = "success";
+		}
+
+		redirectAttributes.addFlashAttribute("message", message);
+		return "redirect:/index";
+	}
+
+	@RequestMapping("/add-veluot")
+	public String addVeLuot(RedirectAttributes redirectAttributes, HttpSession session) {
+
+		String message;
+		if(session.getAttribute("xe") == null) {
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/something";
+		}
+		String bienSoXe = (String) session.getAttribute("xe");
+
+		System.out.println("xe hien tai:" + bienSoXe);
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
 		try {
-			ticketInformationService.save(thongTinVeLuot);
+			date = sf.parse(sf.format(new Date()));
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		// lấy ra phân công của ngày hiện tại và xe
+		PhanCong phanCong = phanCongService.getByDateAndXe(date, bienSoXe);
+		if (phanCong == null) { // kiểm tra ngày đó, xe đó chưa phân công thì trả về lỗi
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/index";
+		}
+		int idPhanCong = phanCong.getIdPhanCong();
+		GiaVeLuot giaVeLuotThuong = ticketPriceService.getByMaCheDo("thuong");
+		GiaVeLuot giaVeLuotUuTien = ticketPriceService.getByMaCheDo("uutien");
+
+		ThongTinVeLuot thongTinVeLuotThuong = ticketInformationService.getByMaPhanCongAndMaGiaLuot(idPhanCong,
+				giaVeLuotThuong.getMaGia());
+
+		ThongTinVeLuot thongTinVeLuotUuTien = ticketInformationService.getByMaPhanCongAndMaGiaLuot(idPhanCong,
+				giaVeLuotUuTien.getMaGia());
+
+		@SuppressWarnings("unchecked")
+		HashMap<String, Integer> data = (HashMap<String, Integer>) session.getAttribute("veluot");
+
+		thongTinVeLuotThuong.setSoLuong(thongTinVeLuotThuong.getSoLuong() + data.get("thuong"));
+		thongTinVeLuotUuTien.setSoLuong(thongTinVeLuotUuTien.getSoLuong() + data.get("uutien"));
+
+		try {
+			ticketInformationService.save(thongTinVeLuotThuong);
+			ticketInformationService.save(thongTinVeLuotUuTien);
 			System.out.println("SO LUONG VE LUOT TANG UPDATE");
 			message = "success";
 		} catch (Exception e) {
 			// TODO: handle exception
 			message = "error";
 		}
-		
+
+		session.removeAttribute("veluot");
+
 		redirectAttributes.addFlashAttribute("message", message);
-		return "redirect:/index";
+		return "redirect:/something";
 	}
 
 	// ban ve thang - new customer
@@ -369,28 +428,26 @@ public class ClientController {
 		mav.addObject("listBuses", listBuses);
 		return mav;
 	}
-	
+
 	@RequestMapping("/set-bus")
-	public String setBus(@RequestParam("bus") String bus, HttpSession session,
-			RedirectAttributes redirectAttributes) {
-		
-		
+	public String setBus(@RequestParam("bus") String bus, HttpSession session, RedirectAttributes redirectAttributes) {
+
 		List<Xe> listBuses = busService.listAll();
-		
+
 		String message = "error";
 		Boolean isExist = false;
-		for(Xe x : listBuses) {
-			if(x.getBienSoxe().equals(bus)) {
+		for (Xe x : listBuses) {
+			if (x.getBienSoxe().equals(bus)) {
 				isExist = true;
 				break;
 			}
 		}
-		
-		if(isExist) {
+
+		if (isExist) {
 			session.setAttribute("xe", bus);
 			message = "success";
 		}
-		
+
 		redirectAttributes.addFlashAttribute("message", message);
 		return "redirect:/something";
 	}
