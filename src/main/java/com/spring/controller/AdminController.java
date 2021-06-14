@@ -1722,7 +1722,12 @@ public class AdminController {
 		List<TuyenXe> listTuyenXes=routeService.listAll();
 		
 		List<Xe> listXes = busService.listAll();
+
 		mav.addObject("listTuyenXes", listTuyenXes);
+
+
+
+
 		mav.addObject("listXes", listXes);
 		mav.addObject("listNhanViens", listNhanViens);
 		mav.addObject("listChuyenXes", listChuyenXes);
