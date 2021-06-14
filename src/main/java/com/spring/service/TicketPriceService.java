@@ -31,10 +31,16 @@ public class TicketPriceService {
 	public void save(GiaVeLuot giaVeLuot) {
 		repo.save(giaVeLuot);
 	}
+
 	public String getMaCheDo(int maGiaLuot) {
 		return repo.getMaCheDo(maGiaLuot);
 	}
 	public BigDecimal getGiaVeLuot(int maGiaLuot) {
 		return repo.getGiaVeLuot(maGiaLuot);
+
+	
+	public GiaVeLuot getByMaCheDo(String loai) {
+		return repo.getByMaCheDo(loai);
+
 	}
 }

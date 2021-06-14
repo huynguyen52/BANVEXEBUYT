@@ -34,11 +34,17 @@ public class TicketInformationService {
 	public List<ThongTinVeLuot> getDataByMaPhanCong(int maPhanCong) {
 		return repo.getDataByMaPhanCong(maPhanCong);
 	}
+
 	public List<Integer> listMaGiaLuot(int idPhanCong){
 		return repo.listMaGiaLuot(idPhanCong);
 	}
 	public Integer getSoLuong(int idPhanCong, int maGiaLuot) {
 		return repo.getSoLuong(idPhanCong, maGiaLuot);
+
+	
+	public ThongTinVeLuot getByMaPhanCongAndMaGiaLuot(int maPhanCong, int maGiaLuot) {
+		return repo.getByMaPhanCongAndMaGiaLuot(maPhanCong, maGiaLuot);
+
 	}
 
 }

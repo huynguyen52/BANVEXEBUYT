@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
+import com.spring.entities.ChuyenXe;
 import com.spring.entities.PhanCong;
 import com.spring.repository.IPhanCongRepository;
 @Service
@@ -37,6 +38,26 @@ public class PhanCongService {
 	}
 	public List<Integer> getListMaPhanCong(Date currentDay){
 		return repo.getListMaPhanCong(currentDay);
+	}
+	
+	public List<Object> filter() {
+		return repo.filter();
+	}
+	
+	public List<Object> filter2() {
+		return repo.filter2();
+	}
+	
+	public List<ChuyenXe> filter3(){
+		return repo.filter3();
+	}
+	
+	public List<Object> filter4(){
+		return repo.filter4();
+	}
+	
+	public PhanCong getByDateAndXe(Date date, String bienSoXe) {
+		return repo.getByDateAndXe(date, bienSoXe);
 	}
 	
 }
