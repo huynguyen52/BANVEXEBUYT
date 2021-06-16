@@ -61,4 +61,10 @@ public class MonlyInformationDetailService {
 	public List<Date> getNgayMua(){
 		return repo.getNgayMua();
 	}
+	public Integer  getListIDs(Date date) {
+		return repo.getListIDs(date);
+	}
+	public Integer idToMaGia(int id) {
+		return repo.idToMaGia(id);
+	}
 }

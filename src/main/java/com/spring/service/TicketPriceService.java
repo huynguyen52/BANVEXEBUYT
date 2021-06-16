@@ -1,5 +1,6 @@
 package com.spring.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,13 @@ public class TicketPriceService {
 
 	public void save(GiaVeLuot giaVeLuot) {
 		repo.save(giaVeLuot);
+	}
+
+	public String getMaCheDo(int maGiaLuot) {
+		return repo.getMaCheDo(maGiaLuot);
+	}
+	public BigDecimal getGiaVeLuot(int maGiaLuot) {
+		return repo.getGiaVeLuot(maGiaLuot);
 	}
 	
 	public GiaVeLuot getByMaCheDo(String loai) {

@@ -1,5 +1,6 @@
 package com.spring.repository;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -19,8 +20,14 @@ public interface ITicketInformationRepository extends CrudRepository<ThongTinVeL
 
 	@Query(value = "select t from ThongTinVeLuot t where maPhanCong = :ma")
 	public List<ThongTinVeLuot> getDataByMaPhanCong(@Param("ma") int maPhanCong);
+
+	@Query(value="select t.maGiaLuot from ThongTinVeLuot t where t.maPhanCong=:idPhanCong")
+	public List<Integer> listMaGiaLuot(@Param("idPhanCong") int idPhanCong);
 	
+	@Query(value="select soLuong from ThongTinVeLuot t where t.maPhanCong=:idPhanCong and maGiaLuot=:maGiaLuot")
+	public Integer getSoLuong(@Param("idPhanCong") int idPhanCong,@Param("maGiaLuot") int maGiaLuot);
+
 	@Query(value = "from ThongTinVeLuot where maPhanCong = :maphancong and maGiaLuot = :magialuot")
 	public ThongTinVeLuot getByMaPhanCongAndMaGiaLuot(@Param("maphancong") int maPhanCong, @Param("magialuot") int maGiaLuot);
-	
+
 }

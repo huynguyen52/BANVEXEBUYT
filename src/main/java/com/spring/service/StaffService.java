@@ -28,5 +28,10 @@ public class StaffService {
 	public void save(NhanVien nhanVien) {
 		repo.save(nhanVien);
 	}
-	
+
+	// Vu
+	public String getHoTen(int maNhanVien) {
+		return repo.getHoTen(maNhanVien);
+	}
+
 }

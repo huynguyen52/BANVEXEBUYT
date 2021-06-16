@@ -21,10 +21,10 @@
 			</div>
 			<div class="card-body">
 				<div class="row mb-4">
-					<!-- <div class="col-6 d-flex justify-content-start align-items-center">
+					<div class="col-6 d-flex justify-content-start align-items-center">
 						<button data-toggle="modal" data-target="#addbus"
 							class="btn btn-success add">Add new bus</button>
-					</div> -->
+					</div>
 				</div>
 				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable" width="100%"

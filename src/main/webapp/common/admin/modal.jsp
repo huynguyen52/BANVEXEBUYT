@@ -925,7 +925,7 @@
 
 
 <!-- add CT_Chuyen modal -->
-<div class="modal fade" id="addCTChuyenXe" role="dialog">
+<%-- <div class="modal fade" id="addCTChuyenXe" role="dialog">
 	<div class="modal-dialog">
 		<form id="addCTChuyenForm" method="post" action="add-assign"
 			class="form modal-content" modelAttribute="ct_chuyenxe">
@@ -961,6 +961,65 @@
 						value="" class="form-control form-input ngay"
 						placeholder="Ngày phân công"> <span class="error-message"></span>
 				</div>
+			</div>
+			<div class="form--footer modal-footer">
+				<button type="button" data-dismiss="modal" class="btn btn-default">Hủy</button>
+				<button type="Gửi" class="btn btn-success">Gửi</button>
+			</div>
+		</form>
+	</div>
+</div> --%>
+
+<!-- Vu -->
+<!-- add CT_Chuyen modal -->
+<div class="modal fade" id="addCTChuyenXe" role="dialog">
+	<div class="modal-dialog">
+		<form id="addCTChuyenForm" method="post" action="add-assign"
+			class="form modal-content" modelAttribute="ct_chuyenxe">
+			<div class="form-title modal-header">
+				<h4 class="modal-title">Phân Công Mới</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="form-content modal-body">
+				<div class="form-group">
+					<label for="">Nhân viên</label> <input list="staffs"
+						name="maNhanVien" type="text" value=""
+						class="form-control form-input manhanvien" placeholder="Nhân viên">
+					<span class="error-message"></span>
+					<datalist id="staffs">
+						<c:forEach var="staff" items="${listNhanViens}">
+							<option value="${staff.maNhanVien }">${staff.hoTen }</option>
+						</c:forEach>
+					</datalist>
+				</div>
+				<div class="form-group">
+					<label for="">Xe</label> <input list="buses" name="bienSoXe"
+						type="text" value="" class="form-control form-input biensoxe"
+						placeholder="Xe">
+					<datalist id="buses">
+						<c:forEach var="xe" items="${listXes}">
+							<option value="${xe.bienSoxe }">${xe.bienSoxe }</option>
+						</c:forEach>
+					</datalist>
+					<span class="error-message"></span>
+				</div>
+				<div class="form-group">
+					<label for="">Ngày bắt đầu</label> <input readonly="" name="ngay"
+						type="date" value="${ngay }" class="form-control form-input ngay"
+						placeholder="Ngày phân công"> <span class="error-message"></span>
+				</div>
+				<div class="form-group">
+					<label for="">Chuyến</label> <input name="chuyen" type="text"
+						value="" class="form-control form-input chuyen"
+						placeholder="Chuyến"> <span class="error-message"></span>
+				</div>
+				<div class="form-group">
+					<label for="">Tuyến</label> <input readonly="" name="tuyen"
+						type="text" value="${tuyen }"
+						class="form-control form-input tuyen" placeholder="Tuyến">
+					<span class="error-message"></span>
+				</div>
+
 			</div>
 			<div class="form--footer modal-footer">
 				<button type="button" data-dismiss="modal" class="btn btn-default">Hủy</button>

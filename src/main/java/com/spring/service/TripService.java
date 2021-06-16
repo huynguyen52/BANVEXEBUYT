@@ -2,6 +2,7 @@ package com.spring.service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,10 @@ public class TripService {
 		
 		return repo.getDataByMatuyen(maTuyen);
 	}
-	
+	public List<Integer> listTuyenXes(Date fromDate,Date toDate){
+		return repo.listMaTuyen(fromDate, toDate);
+	}
+	public Integer getMaTuyens(Integer idChuyen) {
+		return repo.getMaTuyens(idChuyen);
+	}
 }

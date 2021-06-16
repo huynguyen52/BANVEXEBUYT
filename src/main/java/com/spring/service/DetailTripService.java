@@ -28,4 +28,13 @@ public class DetailTripService {
 	public void save(CTChuyen ctChuyen) {
 		repo.save(ctChuyen);
 	}
+
+	public List<Integer> listChuyens(int idPhanCong) {
+		return repo.getListChuyens(idPhanCong);
+	}
+
+	// Vu
+	public CTChuyen getByIDChuyenIDPhanCong(int idChuyen, int idPhanCong) {
+		return repo.getByIDChuyenIDPhanCong(idChuyen, idPhanCong);
+	}
 }
