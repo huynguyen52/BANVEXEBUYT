@@ -37,7 +37,7 @@ public class TicketPriceService {
 	}
 	public BigDecimal getGiaVeLuot(int maGiaLuot) {
 		return repo.getGiaVeLuot(maGiaLuot);
-
+	}
 	
 	public GiaVeLuot getByMaCheDo(String loai) {
 		return repo.getByMaCheDo(loai);

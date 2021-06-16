@@ -48,7 +48,7 @@ public class JpaConfig {
 	public DataSource dataSource() {
 		DriverManagerDataSource dataSource = new DriverManagerDataSource();
 		dataSource.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		dataSource.setUrl("jdbc:sqlserver://SHYN:1433;databaseName=QUANLYBANVEXEBUS7");
+		dataSource.setUrl("jdbc:sqlserver://LAPTOP-042P8PGD\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\SQLEXPRESS:1433;databaseName=QUANLYBANVEXEBUS7");
 		dataSource.setUsername("sa");
 		dataSource.setPassword("11111");
 		return dataSource;

@@ -40,7 +40,7 @@ public class TicketInformationService {
 	}
 	public Integer getSoLuong(int idPhanCong, int maGiaLuot) {
 		return repo.getSoLuong(idPhanCong, maGiaLuot);
-
+	}
 	
 	public ThongTinVeLuot getByMaPhanCongAndMaGiaLuot(int maPhanCong, int maGiaLuot) {
 		return repo.getByMaPhanCongAndMaGiaLuot(maPhanCong, maGiaLuot);

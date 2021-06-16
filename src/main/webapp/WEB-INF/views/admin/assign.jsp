@@ -25,12 +25,9 @@
 			</div>
 			<div class="card-body">
 				<div class="row mb-4">
-					<div class="col-3">
-						<button data-toggle="modal" data-target="#addCTChuyenXe"
-							class="btn btn-success add">New assignment</button>
-					</div>
+
 					<div class="col-6">
-						<form class="form d-flex">
+						<!-- <form class="form d-flex">
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<input list="routes" value="" type="text" class="form-control form-input "
@@ -48,7 +45,37 @@
 								</div>
 							</div>
 							<button style="height: 100%" type="submit" class="btn btn-violet">Submit</button>
+						</form> -->
+
+						<!-- Vu -->
+						<form action="loctuyen" class="form d-flex">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<input name="tuyen" list="routes" value="" type="text"
+										class="form-control form-input " placeholder="Nhập tuyến xe">
+									<datalist id="routes">
+										<c:forEach items="${listTuyenXes}" var="tuyen">
+											<option value=${tuyen.maTuyen }>${tuyen.tenTuyen }</option>
+										</c:forEach>
+									</datalist>
+								</div>
+								<div class="form-group col-md-6">
+									<input value="" name="ngay" type="date"
+										class="form-control form-input ">
+								</div>
+							</div>
+							<button style="height: 100%" type="submit" class="btn btn-violet">Submit</button>
 						</form>
+					</div>
+					<div class="col-3">
+						<!-- <button data-toggle="modal" data-target="#addCTChuyenXe"
+							class="btn btn-success add">New assignment</button> -->
+
+						<!-- Vu -->
+						<c:if test="${ngay!=null }">
+							<button data-toggle="modal" data-target="#addCTChuyenXe"
+								class="btn btn-success add">New assignment</button>
+						</c:if>
 					</div>
 				</div>
 				<div class="table-responsive">
@@ -56,16 +83,21 @@
 						cellspacing="0">
 						<thead>
 							<tr>
-								<th class="data-table__header">Lê Văn Luyện | xxx-xxxx</th>
+								<!-- <th class="data-table__header">Lê Văn Luyện | xxx-xxxx</th>
 								<th class="data-table__header">Phạm Thái Học | xxx-xxxx</th>
 								<th class="data-table__header">Đinh Công Mạnh | xxx-xxxx</th>
 								<th class="data-table__header">Hoàng Văn Đậu | xxx-xxxx</th>
-								<th class="data-table__header">Hà Tiều Phu | xxx-xxxx</th>
+								<th class="data-table__header">Hà Tiều Phu | xxx-xxxx</th> -->
+
+								<!-- Vu -->
+								<c:forEach items="${listTTPCs }" var="tt">
+									<th class="data-table__header">${tt.hoTen }|${tt.bienSoXe }</th>
+								</c:forEach>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>
+								<!-- <td>
 									<p class="data-table__label">03:00</p>
 									<p class="data-table__label data-table__label--primary">03:00</p>
 
@@ -111,7 +143,22 @@
 
 									<p class="data-table__label data-table__label--info">03:00</p>
 
-								</td>
+								</td> -->
+
+
+								<c:set var="colors" value="${fn:split('data-table__label--primary, data-table__label--success, data-table__label--info, data-table__label--warning, data-table__label--danger', ',') }" />
+								<!-- Vu -->
+								<c:forEach items="${listTTPCs }" var="tt">
+									<td><c:forEach items="${tt.listChuyenXes }" var="cx"
+											varStatus="loop">
+											<fmt:parseNumber var="index" integerOnly="true" type="number"
+												value="${loop.index }" />
+											<c:set var="i" value="${index%6}" />
+											<p class="data-table__label ${colors[i]}">${cx.gioXuatPhat }
+												- ${cx.gioKetThuc }
+											</p>
+										</c:forEach></td>
+								</c:forEach>
 							</tr>
 						</tbody>
 

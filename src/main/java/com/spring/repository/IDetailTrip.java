@@ -12,4 +12,9 @@ import com.spring.entities.CTChuyen;
 public interface IDetailTrip extends CrudRepository<CTChuyen, Serializable> {
 	@Query(value = "select c.idChuyen from CTChuyen c where c.idPhanCong=:idPhanCong")
 	public List<Integer> getListChuyens(@Param("idPhanCong") int idPhanCong);
+
+	//Vu
+	@Query(value = "from CTChuyen where idChuyen=:idChuyen and idPhanCong=:idPhanCong")
+	public CTChuyen getByIDChuyenIDPhanCong(@Param("idChuyen") int idChuyen, @Param("idPhanCong") int idPhanCong);
+
 }
