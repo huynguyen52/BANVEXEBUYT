@@ -41,6 +41,5 @@ public class TicketPriceService {
 	
 	public GiaVeLuot getByMaCheDo(String loai) {
 		return repo.getByMaCheDo(loai);
-
 	}
 }

@@ -22,7 +22,6 @@ public interface ITicketInformationRepository extends CrudRepository<ThongTinVeL
 	public List<ThongTinVeLuot> getDataByMaPhanCong(@Param("ma") int maPhanCong);
 
 	@Query(value="select t.maGiaLuot from ThongTinVeLuot t where t.maPhanCong=:idPhanCong")
-
 	public List<Integer> listMaGiaLuot(@Param("idPhanCong") int idPhanCong);
 	
 	@Query(value="select soLuong from ThongTinVeLuot t where t.maPhanCong=:idPhanCong and maGiaLuot=:maGiaLuot")
