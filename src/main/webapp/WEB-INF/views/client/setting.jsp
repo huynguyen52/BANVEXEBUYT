@@ -6,7 +6,7 @@
 		<h3 class="header__title">Welcome to Bus station</h3>
 	</div>
 	<div
-		style="background-image: url(/BANVEXEBUS/sources/admin/img/travel.jpg); background-size: cover; background-repeat: no-repeat; background-position: right;"
+		style="background-image: url(/BANVEXEBUS/sources/admin/img/station.jpg); background-size: cover; background-repeat: no-repeat; background-position: right;"
 		class="body">
 		<div class="body__left">
 			<form method="post" action="add-customer" class="form form--ticket"

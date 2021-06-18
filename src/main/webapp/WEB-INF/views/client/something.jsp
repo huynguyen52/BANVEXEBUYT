@@ -6,33 +6,45 @@
 		<h3 class="header__title">Welcome to Bus station</h3>
 	</div>
 	<div
-		style="background-image: url(/BANVEXEBUS/sources/admin/img/travel.jpg); background-size: cover; background-repeat: no-repeat; background-position: right;"
+		style="background-image: url(/BANVEXEBUS/sources/admin/img/station.jpg); background-size: cover; background-repeat: no-repeat; background-position: right;"
 		class="body">
 		<div class="body__content">
-			<form action="set-bus" method="get">
-				<label for="">Choose your bus</label> <input
-					list="buses" name="bus" id="">
+			<form class="set-bus__form" action="set-bus" method="get">
+				<input list="buses" name="bus" placeholder="Chọn xe">
 				<datalist id="buses">
-				<c:forEach var="xe" items="${listBuses }">
-					<option value="${xe.bienSoXe }"/>
-				</c:forEach>
+					<c:forEach var="xe" items="${listBuses }">
+						<option value="${xe.bienSoXe }" />
+					</c:forEach>
 				</datalist>
-				<button type="submit">Xác nhận</button>
+				<button class="set-bus__btn set-bus__btn--success" type="submit">Xác nhận</button>
 			</form>
-			<c:set var = "veluot" scope = "session" value = "${sessionScope.veluot}"/>
-			<c:set var = "xehientai" scope = "session" value = "${sessionScope.xe}"/>
-			<div>
-				<p>Số lượng vé thường: <span>${veluot.thuong }</span></p>
-			</div>
-			<div>				
-				<p>Số lượng vé ưu tiên: <span>${veluot.uutien}</span></p>
-			</div>
-			<div>
-				<p>Xe: <span>${xehientai != null ? xehientai : 'Chưa có xe' }</span></p>
-			</div>
-			<form action="add-veluot" method="post">
-				<button type="submit">Chốt</button>
-			</form>
+			<c:set var="veluot" scope="session" value="${sessionScope.veluot}" />
+			<c:set var="xehientai" scope="session" value="${sessionScope.xe}" />
+			<c:if test="${xehientai != null }">
+				<div class="ticket-info">
+					<div  class="ticket-info__item">
+						<p>
+							Số lượng vé thường: 
+						</p>
+						<span>${veluot.thuong }</span>
+					</div>
+					<div class="ticket-info__item">
+						<p>
+							Số lượng vé ưu tiên: 
+						</p>
+						<span>${veluot.uutien}</span>
+					</div>
+					<div class="ticket-info__item" style="padding: 8px 0; border-top: 1px solid #ccc">
+						<p>
+							Xe: 
+						</p>
+						<span>${xehientai != null ? xehientai : 'Chưa có xe' }</span>
+					</div>
+					<form action="add-veluot" method="post">
+						<button type="submit" class="btn ticket-input__btn ticket-input__btn--success">Xác nhận</button>
+					</form>
+				</div>
+			</c:if>
 
 		</div>
 	</div>

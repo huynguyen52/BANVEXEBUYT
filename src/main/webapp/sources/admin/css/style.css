@@ -466,6 +466,10 @@ a:hover {
 	color: #9f7ce1 !important;
 }
 
+.i-components{
+	color: #2ec5d3!important;
+}
+
 .modal-body {
 	color: #23324e;
 	font-size: 16px;
@@ -751,3 +755,4 @@ a:hover {
 	background-color: rgba(207, 82, 92, 0.5);
 	border-color: rgba(207, 82, 92, 0.5);
 }
+
