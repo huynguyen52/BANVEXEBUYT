@@ -33,10 +33,10 @@
 	<div class="sidebar-heading">Management</div>
 
 	<!-- Nav Item - Components Collapse Menu -->
-	<li class="nav-item active"><a class="nav-link collapsed" href="#"
+	<li class="nav-item"><a class="nav-link collapsed" href="#"
 		data-toggle="collapse" data-target="#collapseUtilities"
 		aria-expanded="true" aria-controls="collapseUtilities"> <i
-			class="fas fa-fw fa-cog fa-spin"></i> <span>Components</span>
+			class="fas fa-fw fa-cog fa-spin i-components"></i> <span>Components</span>
 	</a>
 		<div id="collapseUtilities" class="collapse"
 			aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
