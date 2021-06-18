@@ -46,9 +46,5 @@ public class TicketInformationService {
 		return repo.getSoLuong(idPhanCong, maGiaLuot);
 	}
 	
-	public ThongTinVeLuot getByMaPhanCongAndMaGiaLuot(int maPhanCong, int maGiaLuot) {
-		return repo.getByMaPhanCongAndMaGiaLuot(maPhanCong, maGiaLuot);
-
-	}
 
 }

@@ -98,20 +98,5 @@ public class PhanCongService {
 		return repo.getByNgayAndMaNV(date, maNhanVien);
 	}
 
-	public List<Object> filter() {
-		return repo.filter();
-	}
-	
-	public List<Object> filter2() {
-		return repo.filter2();
-	}
-	
-	public List<ChuyenXe> filter3(){
-		return repo.filter3();
-	}
-	
-	public List<Object> filter4(){
-		return repo.filter4();
-	}
 	
 }

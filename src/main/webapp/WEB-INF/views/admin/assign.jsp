@@ -83,15 +83,10 @@
 						cellspacing="0">
 						<thead>
 							<tr>
-								<!-- <th class="data-table__header">Lê Văn Luyện | xxx-xxxx</th>
-								<th class="data-table__header">Phạm Thái Học | xxx-xxxx</th>
-								<th class="data-table__header">Đinh Công Mạnh | xxx-xxxx</th>
-								<th class="data-table__header">Hoàng Văn Đậu | xxx-xxxx</th>
-								<th class="data-table__header">Hà Tiều Phu | xxx-xxxx</th> -->
 
 								<!-- Vu -->
 								<c:forEach items="${listTTPCs }" var="tt">
-									<th class="data-table__header">${tt.hoTen }|${tt.bienSoXe }</th>
+									<th style="width: 250px; word-wrap: break-word;" class="data-table__header">${tt.hoTen }|${tt.bienSoXe }</th>
 								</c:forEach>
 							</tr>
 						</thead>

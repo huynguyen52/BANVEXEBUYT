@@ -42,10 +42,8 @@
 			aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
 			<div class="bg-white py-2 collapse-inner rounded">
 				<h6 class="collapse-header">Manage Components:</h6>
-				<a id="route" class="collapse-item" href="route">Route</a> <a
-					class="collapse-item" id="role" href="role">Role</a> <a
-					class="collapse-item" id="customer" href="customer">Customer</a><a
-					id="mode" class="collapse-item" href="mode">Mode</a> <a id="trip"
+				<a id="route" class="collapse-item" href="route">Route</a><a
+					class="collapse-item" id="customer" href="customer">Customer</a><a id="trip"
 					class="collapse-item" href="trip">Trip</a> <a
 					id="monthly-information" class="collapse-item"
 					href="monthly-information">Month Ticket</a> <a

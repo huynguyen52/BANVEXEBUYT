@@ -698,7 +698,6 @@ a:hover {
 
 .data-table thead > tr > th, .data-table tfoot > tr > th {
     border: 1px solid #324462;
-    max-width: 200px;
 }
 
 .data-table tbody > tr{
@@ -719,36 +718,36 @@ a:hover {
 }
 
 .data-table__label {
-	background-color: #2b3854;
+	background-color: rgba(43, 56, 84, 0.5);
 	border-radius: 4px;
 	padding-left: 10px;
 	color: rgba(225, 235, 245, .9);
 	font-size: 16px;
-	border: 1px solid #2f4060;
+	border: 1px solid rgba(43, 56, 84, 0.5);
 	margin-bottom: 0;
 }
 
 .data-table__label--primary{
-	background-color: #8869c2;
-	border-color: #8869c2;
+	background-color: rgba(136, 105, 194, 0.5);
+	border-color: rgba(136, 105, 194, 0.5);
 }
 
 .data-table__label--success{
-	background-color: #29b3c0;
-	border-color: #29b3c0;
+	background-color: rgba(41, 179, 192, 0.5);
+	border-color: rgba(41, 179, 192, 0.5);
 }
 
 .data-table__label--info{
-	background-color: #4d80c2;
-	border-color: #4d80c2;
+	background-color: rgba(77, 128, 194, 0.5);
+	border-color: rgba(77, 128, 194, 0.5);
 }
 
 .data-table__label--warning{
-	background-color: #d7ad03;
-	border-color: #d7ad03;
+	background-color: rgba(215, 173, 3, 0.5);
+	border-color: rgba(215, 173, 3, 0.5);
 }
 
 .data-table__label--danger{
-	background-color: #cf525c;
-	border-color: #cf525c;
+	background-color: rgba(207, 82, 92, 0.5);
+	border-color: rgba(207, 82, 92, 0.5);
 }

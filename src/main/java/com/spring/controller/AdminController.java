@@ -1731,18 +1731,13 @@ public class AdminController {
 		List<TuyenXe> listTuyenXes = routeService.listAll();
 
 		List<Xe> listXes = busService.listAll();
-		
-		List<Object> phanCongId = phanCongService.filter();
-		List<Object> phanCongId2 = phanCongService.filter2();
-		List<ChuyenXe> phanCongId3 = phanCongService.filter3();
-		
-		List<Object> phanCongId4 = phanCongService.filter4();
 
 		List<Object> phanCongId = phanCongService.filter();
 		List<Object> phanCongId2 = phanCongService.filter2();
 		List<ChuyenXe> phanCongId3 = phanCongService.filter3();
 
 		List<Object> phanCongId4 = phanCongService.filter4();
+
 
 		mav.addObject("listTuyenXes", listTuyenXes);
 
@@ -1898,6 +1893,7 @@ public class AdminController {
 		mav.addObject("listNhanViens", listNhanViens);
 		mav.addObject("listXes", listXes);
 		mav.addObject("listTuyenXes", listTuyenXes);
+		mav.addObject("active", "assign");
 		return mav;
 	}
 
@@ -2023,7 +2019,6 @@ public class AdminController {
 			}
 
 		}
-		
 
 		redirectAttributes.addFlashAttribute("message", message);
 		return "redirect:/admin/loctuyen?tuyen=" + tuyen + "&ngay=" + ngayStr;

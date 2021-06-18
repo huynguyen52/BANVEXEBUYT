@@ -190,7 +190,7 @@ var myLineChart = new Chart(ctx, {
 			pointHoverBorderColor: "#ec5e69",
 			pointHitRadius: 10,
 			pointBorderWidth: 0.5,
-			data: [10, 5, 0, 3, 2, 7, 4, 1, 0, 2, 1, 9],
+			data: veluotData,
 		}],
 	},
 	options: {
