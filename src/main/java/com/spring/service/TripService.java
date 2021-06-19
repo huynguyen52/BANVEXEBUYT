@@ -1,16 +1,13 @@
 package com.spring.service;
 
-import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import com.spring.entities.ChuyenXe;
-import com.spring.entities.TuyenXe;
 import com.spring.repository.ITripRepository;
 
 @Service

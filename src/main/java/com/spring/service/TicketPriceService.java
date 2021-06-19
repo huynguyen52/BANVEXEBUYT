@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.entities.GiaVeLuot;
-import com.spring.entities.GiaVeThang;
-import com.spring.repository.IMonthlyTicketPriceRepository;
 import com.spring.repository.ITicketPriceRepository;
 
 @Service

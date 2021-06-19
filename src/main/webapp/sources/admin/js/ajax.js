@@ -4,18 +4,6 @@ $(document).ready(function() {
 
 	//==============================================================
 	//===========================dashboard==========================
-	//default bar-chart
-	$.ajax({
-		type: "POST",
-		contentType: "application/json",
-		url: "get-data-by-date",
-		dataType: 'json',
-		data: {
-		},
-		success: function(data) {
-			localStorage.setItem("thongtinveluot", JSON.stringify(data));
-		}
-	});
 
 	//bar-chart
 	var date1Input = document.querySelectorAll('.form-search .form-search__input')[0];
@@ -42,31 +30,6 @@ $(document).ready(function() {
 			});
 		}
 	}
-
-	//barchart-2
-	var searchBar = document.getElementById("searchBar");
-	if (searchBar) {
-		searchBar.onchange = function() {
-			let dateInput = searchBar.value;
-			$.ajax({
-				type: "POST",
-				contentType: "application/json",
-				url: "get-data-by-date?date=" + dateInput,
-				dataType: 'json',
-				data: {
-					'date': dateInput
-				},
-				success: function(data) {
-					localStorage.setItem("thongtinveluot", JSON.stringify(data));
-					//location.reload();
-				}
-			});
-		}
-	}
-
-
-
-
 
 
 	//==============================End: dashboard===============================

@@ -2,16 +2,6 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
-var xyz = JSON.parse(localStorage.getItem("thongTinVeThangDetail"));
-function sortObj(obj) {
-	return Object.keys(obj).sort().reduce(function(result, key) {
-		result[key] = obj[key];
-		return result;
-	}, {});
-}
-var newxyz = sortObj(xyz);
-var keysArr = Object.keys(newxyz);
-var valuesArr = Object.values(newxyz);
 
 
 let btnSearch = document.getElementById('btn-getdata');

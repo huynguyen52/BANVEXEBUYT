@@ -3,18 +3,15 @@
 	<decorator name="client" page="client.jsp">
 		<pattern>/**</pattern>
 	</decorator>
+	
 
 	<decorator name="admin" page="admin.jsp">
 		<pattern>/admin**</pattern>
-		<pattern>/forgot-password.htm</pattern>
 	</decorator>
 
 
 	<excludes>
-		<pattern>/admin/login</pattern>
-	</excludes>
-	<excludes>
 		<pattern>/login</pattern>
-		
+		<pattern>/forgot-password.html</pattern>
 	</excludes>
 </decorators>

@@ -1,7 +1,6 @@
 package com.spring.entities;
 
 import java.time.LocalTime;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
