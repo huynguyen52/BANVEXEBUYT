@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.spring.entities.Role;
-import com.spring.repository.IMonthlyTicketPriceRepository;
 import com.spring.repository.IRoleRepository;
 
 @Service

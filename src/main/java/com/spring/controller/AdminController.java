@@ -70,7 +70,6 @@ import com.spring.service.TripService;
 @Controller()
 public class AdminController {
 
-	private final Long ONE_MONTH = 2592000000L;
 	private final Long ONE_DAY = 86400000L;
 
 	@Autowired
@@ -165,7 +164,7 @@ public class AdminController {
 		}
 		return listIds;
 	}
-// select thongtinvethangdetail.maVeThang from thongtinvethangdetail where thongtinvethangdetail.id=:id
+
 
 	public int getListMaVeThang(int id) {
 		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
@@ -176,7 +175,6 @@ public class AdminController {
 		}
 		return 0;
 	}
-//select thongtinvethangdetail.maGiaThang from thongtinvethangdetail where thongtinvethangdetail.id=:id
 
 	public int idToMaGia(int id) {
 		List<ThongTinVeThangDetail> listTTVTDTs = monthlyInformationDetailService.listAll();
@@ -228,16 +226,7 @@ public class AdminController {
 	@RequestMapping(value = "/dashboard-vethang")
 	public @ResponseBody List<QLVe> filter1(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
 			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
-		String pattern = "yyyy-MM-dd";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-		System.out.println("ngay bat dau: " + dateFrom);
-		System.out.println("ngay ket thuc: " + dateTo);
 
-		List<Integer> listMaGia = new ArrayList<Integer>();
-		List<QLVe> listQLV = new ArrayList<QLVe>();
-		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
-
-		List<GiaVeThang> listGVTs = monthlyTicketPriceService.listAll();
 		List<TuyenXe> listTuyenXes = routeService.listAll();
 
 		List<Date> listDays = new ArrayList<Date>();
@@ -298,11 +287,7 @@ public class AdminController {
 	public @ResponseBody List<QLVe> filter(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
 			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
 
-		String pattern = "yyyy-MM-dd";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
-		System.out.println("ngay bat dau: " + dateFrom);
-		System.out.println("ngay ket thuc: " + dateTo);
 
 		List<Integer> listMaTuyenXes = tripService.listTuyenXes(dateFrom, dateTo);
 		List<Date> listNgays = phanCongService.getListDays(dateFrom, dateTo);
@@ -481,10 +466,8 @@ public class AdminController {
 				fos.close();
 				taiKhoan.setImage(nameImage);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -498,7 +481,6 @@ public class AdminController {
 				accountService.save(taiKhoan);
 				message = "success";
 			} catch (Exception e) {
-				// TODO: handle exception
 				message = "error";
 			}
 		}
@@ -568,10 +550,8 @@ public class AdminController {
 				fos.close();
 				taiKhoan.setImage(nameImage);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
@@ -580,7 +560,6 @@ public class AdminController {
 			accountService.save(taiKhoan);
 			message = "Update Success!";
 		} catch (Exception e) {
-			// TODO: handle exception
 			message = "Error!";
 		}
 
@@ -630,7 +609,6 @@ public class AdminController {
 				message = "success";
 
 			} catch (Exception e) {
-				// TODO: handle exception
 				message = "error";
 			}
 		}
@@ -647,7 +625,6 @@ public class AdminController {
 			busService.delete(bienSoXe);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -675,7 +652,6 @@ public class AdminController {
 			khachThangService.save(khachThang);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -707,7 +683,6 @@ public class AdminController {
 			;
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -723,7 +698,6 @@ public class AdminController {
 			khachThangService.delete(maKhachThang);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -763,7 +737,7 @@ public class AdminController {
 				modeService.save(cheDo);
 				message = "success";
 			} catch (Exception e) {
-				// TODO: handle exception
+				
 				message = "error";
 			}
 		}
@@ -788,7 +762,7 @@ public class AdminController {
 			modeService.delete(maMode);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+		
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -804,7 +778,7 @@ public class AdminController {
 			modeService.save(cheDo);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1057,7 +1031,7 @@ public class AdminController {
 				monthlyInformationDetailService.save(thongTinVeThangDetail);
 				message = "success";
 			} catch (Exception e) {
-				// TODO: handle exception
+				
 				message = "error";
 			}
 		}
@@ -1101,7 +1075,6 @@ public class AdminController {
 	// Add a new role
 	public void autoCreateTimeTable(int maTuyen) {
 		TuyenXe tuyenXe = routeService.get(maTuyen);
-		LocalTime gioBatDauTuyenXe = tuyenXe.getThoiGianBatDau();
 		LocalTime gioKetThucTuyenXe = tuyenXe.getThoiGianKetThuc();
 
 		while (tuyenXe.getThoiGianBatDau().compareTo(gioKetThucTuyenXe) <= 0) {
@@ -1140,7 +1113,7 @@ public class AdminController {
 				message = "success";
 
 			} catch (Exception e) {
-				// TODO: handle exception
+			
 				message = "error";
 			}
 		}
@@ -1165,7 +1138,7 @@ public class AdminController {
 			roleService.delete(maRole);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1180,7 +1153,7 @@ public class AdminController {
 			roleService.save(role);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1225,7 +1198,7 @@ public class AdminController {
 			routeService.save(tuyenXe);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1249,7 +1222,7 @@ public class AdminController {
 			autoCreateTimeTable(tuyenXe.getMaTuyen());
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 
@@ -1265,7 +1238,7 @@ public class AdminController {
 			routeService.delete(maTuyen);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1344,7 +1317,7 @@ public class AdminController {
 				staffService.save(nhanVien);
 				message = "success";
 			} catch (Exception e) {
-				// TODO: handle exception
+				
 				message = "error";
 			}
 		}
@@ -1387,7 +1360,7 @@ public class AdminController {
 						staffService.save(nhanVien);
 						message = "success";
 					} catch (Exception e) {
-						// TODO: handle exception
+						
 						message = "error";
 					}
 					redirectAttributes.addFlashAttribute("message", message);
@@ -1407,7 +1380,7 @@ public class AdminController {
 			staffService.delete(maNhanVien);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1472,7 +1445,7 @@ public class AdminController {
 				message = "success";
 
 			} catch (Exception e) {
-				// TODO: handle exception
+				
 				message = "error";
 			}
 		}
@@ -1496,7 +1469,7 @@ public class AdminController {
 				message = "success";
 
 			} catch (Exception e) {
-				// TODO: handle exception
+				
 				message = "error";
 			}
 		}
@@ -1505,7 +1478,6 @@ public class AdminController {
 	}
 
 	// edit gia ve luot
-	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/edit-price-ticket")
 	public @ResponseBody GiaVeLuot postPriceTicketData(@RequestParam("magia") String magia) {
 		GiaVeLuot giaVeLuot = ticketPriceService.get(Integer.parseInt(magia));
@@ -1524,7 +1496,7 @@ public class AdminController {
 			ticketPriceService.delete(maGia);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1547,7 +1519,7 @@ public class AdminController {
 				ticketPriceService.save(giaVeLuot);
 				message = "success";
 			} catch (Exception e) {
-				// TODO: handle exception
+				
 				message = "error";
 			}
 		}
@@ -1558,7 +1530,6 @@ public class AdminController {
 	}
 
 	// edit gia ve thang
-	@SuppressWarnings("deprecation")
 	@RequestMapping(value = "/edit-monthly-price")
 	public @ResponseBody GiaVeThang postMonthlyTicketData(@RequestParam("magia") String magia) {
 		GiaVeThang giaVeThang = monthlyTicketPriceService.get(Integer.parseInt(magia));
@@ -1583,7 +1554,7 @@ public class AdminController {
 				monthlyTicketPriceService.save(giaVeThang);
 				message = "success";
 			} catch (Exception e) {
-				// TODO: handle exception
+				
 				message = "error";
 			}
 		}
@@ -1601,7 +1572,7 @@ public class AdminController {
 			monthlyTicketPriceService.delete(maGia);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1645,34 +1616,8 @@ public class AdminController {
 	}
 
 	public void timeTableTuyen(int maTuyen) {
-		TuyenXe tuyenXe = routeService.get(maTuyen);
-		LocalTime gioBatDau = tuyenXe.getThoiGianBatDau();
-		LocalTime gioKetThuc = tuyenXe.getThoiGianKetThuc();
 
 	}
-	// add a new trip
-	/*
-	 * @RequestMapping(value = "add-trip", method = RequestMethod.POST) public
-	 * String addTrip(@RequestParam("maTuyen") int maTuyen, RedirectAttributes
-	 * redirectAttributes) { String message="";
-	 * if(checkRoute(Integer.valueOf(maTuyen).toString())) {
-	 * System.out.println("Chua ton tai tuyen"); message="error"; }else {
-	 * 
-	 * }
-	 * 
-	 * // // if(checkRoute(String.valueOf(maTuyen))||
-	 * checkGio(maTuyen,LocalTime.parse(gioXuatphat))) { // message="error"; //
-	 * }else { // ChuyenXe chuyenXe = new ChuyenXe(); //
-	 * chuyenXe.setMaTuyen(maTuyen); //
-	 * chuyenXe.setGioXuatPhat(LocalTime.parse(gioXuatphat)); //
-	 * chuyenXe.setGioKetThuc(LocalTime.parse(gioXuatphat).plusMinutes(routeService.
-	 * get(maTuyen).getThoiGianChuyen())); // try { // tripService.save(chuyenXe);
-	 * // message = "success"; // } catch (Exception e) { // // TODO: handle
-	 * exception // message = "error"; // } // } //
-	 * redirectAttributes.addFlashAttribute("message", message); //
-	 * redirectAttributes.addFlashAttribute("active", "trip"); return
-	 * "redirect:/admin/trip"; return null; }
-	 */
 
 	// edit a trip
 	@RequestMapping(value = "/edit-trip")
@@ -1696,7 +1641,7 @@ public class AdminController {
 			tripService.save(chuyenXe);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1713,7 +1658,6 @@ public class AdminController {
 			tripService.delete(id);
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1732,11 +1676,6 @@ public class AdminController {
 
 		List<Xe> listXes = busService.listAll();
 
-		List<Object> phanCongId = phanCongService.filter();
-		List<Object> phanCongId2 = phanCongService.filter2();
-		List<ChuyenXe> phanCongId3 = phanCongService.filter3();
-
-		List<Object> phanCongId4 = phanCongService.filter4();
 
 
 		mav.addObject("listTuyenXes", listTuyenXes);
@@ -1761,47 +1700,6 @@ public class AdminController {
 		return false;
 	}
 
-	// add a new assignment
-//	@RequestMapping(value = "/add-assign", method = RequestMethod.POST)
-//	public String addAssign(@RequestParam("maNhanVien") int maNhanVien, @RequestParam("bienSoXe") String bienSoXe,
-//			@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay,
-//			RedirectAttributes redirectAttributes) {
-//		String message = "";
-//		if (checkPhanCong(maNhanVien, bienSoXe, ngay)) {
-//			message = "error";
-//		} else {
-//			PhanCong phanCong = new PhanCong();
-//			phanCong.setMaNhanVien(maNhanVien);
-//			phanCong.setBienSoXe(bienSoXe);
-//			phanCong.setNgay(ngay);
-//
-//			try {
-//				phanCongService.save(phanCong);
-//				message = "success";
-//				List<GiaVeLuot> giaVeLuots = ticketPriceService.listAll();
-//				for (int i = 0; i < giaVeLuots.size(); i++) {
-//					System.out.println("vao day 2");
-//					ThongTinVeLuot thongTinVeLuot = new ThongTinVeLuot();
-//					thongTinVeLuot.setMaPhanCong(phanCong.getIdPhanCong());
-//					thongTinVeLuot.setMaGiaLuot(giaVeLuots.get(i).getMaGia());
-//					thongTinVeLuot.setSoLuong(0);
-//					try {
-//						ticketInformationService.save(thongTinVeLuot);
-//						message = "success";
-//					} catch (Exception e) {
-//						// TODO: handle exception
-//						message = "error"; // vao meet đi
-//					}
-//				}
-//			} catch (Exception e) {
-//				// TODO: handle exception
-//				message = "error";
-//			}
-//		}
-//		redirectAttributes.addFlashAttribute("message", message);
-//
-//		return "redirect:/admin/assign";
-//	}
 
 	// Vu
 	// check Chuyen ton tai
@@ -1921,7 +1819,6 @@ public class AdminController {
 		}
 		String ngayStr = year + "-" + monthStr + "-" + dayStr;
 
-		List<ChuyenXe> listChuyenXess = tripService.getDataByMaTuyen(tuyen);
 		if (checkChuyen(ngay, chuyen)) {
 			message = "error";
 			redirectAttributes.addFlashAttribute("message", message);
@@ -1942,7 +1839,7 @@ public class AdminController {
 						detailTripService.save(ctChuyen);
 						message = "success";
 					} catch (Exception e) {
-						// TODO: handle exception
+						
 						message = "error";
 					}
 
@@ -1958,12 +1855,12 @@ public class AdminController {
 							ticketInformationService.save(thongTinVeLuot);
 							message = "success";
 						} catch (Exception e) {
-							// TODO: handle exception
+							
 							message = "error";
 						}
 					}
 				} catch (Exception e) {
-					// TODO: handle exception
+					
 					message = "error";
 
 				}
@@ -1977,7 +1874,6 @@ public class AdminController {
 			int idPhanCong = phanCongService.getIDPC(bienSoXe, maNhanVien, ngay);
 			System.out.println("ID phan cong: " + idPhanCong);
 			List<Integer> listChuyens = phanCongService.getListChuyenByIDPC(idPhanCong);
-			List<ChuyenXe> listChuyenXes = tripService.listAll();
 
 			int checkLoi = 0;
 			for (int i = 0; i < listChuyens.size(); i++) {
@@ -2010,7 +1906,7 @@ public class AdminController {
 					detailTripService.save(ctChuyen);
 					message = "success";
 				} catch (Exception e) {
-					// TODO: handle exception
+					
 					message = "error";
 				}
 
@@ -2059,7 +1955,7 @@ public class AdminController {
 			;
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -2075,7 +1971,6 @@ public class AdminController {
 //			detailTripService.delete(idCTChuyen);
 //			message = "success";
 //		} catch (Exception e) {
-//			// TODO: handle exception
 //			message = "error";
 //		}
 //		redirectAttributes.addFlashAttribute("message", message);
@@ -2117,7 +2012,7 @@ public class AdminController {
 					mav.addObject("listThongTinVeLuots", listThongTinVeLuots);
 					mav.addObject("tab", "luot");
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			} else if (kind.equals("thang")) {
@@ -2136,7 +2031,7 @@ public class AdminController {
 					mav.addObject("tab", "thang");
 
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+				
 					e.printStackTrace();
 				}
 
@@ -2181,7 +2076,7 @@ public class AdminController {
 					mav.addObject("fromDate", fromDateStr2);
 					mav.addObject("toDate", toDateStr2);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 
@@ -2199,7 +2094,7 @@ public class AdminController {
 					mav.addObject("fromDate", fromDateStr2);
 					mav.addObject("toDate", toDateStr2);
 				} catch (ParseException e) {
-					// TODO Auto-generated catch block
+					
 					e.printStackTrace();
 				}
 			}
@@ -2231,10 +2126,10 @@ public class AdminController {
 			Date currentDate = new Date();
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(currentDate);
-			int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
+			//int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
 
-			Date dateStart = new Date(currentDate.getTime() - dayOfWeek * ONE_DAY);
-			Date dateEnd = new Date(dateStart.getTime() + 6 * ONE_DAY);
+			//Date dateStart = new Date(currentDate.getTime() - dayOfWeek * ONE_DAY);
+			//Date dateEnd = new Date(dateStart.getTime() + 6 * ONE_DAY);
 			listThongTinVeLuots = ticketInformationService.listAll();
 			data.put("data", listThongTinVeLuots);
 		} else {

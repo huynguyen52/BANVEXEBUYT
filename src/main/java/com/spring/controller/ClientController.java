@@ -22,7 +22,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.spring.entities.GiaVeLuot;
 import com.spring.entities.GiaVeThang;
 import com.spring.entities.KhachThang;
-import com.spring.entities.NhanVien;
 import com.spring.entities.PhanCong;
 import com.spring.entities.TaiKhoan;
 import com.spring.entities.ThongTinVeLuot;
@@ -136,7 +135,7 @@ public class ClientController {
 		try {
 			date = sf.parse(sf.format(new Date()));
 		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
+			
 			e1.printStackTrace();
 		}
 
@@ -169,7 +168,7 @@ public class ClientController {
 			System.out.println("SO LUONG VE LUOT TANG UPDATE");
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 
@@ -278,7 +277,7 @@ public class ClientController {
 			System.out.println("Them khach hang thanh cong");
 			message = "success";
 		} catch (Exception e) {
-			// TODO: handle exception
+			
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -356,18 +355,18 @@ public class ClientController {
 					monthlyInformationDetailService.save(thongTinVeThangDetail);
 					message = "success";
 				} catch (Exception e) {
-					// TODO: handle exception
+					
 					message = "error";
 				}
 			}
 			return "redirect:/setting";
 		} else {
 
-			Date ngayHetHan = getLastDayOfMonth(ngayMua);
+			//Date ngayHetHan = getLastDayOfMonth(ngayMua);
 
 			String message;
-			HttpSession session = request.getSession();
-			TaiKhoan tkSession = (TaiKhoan) session.getAttribute("taiKhoan");
+			//HttpSession session = request.getSession();
+			//TaiKhoan tkSession = (TaiKhoan) session.getAttribute("taiKhoan");
 
 			ThongTinVeThang thongTinVeThang = new ThongTinVeThang();
 			thongTinVeThang.setMaKhachThang(Integer.valueOf(maKhachThang));

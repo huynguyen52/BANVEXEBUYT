@@ -1,7 +1,5 @@
 package com.spring.repository;
 
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;

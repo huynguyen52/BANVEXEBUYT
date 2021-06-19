@@ -157,7 +157,7 @@ public class LoginController {
 				redirectAttributes.addFlashAttribute("message", "Gửi thành công");
 				System.out.println("Mail success");
 			} catch (Exception ex) {
-				// TODO: handle exception
+				
 				redirectAttributes.addFlashAttribute("message", "Gửi thất bại");
 				System.out.println("Mail fail");
 			}
