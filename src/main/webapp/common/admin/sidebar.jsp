@@ -43,8 +43,7 @@
 			<div class="bg-white py-2 collapse-inner rounded">
 				<h6 class="collapse-header">Manage Components:</h6>
 				<a id="route" class="collapse-item" href="route">Route</a><a
-					class="collapse-item" id="customer" href="customer">Customer</a><a id="trip"
-					class="collapse-item" href="trip">Trip</a> <a
+					class="collapse-item" id="customer" href="customer">Customer</a> <a
 					id="monthly-information" class="collapse-item"
 					href="monthly-information">Month Ticket</a> <a
 					class="collapse-item" id="staff" href="staff">Staff</a> <a
@@ -67,6 +66,11 @@
 	<!-- Nav Item - Assign -->
 	<li id="assign" class="nav-item"><a class="nav-link" href="assign">
 			<i class="fas fa-spell-check"></i> <span>Assignment</span>
+	</a></li>
+	
+	<!-- Nav Item - Phân công -->
+	<li id="assignDetail" class="nav-item"><a class="nav-link" href="assign-detail">
+			<i class="fas fa-car"></i> <span>Assignment Detail</span>
 	</a></li>
 
 

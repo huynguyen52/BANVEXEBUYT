@@ -24,22 +24,49 @@ function veluot(fromDate, toDate) {
 	const xhttp = new XMLHttpRequest();
 	xhttp.onload = function() {
 		dataAJAX = JSON.parse(this.responseText);
+		console.log(dataAJAX);
 		let ngay = dataAJAX.map(item => {
 			return new Date(item.ngay).toLocaleDateString("vi-VN");
 		});
 		let tienUuTien = dataAJAX.map(item => {
 			return item.giaTienUuTien * item.soLuongUuTien;
 		});
+
 		let tienThuong = dataAJAX.map(item => {
 			return item.giaTienThuong * item.soLuongThuong;
 		})
+		
+		let test = dataAJAX.map(item => {
+			return {
+				thuong: item.giaTienThuong * item.soLuongThuong,
+				uutien: item.giaTienUuTien * item.soLuongUuTien,
+				ngay: new Date(item.ngay).toLocaleDateString("vi-VN")
+			}
+		})
+		let resultTest = test.reduce(function(acc, item) {
+			acc[item.ngay] = acc[item.ngay] || [];
+			acc[item.ngay].push(item);
+			return acc;
+		}, Object.create(null));
+		let keys = Object.keys(resultTest);
+		let resultTestFinal =  keys.map(item => {
+			return resultTest[item].reduce( (acc, obj) => {
+				return ({
+					thuong: acc.thuong + obj.thuong,
+					uutien: acc.uutien + obj.uutien,
+					ngay: acc.ngay
+				})
+			});
+		});
+		addData(myLineChart, resultTestFinal);
+		
 
 		let tien = {
 			tienUuTien,
 			tienThuong
 		}
 		//update chart
-		addData(myLineChart, ngay, tien);
+		
 
 		let tabLuot = document.getElementById('tabluot');
 		let listLuot = dataAJAX.map((item) => {
@@ -82,8 +109,31 @@ function vethang(fromDate, toDate) {
 			tienUuTien,
 			tienThuong
 		}
+		
+		let test = dataAJAX.map(item => {
+			return {
+				thuong: item.giaTienThuong * item.soLuongThuong,
+				uutien: item.giaTienUuTien * item.soLuongUuTien,
+				ngay: new Date(item.ngay).toLocaleDateString("vi-VN")
+			}
+		})
+		let resultTest = test.reduce(function(acc, item) {
+			acc[item.ngay] = acc[item.ngay] || [];
+			acc[item.ngay].push(item);
+			return acc;
+		}, Object.create(null));
+		let keys = Object.keys(resultTest);
+		let resultTestFinal =  keys.map(item => {
+			return resultTest[item].reduce( (acc, obj) => {
+				return ({
+					thuong: acc.thuong + obj.thuong,
+					uutien: acc.uutien + obj.uutien,
+					ngay: acc.ngay
+				})
+			});
+		});
 		//update chart
-		addData(myBarChart, ngay, tien);
+		addData(myBarChart, resultTestFinal);
 
 		let tabThang = document.getElementById('tabthang');
 		let listThang = dataAJAX.map((item) => {
@@ -114,10 +164,10 @@ function handleResponseVeluot(data) {
 	})
 }
 
-function addData(chart, label, data) {
-	chart.data.labels = label;
-	chart.data.datasets[0].data = data.tienThuong;
-	chart.data.datasets[1].data = data.tienUuTien;
+function addData(chart, resultTestFinal) {
+	chart.data.labels = resultTestFinal.map(item => item.ngay);
+	chart.data.datasets[0].data = resultTestFinal.map(item => item.thuong);
+	chart.data.datasets[1].data = resultTestFinal.map(item => item.uutien);
 	chart.update();
 }
 
@@ -152,7 +202,6 @@ var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
 	type: 'line',
 	data: {
-		labels: keysArr,
 		datasets: [{
 			label: "Vé thường",
 			lineTension: 0.3,
