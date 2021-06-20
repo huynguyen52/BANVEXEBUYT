@@ -1009,9 +1009,16 @@
 						placeholder="Ngày phân công"> <span class="error-message"></span>
 				</div>
 				<div class="form-group">
-					<label for="">Chuyến</label> <input name="chuyen" type="text"
+					<label for="">Chuyến</label> <input list="chuyensbytuyen" name="chuyen" type="text"
 						value="" class="form-control form-input chuyen"
 						placeholder="Chuyến"> <span class="error-message"></span>
+					<datalist id="chuyensbytuyen">
+					<c:set var="index" value="${1 }"/>
+						<c:forEach var="chuyen" items="${listChuyenXeByMaTuyens}">
+							<option value="${chuyen.id }">Chuyến ${index } - ${chuyen.gioXuatPhat } : ${chuyen.gioKetThuc }</option>
+							<c:set var = "index" value="${index + 1}"/>
+						</c:forEach>
+					</datalist>
 				</div>
 				<div class="form-group">
 					<label for="">Tuyến</label> <input readonly="" name="tuyen"

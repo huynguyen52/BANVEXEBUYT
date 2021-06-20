@@ -1687,6 +1687,17 @@ public class AdminController {
 		mav.addObject("active", "assign");
 		return mav;
 	}
+	
+	//Chi tiết phân công xe và nhân viên theo ngày
+	@RequestMapping(value = "/assign-detail")
+	public ModelAndView assignDetailPage() {
+		ModelAndView mav = new ModelAndView("admin/assign-detail");
+		List<PhanCong> listPhanCongs = phanCongService.listAll();
+		
+		mav.addObject("listPhanCongs", listPhanCongs);
+		mav.addObject("active", "assignDetail");
+		return mav;
+	}
 
 	public boolean checkPhanCong(int maNhanVien, String xe, Date ngayBatDau) {
 		List<PhanCong> phanCongs = phanCongService.listAll();
@@ -1753,6 +1764,7 @@ public class AdminController {
 		List<NhanVien> listNhanViens = staffService.listAll();
 		List<Xe> listXes = busService.listAll();
 		List<TuyenXe> listTuyenXes = routeService.listAll();
+		List<ChuyenXe> listChuyenXeByMaTuyens = tripService.getDataByMaTuyen(tuyen);
 
 		List<Integer> listMaNhanVien = new ArrayList<Integer>();
 
@@ -1791,6 +1803,7 @@ public class AdminController {
 		mav.addObject("listNhanViens", listNhanViens);
 		mav.addObject("listXes", listXes);
 		mav.addObject("listTuyenXes", listTuyenXes);
+		mav.addObject("listChuyenXeByMaTuyens", listChuyenXeByMaTuyens);
 		mav.addObject("active", "assign");
 		return mav;
 	}
