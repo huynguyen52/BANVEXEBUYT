@@ -39,4 +39,7 @@ public interface IMonthlyInformationDetailRepository extends CrudRepository<Thon
 	
 	@Query(value="select t.maGiaThang from ThongTinVeThangDetail t where t.id=:id")
 	public Integer idToMaGia(@Param("id")int id);
+	
+	@Query(value = "from ThongTinVeThangDetail ttvtdt where maGiaThang = :maGiaThang")
+	public List<ThongTinVeThangDetail> checkDeleteGiaVeThang(@Param("maGiaThang") int maGiaThang);
 }

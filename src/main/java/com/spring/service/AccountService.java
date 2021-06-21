@@ -29,4 +29,11 @@ public class AccountService {
 	public void save(TaiKhoan taiKhoan) {
 		repo.save(taiKhoan);
 	}
+	
+	public List<TaiKhoan> checkDeleteNhanVien(int maNhanVien){
+		return repo.checkDeleteNhanVien(maNhanVien);
+	}
+	public TaiKhoan getTaiKhoan(int id) {
+		return repo.getTaiKhoan(id);
+	}
 }

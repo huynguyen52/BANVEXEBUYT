@@ -36,4 +36,7 @@ public class MonthlyInformationService {
 		return repo.veToMTuyen(maTuyen);
 	}
 
+	public List<ThongTinVeThang> checkDeleteKhachThang(int maKhachThang){
+		return repo.checkDeleteKhachThang(maKhachThang);
+	}
 }

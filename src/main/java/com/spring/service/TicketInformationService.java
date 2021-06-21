@@ -1,5 +1,6 @@
 package com.spring.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,5 +45,11 @@ public class TicketInformationService {
 		return repo.getSoLuong(idPhanCong, maGiaLuot);
 	}
 	
+	public List<ThongTinVeLuot> checkDeleteGiaVeLuot(int maGiaLuot){
+		return repo.checkDeleteGiaVeLuot(maGiaLuot);
+	}
+	public List<ThongTinVeLuot> thongTinVeTuyenNgay(int maTuyen,Date ngay) {
+		return repo.thongTinVeTuyenNgay(maTuyen, ngay);
+	}
 
 }

@@ -68,6 +68,10 @@ public interface IPhanCongRepository extends CrudRepository<PhanCong, Integer> {
 	@Query(value = "from PhanCong where ngay = :ngay and maNhanVien = :manv")
 	public PhanCong getByNgayAndMaNV(@Param("ngay") Date date, @Param("manv") int maNhanVien);
 
+	@Query(value = "from PhanCong pc where bienSoXe = :biensoxe")
+	public List<PhanCong> checkDeleteXe(@Param("biensoxe") String bienSoXe);
 	
+	@Query(value = "from PhanCong pc where maNhanVien = :maNhanVien")
+	public List<PhanCong> checkDeleteNhanVien(@Param("maNhanVien") int maNhanVien);
 	
 }

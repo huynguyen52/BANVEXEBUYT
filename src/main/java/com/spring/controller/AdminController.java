@@ -621,6 +621,13 @@ public class AdminController {
 	@RequestMapping(value = "delete-bus", method = RequestMethod.POST)
 	public String deleteBus(@RequestParam("bienSoXe") String bienSoXe, RedirectAttributes redirectAttributes) {
 		String message;
+		List<PhanCong> lpc = phanCongService.checkDeleteXe(bienSoXe);
+		if (lpc.size() != 0) {
+			System.out.println("Xe đã hoạt động, không thể xóa!");
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/admin/bus";
+		}
 		try {
 			busService.delete(bienSoXe);
 			message = "success";
@@ -694,6 +701,13 @@ public class AdminController {
 	public String deleteCustomer(@RequestParam("maKhachThang") int maKhachThang,
 			RedirectAttributes redirectAttributes) {
 		String message;
+		List<ThongTinVeThang> lttvt = monthlyInformationService.checkDeleteKhachThang(maKhachThang);
+		if (lttvt.size() != 0) {
+			System.out.println("Khách tháng đã mua vé, không thể xóa!");
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/admin/customer";
+		}
 		try {
 			khachThangService.delete(maKhachThang);
 			message = "success";
@@ -912,7 +926,6 @@ public class AdminController {
 
 		System.out.println(date + "\n" + ngayMua);
 		if (ngayMua.compareTo(date) < 0) {
-			System.out.println("Ngay mua ko hop le!");
 			return true;
 		}
 		return false;
@@ -1376,6 +1389,14 @@ public class AdminController {
 	@RequestMapping(value = "delete-staff", method = RequestMethod.POST)
 	public String deleteStaff(@RequestParam("maNhanVien") Integer maNhanVien, RedirectAttributes redirectAttributes) {
 		String message = "";
+		List<PhanCong> lpc = phanCongService.checkDeleteNhanVien(maNhanVien);
+		List<TaiKhoan> ltk = accountService.checkDeleteNhanVien(maNhanVien);
+		if (lpc.size() != 0 || ltk.size() != 0) {
+			System.out.println("Nhân viên đang hoạt động, không thể xóa!");
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/admin/staff";
+		}
 		try {
 			staffService.delete(maNhanVien);
 			message = "success";
@@ -1491,6 +1512,13 @@ public class AdminController {
 	@RequestMapping(value = "delete-price-ticket", method = RequestMethod.POST)
 	public String deletePriceTicket(@RequestParam("maGia") Integer maGia, RedirectAttributes redirectAttributes) {
 		String message;
+		List<ThongTinVeLuot> ttvl = ticketInformationService.checkDeleteGiaVeLuot(maGia);
+		if (ttvl.size() != 0) {
+			System.out.println("Giá vé đang dùng, không thể xóa!");
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/admin/price-ticket";
+		}
 		System.out.println("id xoas:" + maGia);
 		try {
 			ticketPriceService.delete(maGia);
@@ -1567,6 +1595,13 @@ public class AdminController {
 	@RequestMapping(value = "delete-monthly-price", method = RequestMethod.POST)
 	public String deleteMonthlyPrice(@RequestParam("maGia") Integer maGia, RedirectAttributes redirectAttributes) {
 		String message;
+		List<ThongTinVeThangDetail> ttvtdt = monthlyInformationDetailService.checkDeleteGiaVeThang(maGia);
+		if (ttvtdt.size() != 0) {
+			System.out.println("Giá vé tháng đang được sử dụng, không thể xóa!");
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/admin/monthly-price";
+		}
 		System.out.println("id xoas:" + maGia);
 		try {
 			monthlyTicketPriceService.delete(maGia);
@@ -1807,6 +1842,7 @@ public class AdminController {
 		mav.addObject("active", "assign");
 		return mav;
 	}
+	
 
 	// Vu
 	// add a new assignment
@@ -1815,7 +1851,6 @@ public class AdminController {
 			@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay, @RequestParam("chuyen") int chuyen,
 			@RequestParam("tuyen") int tuyen, RedirectAttributes redirectAttributes) {
 		String message = "";
-
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
 		cal.setTime(ngay);
 		int year = cal.get(Calendar.YEAR);
@@ -1831,6 +1866,11 @@ public class AdminController {
 			dayStr = "0" + day;
 		}
 		String ngayStr = year + "-" + monthStr + "-" + dayStr;
+		if(checkDate(ngay)) {
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/admin/loctuyen?tuyen=" + tuyen + "&ngay=" + ngayStr;
+		}
 
 		if (checkChuyen(ngay, chuyen)) {
 			message = "error";
@@ -2213,7 +2253,8 @@ public class AdminController {
 	@RequestMapping(value = "profile", method = RequestMethod.GET)
 	public ModelAndView profilePage(HttpSession session) {
 		ModelAndView mav = new ModelAndView("admin/profile");
-		TaiKhoan account = (TaiKhoan) session.getAttribute("taiKhoan");
+		TaiKhoan accountSession = (TaiKhoan) session.getAttribute("taiKhoan");
+		TaiKhoan account = accountService.get(accountSession.getMaTaiKhoan());
 		mav.addObject("account", account);
 		return mav;
 	}
@@ -2233,5 +2274,58 @@ public class AdminController {
 		mav.addObject("active", "seller");
 		return mav;
 	}
+	
+	// update a profile after edit
+		@RequestMapping(value = "/edit-profile", method = RequestMethod.POST)
+		public String saveProfile(@ModelAttribute("nhanVien") NhanVien nhanVien,HttpServletRequest request,
+				RedirectAttributes redirectAttributes) {
+			String message = "";
+			HttpSession sessionHttp = request.getSession();
+			TaiKhoan tk=(TaiKhoan)sessionHttp.getAttribute("taiKhoan");
+			List<NhanVien> staff = staffService.listAll();
+			for (int i = 0; i < staff.size(); i++) {
+				if (nhanVien.getMaNhanVien() == staff.get(i).getMaNhanVien()) {
+					continue;
+				} else {
+					if (checkEmail(nhanVien.getEmail(), nhanVien.getMaNhanVien())
+							|| checkSDT(nhanVien.getSoDienThoai(), nhanVien.getMaNhanVien())) {
+						message = "error";
+						redirectAttributes.addFlashAttribute("message", message);
+						return "redirect:/admin/staff";
+					} else {
+						try {
+							nhanVien.setMaNhanVien(tk.getMaNhanVien());
+							staffService.save(nhanVien);
+							TaiKhoan tkTemp = (TaiKhoan) sessionHttp.getAttribute("taiKhoan");
+							int t=tkTemp.getMaTaiKhoan();
+							TaiKhoan tkMoi = accountService.getTaiKhoan(t);
+							sessionHttp.removeAttribute("taiKhoan");
+							sessionHttp.setAttribute("taiKhoan", tkMoi);
+							message = "success";
+						} catch (Exception e) {
+							message = "error";
+						}
+						redirectAttributes.addFlashAttribute("message", message);
+						return "redirect:/admin/profile";
+					}
+				}
+			}
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/admin/staff";
+		}
+		@RequestMapping(value = "/thongtinveluot", method = RequestMethod.GET)
+		public ModelAndView thongTinVeLuot(@RequestParam("tuyen") int tuyen,
+				@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay) {
+				ModelAndView mav = new ModelAndView("admin/ticket-information");
+				List<TuyenXe> listTuyenXes=routeService.listAll();
+				mav.addObject("listTuyenXes", listTuyenXes);
+
+				List<ThongTinVeLuot> listThongTinVeLuots=ticketInformationService.thongTinVeTuyenNgay(tuyen, ngay);
+				mav.addObject("listThongTinVeLuots",listThongTinVeLuots);
+			
+				
+				return mav;
+		}
+	
 
 }
