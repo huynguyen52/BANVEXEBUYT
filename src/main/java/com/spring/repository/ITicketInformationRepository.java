@@ -1,5 +1,6 @@
 package com.spring.repository;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.Query;
@@ -27,5 +28,11 @@ public interface ITicketInformationRepository extends CrudRepository<ThongTinVeL
 
 	@Query(value = "from ThongTinVeLuot where maPhanCong = :maphancong and maGiaLuot = :magialuot")
 	public ThongTinVeLuot getByMaPhanCongAndMaGiaLuot(@Param("maphancong") int maPhanCong, @Param("magialuot") int maGiaLuot);
+
+	@Query(value = "from ThongTinVeLuot ttvl where maGiaLuot = :maGiaLuot")
+	public List<ThongTinVeLuot> checkDeleteGiaVeLuot(@Param("maGiaLuot") int maGiaLuot);
+	
+	@Query(value="select t from ThongTinVeLuot t,PhanCong p ,CTChuyen ct,ChuyenXe c where t.maPhanCong=p.idPhanCong and p.ngay=:ngay and p.idPhanCong=ct.idPhanCong and ct.idChuyen=c.id and c.maTuyen=:maTuyen")
+	public List<ThongTinVeLuot> thongTinVeTuyenNgay(@Param("maTuyen") int maTuyen,@Param("ngay") Date ngay);
 
 }

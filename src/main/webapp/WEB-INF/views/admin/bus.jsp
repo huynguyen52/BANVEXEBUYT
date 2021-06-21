@@ -53,12 +53,12 @@
 											</span>
 										</button> -->
 
-										<!-- <button data-toggle="modal" data-target="#deletebus"
+										<button data-toggle="modal" data-target="#deletebus"
 											class="btn btn-danger btn-sm deletebus">
 											<span data-toggle="tooltip" title="Delete!"> <i
 												class="fas fa-ban fa-spin"></i>
 											</span>
-										</button> --> 
+										</button> 
 										<input type="hidden" class="id" value="${xe.bienSoxe }" />
 									</td>
 								</tr>

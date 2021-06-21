@@ -11,20 +11,20 @@
 			<div class="col-3">
 				<div class="card profile text-center p-3"
 					style="background-color: #24344d;">
-					<p class="card-text text-left">User profile</p>
+					<p class="card-text text-left">Thông tin cá nhân</p>
 					<img style="width: 100px;"
 						class="card-img-top rounded mx-auto d-block mt-2"
-						src='<c:url value="/sources/admin/img/${sessionScope.taiKhoan.image }" />'
+						src='<c:url value="/sources/admin/img/${sessionScope.taiKhoan.image}" />'
 						alt="Card image cap">
-					<h4 style="font-size: 18px" class="mt-5">${account.nhanVien.hoTen }</h4>
+					<h4 style="font-size: 18px" class="mt-5">${account.nhanVien.hoTen}</h4>
 					<p class="card-text">${account.maRole }</p>
 					<div class="profile__body">
 						<p class="card-text">
-							<i class="fab fa-telegram-plane mr-2"></i>${account.nhanVien.email }</p>
-						<p class="card-text">
+							<i class="fab fa-telegram-plane mr-2"></i>${account.nhanVien.email}</p>
+<!-- 						<p class="card-text">
 							<i class="fas fa-map-marker-alt mr-2"></i>123 Line Street, New
 							Yorks
-						</p>
+						</p> -->
 					</div>
 					<div class="tbody">
 
@@ -36,10 +36,10 @@
 			</div>
 			<div class="col-7">
 				<div class="panel">
-					<form id="addStaffForm" modelAttribute="nhanvien" action="add-staff" method="post"
+					<form id="addStaffForm" modelAttribute="nhanvien" action="edit-profile" method="post"
 						class="form form--profile">
 						<div class="form-group">
-							<h4 class="form-heading">Staff form</h4>
+							<h4 class="form-heading">THAY ĐỔI THÔNG TIN CÁ NHÂN</h4>
 						</div>
 						<div class="form-row">
 							<div class="form-group col-md-6">

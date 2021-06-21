@@ -67,4 +67,7 @@ public class MonlyInformationDetailService {
 	public Integer idToMaGia(int id) {
 		return repo.idToMaGia(id);
 	}
+	public List<ThongTinVeThangDetail> checkDeleteGiaVeThang(int maGiaThang){
+		return repo.checkDeleteGiaVeThang(maGiaThang);
+	}
 }

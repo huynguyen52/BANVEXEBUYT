@@ -96,6 +96,14 @@ public class PhanCongService {
 	public PhanCong getByNgayAndMaNV(Date date, int maNhanVien) {
 		return repo.getByNgayAndMaNV(date, maNhanVien);
 	}
+	
+	public List<PhanCong> checkDeleteXe(String bienSoXe) {
+		return repo.checkDeleteXe(bienSoXe);
+	}
+	
+	public List<PhanCong> checkDeleteNhanVien(int maNhanVien) {
+		return repo.checkDeleteNhanVien(maNhanVien);
+	}
 
 	
 }

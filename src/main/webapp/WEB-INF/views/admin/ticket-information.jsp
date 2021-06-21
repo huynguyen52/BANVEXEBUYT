@@ -4,8 +4,13 @@
 <body>
 	<div class="container-fluid">
 
+		<!-- Current page- url -->
+		<%
+			session.setAttribute("current-url", (String) request.getAttribute("javax.servlet.forward.request_uri"));
+		%>
+
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">Tables</h1>
+		<h1 class="h3 mb-2 text-gray-800">Thông Tin Vé Lượt</h1>
 		<p class="mb-4">
 			DataTables is a third party plugin that is used to generate the demo
 			table below. For more information about DataTables, please visit the
@@ -16,56 +21,52 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<h6 class="m-0 font-weight-bold text-primary">DataTables
-					Example</h6>
+				<p class="m-0 text-primary">DataTables Example</p>
 			</div>
 			<div class="card-body">
+				<div class="row mb-4">
+
+					<div class="col-6">
+	
+						<form action="thongtinveluot" class="form d-flex">
+							<div class="form-row">
+								<div class="form-group col-md-6">
+									<input name="tuyen" list="routes" value="" type="text"
+										class="form-control form-input " placeholder="Nhập tuyến xe">
+									<datalist id="routes">
+										<c:forEach items="${listTuyenXes}" var="tuyen">
+											<option value=${tuyen.maTuyen }>${tuyen.tenTuyen}</option>
+										</c:forEach>
+									</datalist>
+								</div>
+								<div class="form-group col-md-6">
+									<input value="" name="ngay" type="date"
+										class="form-control form-input ">
+								</div>
+							</div>
+							<button style="height: 100%" type="submit" class="btn btn-violet">Submit</button>
+						</form>
+					</div>
+				</div>
 				<div class="table-responsive">
 					<table class="table table-bordered" id="dataTable" width="100%"
 						cellspacing="0">
 						<thead>
 							<tr>
-								<th>ID</th>
-								<th>Mã Phân Công</th>
-								<th>Mã Giá Lượt</th>
+								<th>Nhân viên</th>
+								<th>Giá vé Lượt</th>
 								<th>Số Lượng</th>
 								<th></th>
 								<th></th>
 							</tr>
 						</thead>
-						<tfoot>
-							<tr>
-								<th>ID</th>
-								<th>Mã Phân Công</th>
-								<th>Mã Giá Lượt</th>
-								<th>Số Lượng</th>
-								<th></th>
-								<th></th>
-							</tr>
-						</tfoot>
 						<tbody>
 							<c:forEach var="ttvl" items="${listThongTinVeLuots}">
 								<tr>
-									<td>${ttvl.id }</td>
-									<td>${ttvl.maPhanCong}</td>
-									<td>${ttvl.maGiaLuot}</td>
+									<td>${ttvl.phanCong.nhanVien.hoTen}</td>
+									<td>${ttvl.giaVeLuot.giaVeLuot}</td>
 									<td>${ttvl.soLuong}</td>
 									<td></td>
-									<%-- <td>
-										<button data-toggle="modal" data-target="#editThongTinVeLuot"
-											class="btn btn-info btn-sm edit">
-											<span data-toggle="tooltip" title="Edit!"> <i
-												class="fas fa-info"></i>
-											</span>
-										</button>
-
-										<button data-toggle="modal" data-target="#deleteThongTinVeLuot"
-											class="btn btn-danger btn-sm delete">
-											<span data-toggle="tooltip" title="Delete!"> <i
-												class="fas fa-ban fa-spin"></i>
-											</span>
-										</button> <input type="hidden" class="id" value="${ttvl.id }" />
-									</td> --%>
 								</tr>
 							</c:forEach>
 						</tbody>
