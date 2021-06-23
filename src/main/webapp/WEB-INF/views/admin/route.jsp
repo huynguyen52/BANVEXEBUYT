@@ -18,6 +18,23 @@
 				DataTables documentation</a>.
 		</p>
 
+		<div class="card shadow mb-4">
+			<div class="card-header"></div>
+			<div class="card-body">
+				<div class="row">
+					<c:forEach var="tuyen" items="${listTuyenXes }">
+						<div class="col-3 mb-3">
+							<a href="route-detail?tuyen=${tuyen.maTuyen }" class="box"> <span
+								class="box__header">${tuyen.maTuyen }</span>
+								<p class="box__content">${tuyen.mocTuyen1 }-
+									${tuyen.mocTuyen2 }</p>
+							</a>
+						</div>
+					</c:forEach>
+				</div>
+			</div>
+		</div>
+
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
@@ -93,20 +110,7 @@
 			</div>
 		</div>
 
-		<div class="card shadow mb-4">
-			<div class="card-header"></div>
-			<div class="card-body">
-				<div class="row">
-					<c:forEach var="tuyen" items="${listTuyenXes }">
-						<div class="col-3 mb-3">
-							<a href="route-detail?tuyen=${tuyen.maTuyen }" class="box"> <span class="box__header">${tuyen.maTuyen }</span>
-								<p class="box__content">${tuyen.mocTuyen1 } - ${tuyen.mocTuyen2 }</p>
-							</a>
-						</div>
-					</c:forEach>
-				</div>
-			</div>
-		</div>
+
 
 	</div>
 </body>

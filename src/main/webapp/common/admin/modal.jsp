@@ -691,6 +691,34 @@
 </div>
 
 
+<!-- edit image profile modal -->
+<div class="modal fade" id="editImage" role="dialog">
+	<div class="modal-dialog">
+		<form id="editImageForm" method="post" enctype="multipart/form-data"
+			action="update-image" class="form modal-content">
+			<div class="form-title modal-header">
+				<h4 class="modal-title">New Image</h4>
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+			</div>
+			<div class="form-content modal-body">
+				<input hidden="" name="id" type="text" value="${account.maTaiKhoan }"
+					class="form-control form-input">
+				<div class="custom-file">
+					<input name="image" type="file" id="validatedCustomFile3"
+						class="custom-file-input"> <label
+						class="custom-file-label" for="validatedCustomFile3">Choose
+						file...</label> <span class="error-message"></span>
+				</div>
+			</div>
+			<div class="form--footer modal-footer">
+				<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
+				<button type="Gửi" class="btn btn-success">Submit</button>
+			</div>
+		</form>
+	</div>
+</div>
+
+
 
 <!-- edit account -->
 <div class="modal fade" id="editaccount" role="dialog">
@@ -1009,14 +1037,16 @@
 						placeholder="Ngày phân công"> <span class="error-message"></span>
 				</div>
 				<div class="form-group">
-					<label for="">Chuyến</label> <input list="chuyensbytuyen" name="chuyen" type="text"
-						value="" class="form-control form-input chuyen"
-						placeholder="Chuyến"> <span class="error-message"></span>
+					<label for="">Chuyến</label> <input list="chuyensbytuyen"
+						name="chuyen" type="text" value=""
+						class="form-control form-input chuyen" placeholder="Chuyến">
+					<span class="error-message"></span>
 					<datalist id="chuyensbytuyen">
-					<c:set var="index" value="${1 }"/>
+						<c:set var="index" value="${1 }" />
 						<c:forEach var="chuyen" items="${listChuyenXeByMaTuyens}">
-							<option value="${chuyen.id }">Chuyến ${index } - ${chuyen.gioXuatPhat } : ${chuyen.gioKetThuc }</option>
-							<c:set var = "index" value="${index + 1}"/>
+							<option value="${chuyen.id }">Chuyến ${index } -
+								${chuyen.gioXuatPhat } : ${chuyen.gioKetThuc }</option>
+							<c:set var="index" value="${index + 1}" />
 						</c:forEach>
 					</datalist>
 				</div>

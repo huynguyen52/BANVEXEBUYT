@@ -27,27 +27,35 @@ public class NhanVien {
 	private Date namSinh;
 	private String soDienThoai;
 	private String email;
+	private String diaChi;
+
+	public String getDiaChi() {
+		return diaChi;
+	}
+
+	public void setDiaChi(String diaChi) {
+		this.diaChi = diaChi;
+	}
 
 	public String getEmail() {
 		return email;
 	}
 
-	//nhan vien- PhanCong
+	// nhan vien- PhanCong
 	@JsonIgnore
-	@OneToMany(mappedBy = "nhanVien",fetch = FetchType.EAGER)
-	@Fetch(value=FetchMode.SUBSELECT)
+	@OneToMany(mappedBy = "nhanVien", fetch = FetchType.EAGER)
+	@Fetch(value = FetchMode.SUBSELECT)
 	private List<PhanCong> listCTChuyens;
-	
+
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 	private boolean gioiTinh;
 
 	public NhanVien() {
 	}
-	
+
 	public int getMaNhanVien() {
 		return maNhanVien;
 	}
@@ -107,5 +115,5 @@ public class NhanVien {
 		this.listCTChuyens = listCTChuyens;
 		this.gioiTinh = gioiTinh;
 	}
-	
+
 }

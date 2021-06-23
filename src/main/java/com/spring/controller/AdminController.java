@@ -165,7 +165,6 @@ public class AdminController {
 		return listIds;
 	}
 
-
 	public int getListMaVeThang(int id) {
 		List<ThongTinVeThangDetail> listThongTinVeThangDetails = monthlyInformationDetailService.listAll();
 		for (int i = 0; i < listThongTinVeThangDetails.size(); i++) {
@@ -286,8 +285,6 @@ public class AdminController {
 	@RequestMapping(value = "/dashboard-veluot")
 	public @ResponseBody List<QLVe> filter(@RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateFrom,
 			@RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date dateTo) throws ParseException {
-
-
 
 		List<Integer> listMaTuyenXes = tripService.listTuyenXes(dateFrom, dateTo);
 		List<Date> listNgays = phanCongService.getListDays(dateFrom, dateTo);
@@ -439,6 +436,37 @@ public class AdminController {
 		catch (NoSuchAlgorithmException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	// update image in profile
+	@RequestMapping(value = "update-image", method = RequestMethod.POST)
+	public String updateImage(@RequestParam("id") Integer maTaiKhoan,
+			@RequestParam(value = "image", required = false) CommonsMultipartFile image, HttpSession s,
+			RedirectAttributes redirectAttributes) {
+		TaiKhoan taiKhoan = accountService.get(maTaiKhoan);
+
+		if (image.getOriginalFilename() == "") {
+			taiKhoan.setImage("undraw_profile.svg");
+		} else {
+			byte[] data = image.getBytes();
+			String nameImage = String.valueOf(new Date().getTime()) + "-" + image.getOriginalFilename();
+			String path = s.getServletContext().getRealPath("/") + "sources" + File.separator + "admin" + File.separator
+					+ "img" + File.separator + nameImage;
+			System.out.println(path);
+			try {
+				FileOutputStream fos = new FileOutputStream(path);
+				fos.write(data);
+				fos.close();
+				taiKhoan.setImage(nameImage);
+				accountService.save(taiKhoan);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return "redirect:/admin/profile";
 	}
 
 	@RequestMapping(value = "add-account", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
@@ -751,7 +779,7 @@ public class AdminController {
 				modeService.save(cheDo);
 				message = "success";
 			} catch (Exception e) {
-				
+
 				message = "error";
 			}
 		}
@@ -776,7 +804,7 @@ public class AdminController {
 			modeService.delete(maMode);
 			message = "success";
 		} catch (Exception e) {
-		
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -792,7 +820,7 @@ public class AdminController {
 			modeService.save(cheDo);
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -947,7 +975,6 @@ public class AdminController {
 		} else {
 
 			Date ngayHetHan = getLastDayOfMonth(ngayMua);
-
 			String message;
 			HttpSession session = request.getSession();
 			TaiKhoan tkSession = (TaiKhoan) session.getAttribute("taiKhoan");
@@ -970,7 +997,6 @@ public class AdminController {
 				thongTinVeThangDetail.setAddNewBy(tkSession.getMaTaiKhoan());
 				thongTinVeThangDetail.setAddNewDate(ngayMua);
 				monthlyInformationDetailService.save(thongTinVeThangDetail);
-
 				message = "success";
 			} catch (Exception e) {
 				message = "error";
@@ -1044,7 +1070,7 @@ public class AdminController {
 				monthlyInformationDetailService.save(thongTinVeThangDetail);
 				message = "success";
 			} catch (Exception e) {
-				
+
 				message = "error";
 			}
 		}
@@ -1126,7 +1152,7 @@ public class AdminController {
 				message = "success";
 
 			} catch (Exception e) {
-			
+
 				message = "error";
 			}
 		}
@@ -1151,7 +1177,7 @@ public class AdminController {
 			roleService.delete(maRole);
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1166,7 +1192,7 @@ public class AdminController {
 			roleService.save(role);
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1211,7 +1237,7 @@ public class AdminController {
 			routeService.save(tuyenXe);
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1235,7 +1261,7 @@ public class AdminController {
 			autoCreateTimeTable(tuyenXe.getMaTuyen());
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 
@@ -1251,7 +1277,7 @@ public class AdminController {
 			routeService.delete(maTuyen);
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1330,7 +1356,7 @@ public class AdminController {
 				staffService.save(nhanVien);
 				message = "success";
 			} catch (Exception e) {
-				
+
 				message = "error";
 			}
 		}
@@ -1373,7 +1399,7 @@ public class AdminController {
 						staffService.save(nhanVien);
 						message = "success";
 					} catch (Exception e) {
-						
+
 						message = "error";
 					}
 					redirectAttributes.addFlashAttribute("message", message);
@@ -1401,7 +1427,7 @@ public class AdminController {
 			staffService.delete(maNhanVien);
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1466,7 +1492,7 @@ public class AdminController {
 				message = "success";
 
 			} catch (Exception e) {
-				
+
 				message = "error";
 			}
 		}
@@ -1490,7 +1516,7 @@ public class AdminController {
 				message = "success";
 
 			} catch (Exception e) {
-				
+
 				message = "error";
 			}
 		}
@@ -1524,7 +1550,7 @@ public class AdminController {
 			ticketPriceService.delete(maGia);
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1547,7 +1573,7 @@ public class AdminController {
 				ticketPriceService.save(giaVeLuot);
 				message = "success";
 			} catch (Exception e) {
-				
+
 				message = "error";
 			}
 		}
@@ -1582,7 +1608,7 @@ public class AdminController {
 				monthlyTicketPriceService.save(giaVeThang);
 				message = "success";
 			} catch (Exception e) {
-				
+
 				message = "error";
 			}
 		}
@@ -1607,7 +1633,7 @@ public class AdminController {
 			monthlyTicketPriceService.delete(maGia);
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1676,7 +1702,7 @@ public class AdminController {
 			tripService.save(chuyenXe);
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -1711,8 +1737,6 @@ public class AdminController {
 
 		List<Xe> listXes = busService.listAll();
 
-
-
 		mav.addObject("listTuyenXes", listTuyenXes);
 
 		mav.addObject("listXes", listXes);
@@ -1722,13 +1746,13 @@ public class AdminController {
 		mav.addObject("active", "assign");
 		return mav;
 	}
-	
-	//Chi tiết phân công xe và nhân viên theo ngày
+
+	// Chi tiết phân công xe và nhân viên theo ngày
 	@RequestMapping(value = "/assign-detail")
 	public ModelAndView assignDetailPage() {
 		ModelAndView mav = new ModelAndView("admin/assign-detail");
 		List<PhanCong> listPhanCongs = phanCongService.listAll();
-		
+
 		mav.addObject("listPhanCongs", listPhanCongs);
 		mav.addObject("active", "assignDetail");
 		return mav;
@@ -1745,7 +1769,6 @@ public class AdminController {
 		}
 		return false;
 	}
-
 
 	// Vu
 	// check Chuyen ton tai
@@ -1842,7 +1865,6 @@ public class AdminController {
 		mav.addObject("active", "assign");
 		return mav;
 	}
-	
 
 	// Vu
 	// add a new assignment
@@ -1866,7 +1888,7 @@ public class AdminController {
 			dayStr = "0" + day;
 		}
 		String ngayStr = year + "-" + monthStr + "-" + dayStr;
-		if(checkDate(ngay)) {
+		if (checkDate(ngay)) {
 			message = "error";
 			redirectAttributes.addFlashAttribute("message", message);
 			return "redirect:/admin/loctuyen?tuyen=" + tuyen + "&ngay=" + ngayStr;
@@ -1892,7 +1914,7 @@ public class AdminController {
 						detailTripService.save(ctChuyen);
 						message = "success";
 					} catch (Exception e) {
-						
+
 						message = "error";
 					}
 
@@ -1908,12 +1930,12 @@ public class AdminController {
 							ticketInformationService.save(thongTinVeLuot);
 							message = "success";
 						} catch (Exception e) {
-							
+
 							message = "error";
 						}
 					}
 				} catch (Exception e) {
-					
+
 					message = "error";
 
 				}
@@ -1959,7 +1981,7 @@ public class AdminController {
 					detailTripService.save(ctChuyen);
 					message = "success";
 				} catch (Exception e) {
-					
+
 					message = "error";
 				}
 
@@ -2008,7 +2030,7 @@ public class AdminController {
 			;
 			message = "success";
 		} catch (Exception e) {
-			
+
 			message = "error";
 		}
 		redirectAttributes.addFlashAttribute("message", message);
@@ -2065,7 +2087,7 @@ public class AdminController {
 					mav.addObject("listThongTinVeLuots", listThongTinVeLuots);
 					mav.addObject("tab", "luot");
 				} catch (ParseException e) {
-					
+
 					e.printStackTrace();
 				}
 			} else if (kind.equals("thang")) {
@@ -2084,7 +2106,7 @@ public class AdminController {
 					mav.addObject("tab", "thang");
 
 				} catch (ParseException e) {
-				
+
 					e.printStackTrace();
 				}
 
@@ -2129,7 +2151,7 @@ public class AdminController {
 					mav.addObject("fromDate", fromDateStr2);
 					mav.addObject("toDate", toDateStr2);
 				} catch (ParseException e) {
-					
+
 					e.printStackTrace();
 				}
 
@@ -2147,7 +2169,7 @@ public class AdminController {
 					mav.addObject("fromDate", fromDateStr2);
 					mav.addObject("toDate", toDateStr2);
 				} catch (ParseException e) {
-					
+
 					e.printStackTrace();
 				}
 			}
@@ -2179,10 +2201,10 @@ public class AdminController {
 			Date currentDate = new Date();
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(currentDate);
-			//int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
+			// int dayOfWeek = cal.get(Calendar.DAY_OF_WEEK) - 1;
 
-			//Date dateStart = new Date(currentDate.getTime() - dayOfWeek * ONE_DAY);
-			//Date dateEnd = new Date(dateStart.getTime() + 6 * ONE_DAY);
+			// Date dateStart = new Date(currentDate.getTime() - dayOfWeek * ONE_DAY);
+			// Date dateEnd = new Date(dateStart.getTime() + 6 * ONE_DAY);
 			listThongTinVeLuots = ticketInformationService.listAll();
 			data.put("data", listThongTinVeLuots);
 		} else {
@@ -2255,7 +2277,25 @@ public class AdminController {
 		ModelAndView mav = new ModelAndView("admin/profile");
 		TaiKhoan accountSession = (TaiKhoan) session.getAttribute("taiKhoan");
 		TaiKhoan account = accountService.get(accountSession.getMaTaiKhoan());
+
+		// convert date to dateStr format(yyyy-MM-dd)
+		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
+		cal.setTime(account.getNhanVien().getNamSinh());
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+		String monthStr = String.valueOf(month);
+		String dayStr = String.valueOf(day);
+		if (month < 10) {
+			monthStr = "0" + month;
+		}
+		if (day < 10) {
+			dayStr = "0" + day;
+		}
+		String ngayStr = year + "-" + monthStr + "-" + dayStr;
+
 		mav.addObject("account", account);
+		mav.addObject("ngaySinhStr", ngayStr);
 		return mav;
 	}
 
@@ -2274,58 +2314,28 @@ public class AdminController {
 		mav.addObject("active", "seller");
 		return mav;
 	}
-	
-	// update a profile after edit
-		@RequestMapping(value = "/edit-profile", method = RequestMethod.POST)
-		public String saveProfile(@ModelAttribute("nhanVien") NhanVien nhanVien,HttpServletRequest request,
-				RedirectAttributes redirectAttributes) {
-			String message = "";
-			HttpSession sessionHttp = request.getSession();
-			TaiKhoan tk=(TaiKhoan)sessionHttp.getAttribute("taiKhoan");
-			List<NhanVien> staff = staffService.listAll();
-			for (int i = 0; i < staff.size(); i++) {
-				if (nhanVien.getMaNhanVien() == staff.get(i).getMaNhanVien()) {
-					continue;
-				} else {
-					if (checkEmail(nhanVien.getEmail(), nhanVien.getMaNhanVien())
-							|| checkSDT(nhanVien.getSoDienThoai(), nhanVien.getMaNhanVien())) {
-						message = "error";
-						redirectAttributes.addFlashAttribute("message", message);
-						return "redirect:/admin/staff";
-					} else {
-						try {
-							nhanVien.setMaNhanVien(tk.getMaNhanVien());
-							staffService.save(nhanVien);
-							TaiKhoan tkTemp = (TaiKhoan) sessionHttp.getAttribute("taiKhoan");
-							int t=tkTemp.getMaTaiKhoan();
-							TaiKhoan tkMoi = accountService.getTaiKhoan(t);
-							sessionHttp.removeAttribute("taiKhoan");
-							sessionHttp.setAttribute("taiKhoan", tkMoi);
-							message = "success";
-						} catch (Exception e) {
-							message = "error";
-						}
-						redirectAttributes.addFlashAttribute("message", message);
-						return "redirect:/admin/profile";
-					}
-				}
-			}
-			redirectAttributes.addFlashAttribute("message", message);
-			return "redirect:/admin/staff";
-		}
-		@RequestMapping(value = "/thongtinveluot", method = RequestMethod.GET)
-		public ModelAndView thongTinVeLuot(@RequestParam("tuyen") int tuyen,
-				@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay) {
-				ModelAndView mav = new ModelAndView("admin/ticket-information");
-				List<TuyenXe> listTuyenXes=routeService.listAll();
-				mav.addObject("listTuyenXes", listTuyenXes);
 
-				List<ThongTinVeLuot> listThongTinVeLuots=ticketInformationService.thongTinVeTuyenNgay(tuyen, ngay);
-				mav.addObject("listThongTinVeLuots",listThongTinVeLuots);
-			
-				
-				return mav;
-		}
-	
+	// update a profile after edit
+	@RequestMapping(value = "/edit-profile", method = RequestMethod.POST)
+	public String saveProfile(@ModelAttribute("nhanVien") NhanVien nhanVien, HttpServletRequest request,
+			RedirectAttributes redirectAttributes) {
+		String message = "success";
+		staffService.save(nhanVien);
+		redirectAttributes.addFlashAttribute("message", message);
+		return "redirect:/admin/profile";
+	}
+
+	@RequestMapping(value = "/thongtinveluot", method = RequestMethod.GET)
+	public ModelAndView thongTinVeLuot(@RequestParam("tuyen") int tuyen,
+			@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay) {
+		ModelAndView mav = new ModelAndView("admin/ticket-information");
+		List<TuyenXe> listTuyenXes = routeService.listAll();
+		mav.addObject("listTuyenXes", listTuyenXes);
+
+		List<ThongTinVeLuot> listThongTinVeLuots = ticketInformationService.thongTinVeTuyenNgay(tuyen, ngay);
+		mav.addObject("listThongTinVeLuots", listThongTinVeLuots);
+
+		return mav;
+	}
 
 }

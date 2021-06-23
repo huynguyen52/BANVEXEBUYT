@@ -48,11 +48,12 @@
 						</form> -->
 
 						<!-- Vu -->
-						<form action="loctuyen" class="form d-flex">
+						<form id="loctuyenForm" action="loctuyen" class="form d-flex">
 							<div class="form-row">
 								<div class="form-group col-md-6">
 									<input name="tuyen" list="routes" value="" type="text"
-										class="form-control form-input " placeholder="Nhập tuyến xe">
+										class="form-control form-input tuyen" placeholder="Nhập tuyến xe">
+										<span class="error-message"></span>
 									<datalist id="routes">
 										<c:forEach items="${listTuyenXes}" var="tuyen">
 											<option value=${tuyen.maTuyen }>${tuyen.tenTuyen }</option>
@@ -61,7 +62,8 @@
 								</div>
 								<div class="form-group col-md-6">
 									<input value="" name="ngay" type="date"
-										class="form-control form-input ">
+										class="form-control form-input ngay">
+										<span class="error-message"></span>
 								</div>
 							</div>
 							<button style="height: 100%" type="submit" class="btn btn-violet">Submit</button>
