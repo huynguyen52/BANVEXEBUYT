@@ -259,4 +259,15 @@
 				]
 	});
 	
+	//lọc tuyến form
+	Validator({
+		form : '#loctuyenForm',
+		formGroupSelector : '.form-group',
+		errorSelector : '.error-message',
+		rules : [ 
+					Validator.isRequired('.tuyen'),
+					Validator.isRequired('.ngay')
+				]
+	});
+	
 </script>

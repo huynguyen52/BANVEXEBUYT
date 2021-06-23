@@ -475,6 +475,29 @@ a:hover {
 	font-size: 16px;
 }
 
+.profile .profile__img-box{
+	position: relative;
+	border-radius: 50%;
+	width: 100px;
+	margin: auto;
+}
+
+.profile .profile__img-box span{
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	background-color: #3a3b3c;
+	border-radius: 50%;
+	color: #e4e6ea;
+	padding: 4px 8px;
+	cursor: pointer;
+	transition: 0.1s;
+}
+
+.profile .profile__img-box span:hover{
+	opacity: 0.8;
+}
+
 .profile__body {
 	padding: 16px 0;
 	border-top: 1px solid #324462;
