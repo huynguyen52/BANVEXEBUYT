@@ -28,4 +28,6 @@ public interface ITripRepository extends CrudRepository<ChuyenXe, Integer>{
 	public List<Integer> listMaTuyen(@Param("fromDate") Date fromDate,@Param("toDate") Date toDate);
 	@Query(value="select c.maTuyen from ChuyenXe c where c.id=:idChuyen")
 	public Integer getMaTuyens(@Param("idChuyen") Integer idChuyen);
+	@Query(value = "from ChuyenXe cx where maTuyen = :maTuyen")
+	public List<ChuyenXe> checkDeleteTuyenXe(@Param("maTuyen") int maTuyen);
 }

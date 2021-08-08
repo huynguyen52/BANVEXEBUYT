@@ -48,4 +48,7 @@ public class TripService {
 	public Integer getMaTuyens(Integer idChuyen) {
 		return repo.getMaTuyens(idChuyen);
 	}
+	public List<ChuyenXe> checkDeleteTuyenXe(int maTuyen){
+		return repo.checkDeleteTuyenXe(maTuyen);
+	}
 }

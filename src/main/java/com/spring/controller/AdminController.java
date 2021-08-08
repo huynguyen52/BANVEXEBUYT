@@ -1272,7 +1272,31 @@ public class AdminController {
 	// delete a route
 	@RequestMapping(value = "delete-route", method = RequestMethod.POST)
 	public String deleteRoute(@RequestParam("maTuyen") int maTuyen, RedirectAttributes redirectAttributes) {
-		String message;
+		String message = "";
+		List<ChuyenXe> lcx = tripService.checkDeleteTuyenXe(maTuyen);
+		for (int i = 0; i < lcx.size(); i++) {
+			System.out.println("Check chuyen: " + lcx.get(i).getId());
+			List<CTChuyen> lctc = detailTripService.checkDeleteChuyenXe(lcx.get(i).getId());
+			if (lctc.size() != 0) {
+				System.out.println("Chuyen "+lcx.get(i).getId()+" dang hoat dong khong the xoa!");
+				message = "error";
+				redirectAttributes.addFlashAttribute("message", message);
+				return "redirect:/admin/route";
+			}
+		}
+		System.out.println("Tuyen "+maTuyen+" khong co chuyen nao hoat dong! dang xoa cac chuyen!");
+		System.out.println("==================================Xoa==========================================");
+		for (int i = 0; i < lcx.size(); i++) {
+			System.out.println("Xoa chuyen: " + lcx.get(i).getId());
+			try {
+				tripService.delete(lcx.get(i).getId());
+				message = "success";
+			} catch (Exception e) {
+				message = "error";
+			}
+		}
+		redirectAttributes.addFlashAttribute("message", message);
+		System.out.println("Dang xoa tuyen "+maTuyen);
 		try {
 			routeService.delete(maTuyen);
 			message = "success";
@@ -1280,8 +1304,10 @@ public class AdminController {
 
 			message = "error";
 		}
+		System.out.println("Xoa thanh cong tuyen "+maTuyen+" !!!");
 		redirectAttributes.addFlashAttribute("message", message);
 		redirectAttributes.addFlashAttribute("active", "route");
+		List<TuyenXe> listTuyenXes = routeService.listAll();
 		return "redirect:/admin/route";
 	}
 
@@ -1711,20 +1737,20 @@ public class AdminController {
 	}
 
 	// delete a trip
-	@RequestMapping(value = "delete-trip", method = RequestMethod.POST)
-	public String deleteTrip(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
-		String message;
-		System.out.println("id xoas:" + id);
-		try {
-			tripService.delete(id);
-			message = "success";
-		} catch (Exception e) {
-			message = "error";
-		}
-		redirectAttributes.addFlashAttribute("message", message);
-		redirectAttributes.addFlashAttribute("active", "route");
-		return "redirect:/admin/trip";
-	}
+//	@RequestMapping(value = "delete-trip", method = RequestMethod.POST)
+//	public String deleteTrip(@RequestParam("id") Integer id, RedirectAttributes redirectAttributes) {
+//		String message;
+//		System.out.println("id xoas:" + id);
+//		try {
+//			tripService.delete(id);
+//			message = "success";
+//		} catch (Exception e) {
+//			message = "error";
+//		}
+//		redirectAttributes.addFlashAttribute("message", message);
+//		redirectAttributes.addFlashAttribute("active", "route");
+//		return "redirect:/admin/trip";
+//	}
 
 	// Phân công
 	@RequestMapping(value = "/assign", method = RequestMethod.GET)

@@ -16,5 +16,6 @@ public interface IDetailTrip extends CrudRepository<CTChuyen, Serializable> {
 	//Vu
 	@Query(value = "from CTChuyen where idChuyen=:idChuyen and idPhanCong=:idPhanCong")
 	public CTChuyen getByIDChuyenIDPhanCong(@Param("idChuyen") int idChuyen, @Param("idPhanCong") int idPhanCong);
-
+	@Query(value = "from CTChuyen ctc where idChuyen = :idChuyen")
+	public List<CTChuyen> checkDeleteChuyenXe(@Param("idChuyen") int idChuyen);
 }
