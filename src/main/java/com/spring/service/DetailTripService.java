@@ -37,4 +37,7 @@ public class DetailTripService {
 	public CTChuyen getByIDChuyenIDPhanCong(int idChuyen, int idPhanCong) {
 		return repo.getByIDChuyenIDPhanCong(idChuyen, idPhanCong);
 	}
+	public List<CTChuyen> checkDeleteChuyenXe(int idChuyen){
+		return repo.checkDeleteChuyenXe(idChuyen);
+	}
 }

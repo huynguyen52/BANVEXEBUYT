@@ -93,12 +93,12 @@
 											<span data-toggle="tooltip" title="Edit!"> <i
 												class="fas fa-info"></i>
 											</span>
-										</button> <!-- <button data-toggle="modal" data-target="#deleteroute"
+										</button> <button data-toggle="modal" data-target="#deleteroute"
 											class="btn btn-danger btn-sm delete">
 											<span data-toggle="tooltip" title="Delete!"> <i
 												class="fas fa-ban "></i>
 											</span>
-										</button> --> <input type="hidden" class="id"
+										</button> <input type="hidden" class="id"
 										value="${tuyen.maTuyen}" />
 									</td>
 								</tr>
