@@ -21,7 +21,7 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<p class="m-0 text-primary">DataTables Example</p>
+				<p class="m-0 text-primary">Bảng Dữ Liệu</p>
 			</div>
 			<div class="card-body">
 				<div class="table-responsive">

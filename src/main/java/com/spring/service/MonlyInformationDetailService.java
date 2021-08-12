@@ -16,7 +16,7 @@ public class MonlyInformationDetailService {
 	private IMonthlyInformationDetailRepository repo;
 	
 	public List<ThongTinVeThangDetail> listAll() {
-		return (List<ThongTinVeThangDetail>) repo.findAll();
+		return (List<ThongTinVeThangDetail>) repo.listAll();
 	}
 	
 	public void delete(Integer id) {

@@ -7,7 +7,7 @@
 		<!-- Page Heading -->
 		<div class="row">
 			<div class="col-3">
-				<h1 class="h3 mb-2 text-gray-800">Dashboard</h1>
+				<h1 class="h3 mb-2 text-gray-800">Thống Kê</h1>
 			</div>
 			<div class="col-5">
 				<div class="form-search">
@@ -79,7 +79,7 @@
 		</div>
 
 		<div class="row">
-			<div class="col-xl-8 col-lg-8">
+			<div class="col-xl-12 col-lg-12">
 				<!-- DataTales Example -->
 				<div class="card shadow mb-4">
 					<div class="row">
@@ -153,13 +153,13 @@
 			</div>
 
 			<!-- Donut Chart -->
-			<div class="col-xl-4 col-lg-4">
+			<!-- <div class="col-xl-4 col-lg-4">
 				<div class="card shadow mb-4">
-					<!-- Card Header - Dropdown -->
+					Card Header - Dropdown
 					<div class="card-header py-3">
 						<h6 class="m-0 font-weight-bold text-primary">Donut Chart</h6>
 					</div>
-					<!-- Card Body -->
+					Card Body
 					<div class="card-body">
 						<div class="chart-pie pt-4">
 							<canvas id="myPieChart"></canvas>
@@ -168,7 +168,7 @@
 						Số lượng vé tháng, vé thường, vé ưu tiên trong tháng
 					</div>
 				</div>
-			</div>
+			</div> -->
 
 		</div>
 

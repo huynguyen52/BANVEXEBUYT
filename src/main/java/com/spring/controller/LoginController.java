@@ -108,22 +108,21 @@ public class LoginController {
 	
 	//random password
 	public String randomPass() {
-		// create a string of all characters
-	    String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
-	    // create random string builder
+	    String alphabet = "123456789!@#$%^&*ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+	
 	    StringBuilder sb = new StringBuilder();
-	    // create an object of Random class
+	
 	    Random random = new Random();
-	    // specify length of random string
+	
 	    int length = 7;
 	    for(int i = 0; i < length; i++) {
-	      // generate random index number
+	
 	      int index = random.nextInt(alphabet.length());
-	      // get character specified by index
-	      // from the string
+
 	      char randomChar = alphabet.charAt(index);
-	      // append the character to string builder
+
 	      sb.append(randomChar);
 	    }
 	    String randomString = sb.toString();
@@ -154,18 +153,19 @@ public class LoginController {
 				//message.setText("Mật Khẩu là: " + returnPass(email));
 				message.setText("Mật Khẩu mới của bạn là: " + random);
 				mailSender.send(message);
-				redirectAttributes.addFlashAttribute("message", "Gửi thành công");
+				redirectAttributes.addFlashAttribute("message", "success");
 				System.out.println("Mail success");
 			} catch (Exception ex) {
 				
-				redirectAttributes.addFlashAttribute("message", "Gửi thất bại");
+				redirectAttributes.addFlashAttribute("message", "error");
 				System.out.println("Mail fail");
 			}
 		} else {
+			redirectAttributes.addFlashAttribute("message", "error");
 			System.out.println("Mail kh ton tai");
 		}
 
-		return "admin/forgot-password";
+		return "redirect:/forgot-password.html";
 	}
 
 	@RequestMapping(value = "/forgot-password", method = RequestMethod.GET)

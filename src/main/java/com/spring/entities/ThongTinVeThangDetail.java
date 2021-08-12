@@ -45,7 +45,7 @@ public class ThongTinVeThangDetail {
 	@JsonBackReference
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "addNewBy", insertable = false, updatable = false)
-	private TaiKhoan taiKhoan;
+	private NhanVien taiKhoan;
 
 	public int getId() {
 		return id;
@@ -123,11 +123,11 @@ public class ThongTinVeThangDetail {
 		this.addNewDate = addNewDate;
 	}
 
-	public TaiKhoan getTaiKhoan() {
+	public NhanVien getTaiKhoan() {
 		return taiKhoan;
 	}
 
-	public void setTaiKhoan(TaiKhoan taiKhoan) {
+	public void setTaiKhoan(NhanVien taiKhoan) {
 		this.taiKhoan = taiKhoan;
 	}
 

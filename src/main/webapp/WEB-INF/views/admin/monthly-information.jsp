@@ -10,7 +10,7 @@
 		%>
 
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">Data Tickets</h1>
+		<h1 class="h3 mb-2 text-gray-800">Dữ Liệu Vé</h1>
 		<p class="mb-4">
 			DataTables is a third party plugin that is used to generate the demo
 			table below. For more information about DataTables, please visit the
@@ -21,13 +21,13 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<p class="m-0 text-primary">DataTables Example</p>
+				<p class="m-0 text-primary">Bảng Dữ Liệu</p>
 			</div>
 			<div class="card-body">
 				<div class="row mb-4">
 					<div class="col-6 d-flex justify-content-start align-items-center">
 						<button data-toggle="modal" data-target="#newMonthTicket"
-							class="btn btn-success new">Add new ticket</button>
+							class="btn btn-success new">Thêm Mới 1 Vé</button>
 					</div>
 				</div>
 				<div class="table-responsive">

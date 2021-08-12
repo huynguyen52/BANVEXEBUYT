@@ -10,7 +10,7 @@
 		%>
 
 		<!-- Page Heading -->
-		<h1 class="h3 mb-2 text-gray-800">Assignment</h1>
+		<h1 class="h3 mb-2 text-gray-800">Phân Công Lịch Làm Việc</h1>
 		<p class="mb-4">
 			DataTables is a third party plugin that is used to generate the demo
 			table below. For more information about DataTables, please visit the
@@ -21,7 +21,7 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<p class="m-0 text-primary">DataTables Example</p>
+				<p class="m-0 text-primary">Bảng Dữ Liệu</p>
 			</div>
 			<div class="card-body">
 				<div class="row mb-4">
@@ -66,7 +66,7 @@
 										<span class="error-message"></span>
 								</div>
 							</div>
-							<button style="height: 100%" type="submit" class="btn btn-violet">Submit</button>
+							<button style="height: 100%" type="submit" class="btn btn-violet">Xác nhận</button>
 						</form>
 					</div>
 					<div class="col-3">
@@ -76,7 +76,7 @@
 						<!-- Vu -->
 						<c:if test="${ngay!=null }">
 							<button data-toggle="modal" data-target="#addCTChuyenXe"
-								class="btn btn-success add">New assignment</button>
+								class="btn btn-success add">Phân Công Mới</button>
 						</c:if>
 					</div>
 				</div>

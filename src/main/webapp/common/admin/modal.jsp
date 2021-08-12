@@ -7,16 +7,15 @@
 	<div class="modal-dialog" role="document">
 		<div class="modal-content">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">Ready to leave?</h4>
+				<h4 class="modal-title">Sẵn sàng để rời đi?</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="modal-body">
-				<p class="modal-body__desc">Select "Logout" below if you are
-					ready to end your current session.</p>
+				<p class="modal-body__desc">Chọn "Đăng Xuất" bên dưới nếu bạn sẵn sàng để kết thúc phiên làm việc</p>
 			</div>
 			<div class="modal-footer">
 				<button class="btn btn-default" type="button" data-dismiss="modal">Hủy</button>
-				<a class="btn btn-warning" href="logout">Logout</a>
+				<a class="btn btn-warning" href="logout">Đăng Xuất</a>
 			</div>
 		</div>
 	</div>
@@ -28,7 +27,7 @@
 		<form id="editRouteForm" method="post" action="update-route"
 			class="form modal-content" modelAttribute="tuyenxe">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">Edit Route</h4>
+				<h4 class="modal-title">Chỉnh Sửa Tuyến Xe</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -97,7 +96,7 @@
 		<form id="addRouteForm" method="post" action="add-route"
 			class="form modal-content" modelAttribute="tuyenxe">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">New route</h4>
+				<h4 class="modal-title">Tuyến Xe Mới</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -180,7 +179,7 @@
 		<form id="addTripForm" method="post" action="add-trip"
 			class="form modal-content" modelAttribute="chuyenxe">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">New trip</h4>
+				<h4 class="modal-title">Chuyến Xe Mới</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -224,7 +223,7 @@
 		<form id="editTripForm" method="post" action="update-trip"
 			class="form modal-content" modelAttribute="chuyenxe">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">Edit trip</h4>
+				<h4 class="modal-title">Chỉnh Sửa Chuyến Xe</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -287,7 +286,7 @@
 		<form id="addRoleForm" method="post" action="add-role"
 			class="form modal-content" modelAttribute="role">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">New role</h4>
+				<h4 class="modal-title">Quyền Mới</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -316,7 +315,7 @@
 		<form id="editRoleForm" method="post" action="update-role"
 			class="form modal-content" modelAttribute="role">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">Edit role</h4>
+				<h4 class="modal-title">Chỉnh Sửa Quyền</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -394,7 +393,7 @@
 		<form id="editModeForm" method="post" action="update-mode"
 			class="form modal-content" modelAttribute="chedo">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">Edit mode</h4>
+				<h4 class="modal-title">Chỉnh Sửa Chế Độ</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -440,7 +439,7 @@
 		<form id="editCustomerForm" method="post" action="update-customer"
 			class="form modal-content" modelAttribute="customer">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">Edit customer</h4>
+				<h4 class="modal-title">Chỉnh Sửa Khách Hàngr</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -490,7 +489,7 @@
 		<form id="addStaffForm" method="post" action="add-staff"
 			class="form modal-content" modelAttribute="nhanVien">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">New Staff</h4>
+				<h4 class="modal-title">Nhân Viên Mới</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -520,7 +519,8 @@
 				</div>
 				<div class="form-group">
 					<input name="soDienThoai" type="text" value=""
-						class="form-control form-input" placeholder="Số điện thoại">
+						class="form-control form-input soDienThoai" placeholder="Số điện thoại">
+					<span class="error-message"></span>
 				</div>
 				<div class="form-group">
 					<input name="email" type="email" value=""
@@ -545,7 +545,7 @@
 		<form id="editStaffForm" method="post" action="update-staff"
 			class="form modal-content" modelAttribute="nhanVien">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">Edit Staff</h4>
+				<h4 class="modal-title">Chỉnh Sửa Nhân Viên</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -577,9 +577,14 @@
 						</div>
 					</div>
 				</div>
+				<!-- <div class="form-group">
+					<input name="soDienThoai" type="text" value=""
+						class="form-control form-input sodienthoai" placeholder="Số điện thoại">
+				</div> -->
 				<div class="form-group">
 					<input name="soDienThoai" type="text" value=""
-						class="form-control form-input" placeholder="Số điện thoại">
+						class="form-control form-input soDienThoai" placeholder="Số điện thoại">
+					<span class="error-message"></span>
 				</div>
 				<div class="form-group">
 					<input name="email" type="email" value=""
@@ -601,7 +606,7 @@
 		<form id="addModeForm" method="post" action="add-mode"
 			class="form modal-content" modelAttribute="chedo">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">New mode</h4>
+				<h4 class="modal-title">Chế Độ Mới</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -633,7 +638,7 @@
 			action="add-account" class="form modal-content"
 			modelAttribute="account">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">New account</h4>
+				<h4 class="modal-title">Tài Khoản Mới</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -697,7 +702,7 @@
 		<form id="editImageForm" method="post" enctype="multipart/form-data"
 			action="update-image" class="form modal-content">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">New Image</h4>
+				<h4 class="modal-title">Thêm Mới Ảnh</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -706,13 +711,13 @@
 				<div class="custom-file">
 					<input name="image" type="file" id="validatedCustomFile3"
 						class="custom-file-input"> <label
-						class="custom-file-label" for="validatedCustomFile3">Choose
-						file...</label> <span class="error-message"></span>
+						class="custom-file-label" for="validatedCustomFile3">Chọn
+						tệp...</label> <span class="error-message"></span>
 				</div>
 			</div>
 			<div class="form--footer modal-footer">
-				<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-				<button type="Gửi" class="btn btn-success">Submit</button>
+				<button type="button" data-dismiss="modal" class="btn btn-default">Hủy </button>
+				<button type="Gửi" class="btn btn-success">Xác Nhận</button>
 			</div>
 		</form>
 	</div>
@@ -723,10 +728,10 @@
 <!-- edit account -->
 <div class="modal fade" id="editaccount" role="dialog">
 	<div class="modal-dialog">
-		<form method="post" action="update-account" class="form modal-content"
+		<form id="editAccountForm" method="post" action="update-account" class="form modal-content"
 			enctype="multipart/form-data">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">Edit Account</h4>
+				<h4 class="modal-title">Chỉnh Sửa Tài Khoản</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -737,12 +742,14 @@
 				<div class="form-content modal-body">
 					<div class="form-group">
 						<input name="username" type="text" value=""
-							class="form-control form-input" placeholder="Username">
+							class="form-control form-input username" placeholder="Username">
+							<span class="error-message"></span>
 					</div>
 
 					<div class="form-group">
 						<input value="" name="password" type="password"
-							class="form-control form-input" placeholder="password">
+							class="form-control form-input password" placeholder="password">
+							<span class="error-message"></span>
 					</div>
 
 
@@ -750,10 +757,12 @@
 						<div class="form-group col-md-6">
 							<input readonly="true" value="" name="maNhanVien" type="number"
 								class="form-control form-input" placeholder="Mã Nhân Viên">
+								<span class="error-message"></span>
 						</div>
 						<div class="form-group col-md-6">
 							<input readonly="true" value="" name="maRole" type="text"
 								class="form-control form-input" placeholder="Mã Role">
+								<span class="error-message"></span>
 						</div>
 					</div>
 					<div class="custom-file">
@@ -764,8 +773,8 @@
 					</div>
 				</div>
 				<div class="form--footer modal-footer">
-					<button type="button" data-dismiss="modal" class="btn btn-default">Cancel</button>
-					<button type="submit" class="btn btn-success">Submit</button>
+					<button type="button" data-dismiss="modal" class="btn btn-default">Hủy</button>
+					<button type="submit" class="btn btn-success">Xác Nhận</button>
 				</div>
 			</div>
 		</form>
@@ -1191,7 +1200,7 @@
 			action="add-exist-monthly" class="form modal-content"
 			modelAttribute="monthly-information-detail">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">New Ticket</h4>
+				<h4 class="modal-title">Vé Mới</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">
@@ -1254,7 +1263,7 @@
 		<form id="addBusForm" method="post" action="add-bus"
 			class="form modal-content" modelAttribute="bus">
 			<div class="form-title modal-header">
-				<h4 class="modal-title">New bus</h4>
+				<h4 class="modal-title">Xe mới</h4>
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
 			</div>
 			<div class="form-content modal-body">

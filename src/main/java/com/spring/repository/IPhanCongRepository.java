@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 
 import com.spring.entities.ChuyenXe;
 import com.spring.entities.PhanCong;
+import com.spring.java.LichPhanCong;
 
 public interface IPhanCongRepository extends CrudRepository<PhanCong, Integer> {
 
@@ -60,7 +61,6 @@ public interface IPhanCongRepository extends CrudRepository<PhanCong, Integer> {
 	@Query(value = "select distinct pc.bienSoXe from PhanCong pc where pc.bienSoXe in (select p.bienSoXe from PhanCong p,CTChuyen ct,ChuyenXe c where ct.idPhanCong=ct.idPhanCong and ct.idChuyen=c.id and c.maTuyen=:tuyen and p.ngay=:ngay and p.maNhanVien = :maNhanVien)")
 	public String getBienSoXe(@Param("ngay") Date ngay, @Param("tuyen") int tuyen, @Param("maNhanVien") int maNhanVien);
 	
-	
 	//Vu
 	@Query(value = "select c from PhanCong p, CTChuyen ct, ChuyenXe c where p.idPhanCong = ct.idPhanCong and ct.idChuyen=c.id and matuyen=:tuyen and ngay=:ngay and maNhanVien=:maNhanVien ORDER BY c.id")
 	public List<ChuyenXe> getListChuyenXe(@Param("ngay") Date ngay, @Param("tuyen") int maTuyen,@Param("maNhanVien") int maNhanVien);
@@ -73,5 +73,5 @@ public interface IPhanCongRepository extends CrudRepository<PhanCong, Integer> {
 	
 	@Query(value = "from PhanCong pc where maNhanVien = :maNhanVien")
 	public List<PhanCong> checkDeleteNhanVien(@Param("maNhanVien") int maNhanVien);
-	
+
 }

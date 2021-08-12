@@ -256,11 +256,11 @@ form.form.form--ticket label {
 }
 
 @keyframes left-to-right {
-	from {transform: translateX(-80%);
+	from {transform: translateX(80%);
 }
 
 to {
-	transform: translateX(80%);
+	transform: translateX(-80%);
 }
 
 }
@@ -358,3 +358,6 @@ button.btn.ticket-input__btn {
 	background-color: #2ec5d3!important;
 }
 
+span.error-message{
+	color: #ec5e69;
+}

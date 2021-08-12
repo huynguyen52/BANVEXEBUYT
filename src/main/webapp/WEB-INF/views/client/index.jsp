@@ -3,7 +3,7 @@
 <%@include file="/common/taglib.jsp"%>
 <body>
 	<div class="header">
-		<h3 class="header__title">Welcome to Bus station</h3>
+		<h3 class="header__title">Xe Buýt Nhanh Hơn Xe Đạp, Rẻ Hơn Xe Máy</h3>
 	</div>
 	<div
 		style="background-image: url(/BANVEXEBUS/sources/admin/img/station.jpg); background-size: cover; background-repeat: no-repeat; background-position: right;"
@@ -13,9 +13,9 @@
 		<a href="setting" class="btn btn-default btn--ticket btn--warning">Vé tháng</a>
 	</div>
 	<ul class="footer">
-		<li class="footer__item active"><a href="index">Home</a></li>
-		<li class="footer__item"><a href="something">Something</a></li>
-		<li class="footer__item"><a href="setting">Setting</a></li>
+		<li class="footer__item active"><a href="index">Trang Chủ</a></li>
+		<li class="footer__item"><a href="something">Tổng Kết</a></li>
+		<li class="footer__item"><a href="setting">Bán Vé</a></li>
 	</ul>
 
 

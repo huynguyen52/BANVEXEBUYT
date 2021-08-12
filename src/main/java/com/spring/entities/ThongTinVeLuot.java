@@ -19,7 +19,7 @@ public class ThongTinVeLuot {
 	private Integer id;
 
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
-	private Integer soLuong;
+	private int soLuong;
 	private int maPhanCong;
 // 	thong tin ve-gia ve luot
 	@JsonBackReference
@@ -59,7 +59,7 @@ public class ThongTinVeLuot {
 		this.id = id;
 	}
 
-	public Integer getSoLuong() {
+	public int getSoLuong() {
 		return soLuong;
 	}
 

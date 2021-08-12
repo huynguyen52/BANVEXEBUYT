@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Buss - Login</title>
+<title>Buss - Đăng nhập</title>
 
 <link rel="shortcut icon" type="image/jpg"
 	href='<c:url value="/sources/admin/img/favicon.ico"/>' />
@@ -46,26 +46,26 @@
 					<h1 class="h4  mb-4">Bysss</h1>
 				</div>
 				<div class="text-left">
-					<p class="mb-4">Please login into your account</p>
+					<p class="mb-4">Vui lòng nhập tài khoản của bạn đẻ đăng nhập</p>
 				</div>
 				<form id="loginForm" action="login" method="post" class="user">
 					<div class="form-group">
 						<input type="text" name="username"
 							class="form-control form-input username" id="exampleInputEmail"
-							aria-describedby="emailHelp" placeholder="Enter username...">
+							aria-describedby="emailHelp" placeholder="Tên đăng nhập...">
 						<span class="error-message"></span>
 					</div>
 					<div class="form-group">
 						<input type="password" name="password"
 							class="form-control form-input password"
-							id="exampleInputPassword" placeholder="Password"> <span
+							id="exampleInputPassword" placeholder="Mật khẩu"> <span
 							class="error-message"></span>
 					</div>
 					<button type="submit" class="btn btn-success btn-block">
-						Login</button>				
+						Đăng nhập</button>				
 				</form>
 				<div class="text-left forgot-password mt-2">
-					<a href="forgot-password.html">Forgot Password?</a>
+					<a href="forgot-password.html">Quên mật khẩu?</a>
 				</div>
 				<div class="text-left forgot-password mt-2">
 					<span class="error-message">${message }</span>

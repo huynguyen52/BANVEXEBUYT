@@ -29,7 +29,7 @@ public class ThongTinVeThang {
 	@ManyToOne(optional = false)
 	@JoinColumn(name = "maKhachThang", insertable = false, updatable = false)
 	private KhachThang khachThang;
-
+	
 	// thong tin ve thang -Tuyen Xe
 	@JsonBackReference
 	@ManyToOne(optional = false)

@@ -5,7 +5,7 @@
 	<div id="app">
 		<div class="app__content">
 			<div class="header">
-				<h3 class="header__title">Welcome to Bus station</h3>
+				<h3 class="header__title">Chào Mừng Quý Khách</h3>
 			</div>
 			<div
 				style="background-image: url(/BANVEXEBUS/sources/admin/img/travel.jpg); background-size: cover; background-repeat: no-repeat; background-position: right;"
@@ -23,9 +23,9 @@
 				</div>
 			</div>
 			<ul class="footer">
-				<li class="footer__item active"><a href="banve-luot">Home</a></li>
-				<li class="footer__item"><a href="#">Something</a></li>
-				<li class="footer__item"><a href="banve-thang">Setting</a></li>
+				<li class="footer__item active"><a href="banve-luot">Trang Chủ</a></li>
+				<li class="footer__item"><a href="#">Tổng Kết</a></li>
+				<li class="footer__item"><a href="banve-thang">Đăng Ký</a></li>
 			</ul>
 		</div>
 	</div>

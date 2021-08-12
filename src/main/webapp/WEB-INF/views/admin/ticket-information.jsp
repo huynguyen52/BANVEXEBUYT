@@ -21,7 +21,7 @@
 		<!-- DataTales Example -->
 		<div class="card shadow mb-4">
 			<div class="card-header py-3">
-				<p class="m-0 text-primary">DataTables Example</p>
+				<p class="m-0 text-primary">Bảng Dữ Liệu</p>
 			</div>
 			<div class="card-body">
 				<div class="row mb-4">
@@ -44,7 +44,7 @@
 										class="form-control form-input ">
 								</div>
 							</div>
-							<button style="height: 100%" type="submit" class="btn btn-violet">Submit</button>
+							<button style="height: 100%" type="submit" class="btn btn-violet">Xác Nhận</button>
 						</form>
 					</div>
 				</div>
@@ -56,7 +56,7 @@
 								<th>Nhân viên</th>
 								<th>Giá vé Lượt</th>
 								<th>Số Lượng</th>
-								<th></th>
+								<th>Ngày</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -66,6 +66,7 @@
 									<td>${ttvl.phanCong.nhanVien.hoTen}</td>
 									<td>${ttvl.giaVeLuot.giaVeLuot}</td>
 									<td>${ttvl.soLuong}</td>
+									<td><fmt:formatDate value="${ttvl.phanCong.ngay}" /></td>
 									<td></td>
 								</tr>
 							</c:forEach>

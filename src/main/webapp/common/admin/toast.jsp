@@ -12,7 +12,7 @@
 				<i class="fas fa-exclamation"></i>
 			</div>
 			<div class="toast__content">
-				<div class="toast-body">You have no permission!!!</div>
+				<div class="toast-body">Bạn không có quyền truy cập mục này!!!</div>
 			</div>
 		</div>
 	</c:if>
@@ -26,7 +26,7 @@
 				<i class="fas fa-check"></i>
 			</div>
 			<div class="toast__content">
-				<div class="toast-body">Success!!!</div>
+				<div class="toast-body">Thao tác thành công!!!</div>
 			</div>
 		</div>
 	</c:if>
@@ -38,7 +38,7 @@
 				<i class="fas fa-exclamation"></i>
 			</div>
 			<div class="toast__content">
-				<div class="toast-body">Some thing wrong! Please check again.</div>
+				<div class="toast-body">Có gì đó không ổn! Vui lòng kiểm tra lại</div>
 			</div>
 		</div>
 	</c:if>

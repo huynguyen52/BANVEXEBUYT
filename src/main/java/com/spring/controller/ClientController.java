@@ -129,7 +129,6 @@ public class ClientController {
 		}
 		String bienSoXe = (String) session.getAttribute("xe");
 
-		System.out.println("xe hien tai:" + bienSoXe);
 		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
 		Date date = new Date();
 		try {
@@ -158,7 +157,11 @@ public class ClientController {
 
 		@SuppressWarnings("unchecked")
 		HashMap<String, Integer> data = (HashMap<String, Integer>) session.getAttribute("veluot");
-
+		if(data==null) {
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/something";
+		}
 		thongTinVeLuotThuong.setSoLuong(thongTinVeLuotThuong.getSoLuong() + data.get("thuong"));
 		thongTinVeLuotUuTien.setSoLuong(thongTinVeLuotUuTien.getSoLuong() + data.get("uutien"));
 
@@ -171,8 +174,9 @@ public class ClientController {
 			
 			message = "error";
 		}
-
+	
 		session.removeAttribute("veluot");
+		
 
 		redirectAttributes.addFlashAttribute("message", message);
 		return "redirect:/something";
@@ -302,9 +306,35 @@ public class ClientController {
 			@RequestParam("maTuyenXe") String maTuyenXe, @RequestParam("maGiaThang") String maGiaThang,
 			@RequestParam("ngayMua") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngayMua,
 			@RequestParam(value = "biensoxe", defaultValue = "XXX-XXXXX") String bienSoXe,
-			RedirectAttributes redirectAttributes, HttpServletRequest request) {
+			RedirectAttributes redirectAttributes, HttpServletRequest request, HttpSession session) {
+		
+		
+		if(session.getAttribute("xe") == null) {
+			String message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/setting";
+		}
+		
+		//lay ra ma nhan vien ngay hom do
+		String bsx = (String) session.getAttribute("xe");
 
-		System.out.println("mvt: " + maGiaThang + "\tngaymua: " + ngayMua);
+		SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+		Date date1 = new Date();
+		try {
+			date1 = sf.parse(sf.format(new Date()));
+		} catch (ParseException e1) {
+			
+			e1.printStackTrace();
+		}
+
+		// lấy ra phân công của ngày hiện tại và xe
+		PhanCong phanCong = phanCongService.getByDateAndXe(date1, bsx);
+		if (phanCong == null) { // kiểm tra ngày đó, xe đó chưa phân công thì trả về lỗi
+			String message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/index";
+		}
+		int maNhanVien = phanCong.getMaNhanVien();
 
 		if (checkKhachHang1(maKhachThang) || checkRoute(maTuyenXe) || checkGiaVeThang(maGiaThang)
 				|| checkDate(ngayMua)) {
@@ -345,7 +375,7 @@ public class ClientController {
 			thongTinVeThangDetail.setMaGiaThang(Integer.valueOf(maGiaThang));
 			thongTinVeThangDetail.setMaVeThang(maVeThang);
 			thongTinVeThangDetail.setNgayHetHan(ngayHetHan);
-			thongTinVeThangDetail.setAddNewBy(taiKhoan.getMaTaiKhoan());
+			thongTinVeThangDetail.setAddNewBy(maNhanVien);
 			thongTinVeThangDetail.setAddNewDate(ngayMua);
 			String message;
 			if (checkGiaVeThang(maGiaThang)) {
@@ -406,7 +436,7 @@ public class ClientController {
 				thongTinVeThangDetail.setMaGiaThang(Integer.valueOf(maGiaThang));
 				thongTinVeThangDetail.setMaVeThang(maVeThang);
 				thongTinVeThangDetail.setNgayHetHan(ngayHetHan2);
-				thongTinVeThangDetail.setAddNewBy(taiKhoan.getMaTaiKhoan());
+				thongTinVeThangDetail.setAddNewBy(maNhanVien);
 				thongTinVeThangDetail.setAddNewDate(ngayMua);
 				monthlyInformationDetailService.save(thongTinVeThangDetail);
 
@@ -432,7 +462,7 @@ public class ClientController {
 	public String setBus(@RequestParam("bus") String bus, HttpSession session, RedirectAttributes redirectAttributes) {
 
 		List<Xe> listBuses = busService.listAll();
-
+		session.removeAttribute("veluot");
 		String message = "error";
 		Boolean isExist = false;
 		for (Xe x : listBuses) {

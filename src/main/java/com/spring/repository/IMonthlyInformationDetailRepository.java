@@ -13,7 +13,8 @@ public interface IMonthlyInformationDetailRepository extends CrudRepository<Thon
 
 	@Query(value = "select max(ngayHetHan) from ThongTinVeThangDetail")
 	public Date highestNgayHetHan();
-
+	@Query(value="from ThongTinVeThangDetail")
+	public List<ThongTinVeThangDetail> listAll();
 	// lấy ra thông tin vé tháng detail có mã vé tháng tương ứng và ngày hết hạn lớn
 	// nhất
 	@Query(value = "select t from ThongTinVeThangDetail as t where t.maVeThang = :maVeThang and t.ngayHetHan = (select MAX(tt.ngayHetHan) from ThongTinVeThangDetail as tt where tt.maVeThang = :maVeThang)")

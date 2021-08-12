@@ -288,6 +288,11 @@ $(document).ready(function() {
 			data: { 'id': String(id) },
 			success: function(data) {
 				var ngayHetHanStr = getDateStr(data.ngayHetHan);
+				
+				if(new Date(ngayHetHanStr).getTime() < new Date().getTime()){
+					ngayHetHanStr = getDateStr(new Date());
+				}
+				
 				$('#newExistMonthTicket input[name="maKhachThang"]').val(data.maKhachThang);
 				$('#newExistMonthTicket input[name="maTuyenXe"]').val(data.maTuyenXe);
 				$('#newExistMonthTicket input[name="maGiaThang"]').val(data.maGiaThang);
@@ -308,6 +313,11 @@ $(document).ready(function() {
 			data: { 'id': String(id) },
 			success: function(data) {
 				var ngayHetHanStr = getDateStr(data.ngayHetHan);
+				
+				if(new Date(ngayHetHanStr).getTime() < new Date().getTime()){
+					ngayHetHanStr = getDateStr(new Date());
+				}
+				
 				$('#newExistMonthTicket input[name="maKhachThang"]').val(data.maKhachThang);
 				$('#newExistMonthTicket input[name="maTuyenXe"]').val(data.maTuyenXe);
 				$('#newExistMonthTicket input[name="maGiaThang"]').val(data.maGiaThang);

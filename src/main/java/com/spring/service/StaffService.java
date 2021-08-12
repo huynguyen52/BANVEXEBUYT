@@ -16,7 +16,9 @@ public class StaffService {
 	public List<NhanVien> listAll() {
 		return (List<NhanVien>) repo.findAll();
 	}
-
+	public List<NhanVien> getListNhanVienbyRole() {
+		return (List<NhanVien>) repo.getListNhanVienbyRole();
+	}
 	public void delete(Integer id) {
 		repo.delete(id);
 	}
