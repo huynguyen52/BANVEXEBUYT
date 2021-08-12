@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Buss - Login</title>
+<title>Buss - Đăng nhập</title>
 
 <link rel="shortcut icon" type="image/jpg"
 	href='<c:url value="/sources/admin/img/favicon.ico"/>' />
@@ -46,18 +46,18 @@
 					<h1 class="h4  mb-4">Bysss</h1>
 				</div>
 				<div class="text-left">
-					<p class="mb-4">Entering email go get password</p>
+					<p class="mb-4">Nhập thư điện tử để lấy mật khẩu</p>
 				</div>
 				<form action="" method="post" class="user">
 					<div class="form-group">
 						<input type="email" name="email" class="form-control form-input"
 							id="" aria-describedby="emailHelp"
-							placeholder="Enter email">
+							placeholder="Nhập thư điện tử">
 					</div>
 					<button type="submit" class="btn btn-success btn-block">
-						Send</button>
+						Gửi</button>
 					<a href="login" class="btn btn-default btn-block">
-						Back to login </a>
+						Quay lại trang đăng nhập </a>
 				</form>
 				<div class="text-left forgot-password mt-2">
 					<span class="error-message">${message }</span>

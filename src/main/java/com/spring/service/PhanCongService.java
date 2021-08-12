@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.spring.entities.ChuyenXe;
 import com.spring.entities.PhanCong;
+import com.spring.java.LichPhanCong;
 import com.spring.repository.IPhanCongRepository;
 
 @Service

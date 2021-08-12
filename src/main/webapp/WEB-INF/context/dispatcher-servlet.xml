@@ -34,6 +34,9 @@
 			<mvc:mapping path="/admin/delete**" />
 			<mvc:mapping path="/admin/update**" />
 			<!-- Trừ vé tháng -->
+			<mvc:exclude-mapping path="/admin/update-image" />
+	<!-- 		<mvc:exclude-mapping path="/admin/change-password" /> -->
+			<mvc:exclude-mapping path="/admin/edit-profile" />
 			<mvc:exclude-mapping path="/admin/add-monthly" />
 			<mvc:exclude-mapping path="/admin/update-monthly" />
 			<mvc:exclude-mapping path="/admin/edit-monthly" />

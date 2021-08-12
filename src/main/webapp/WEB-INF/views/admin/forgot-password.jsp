@@ -13,7 +13,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Buss - forgot password</title>
+<title>Buss - Quên mật khẩu</title>
 
 <link rel="shortcut icon" type="image/jpg"
 	href='<c:url value="/sources/admin/img/favicon.ico"/>' />
@@ -48,21 +48,27 @@
 					<h1 class="h4  mb-4">Bysss</h1>
 				</div>
 				<div class="text-left">
-					<p class="mb-4">Enter your email address to get password!</p>
+					<p class="mb-4">Nhập thư điện tử để nhận mật khẩu!</p>
 				</div>
 				<form id="forgotPasswordForm" action="forgot-password" method="post">
 					<div class="form-group">
 						<input type="text" name="email"
 							class="form-control form-input email" id="exampleInputEmail"
-							aria-describedby="emailHelp" placeholder="Email"> <span
+							aria-describedby="emailHelp" placeholder="Thư điện tử"> <span
 							class="error-message"></span>
 					</div>
 					<button type="submit" class="btn btn-success btn-block">
-						Submit</button>
-					<a href="login" class="btn btn-default btn-block"> Login </a>
+						Xác nhận</button>
+					<a href="login" class="btn btn-default btn-block"> Đăng nhập </a>
 				</form>
 				<div class="text-left forgot-password mt-2">
-					<span class="error-message">${message }</span>
+				<c:if test="${message eq 'success' }">
+					<span class="error-message">Kiểm tra thư để nhận lại mật khẩu mới</span>
+				</c:if>
+				<c:if test="${message eq 'error' }">
+					<span class="error-message">Địa chỉ thư không tồn tại! Vui lòng kiểm tra lại</span>
+				</c:if>
+					
 				</div>
 
 				<p class="login-footer">2021 @ bus station</p>

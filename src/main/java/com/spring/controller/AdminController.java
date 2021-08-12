@@ -48,6 +48,7 @@ import com.spring.entities.ThongTinVeThang;
 import com.spring.entities.ThongTinVeThangDetail;
 import com.spring.entities.TuyenXe;
 import com.spring.entities.Xe;
+import com.spring.java.LichPhanCong;
 import com.spring.java.QLVe;
 import com.spring.java.ThongTinPhanCong;
 import com.spring.service.AccountService;
@@ -242,6 +243,8 @@ public class AdminController {
 				soLuong_uuTien = 0;
 				if (listDays.get(i).compareTo(dateFrom) >= 0 && listDays.get(i).compareTo(dateTo) <= 0) {
 					/* hashId_Ve = (Entry<Integer, Integer>) listId_Ve(listDays.get(i)); */
+					
+					listDays.get(i);
 					listIds = getListId(listDays.get(i));
 					for (int k = 0; k < listIds.size(); k++) {
 						if (listTuyenXes.get(j).getMaTuyen() == monthlyInformationService
@@ -442,9 +445,9 @@ public class AdminController {
 	@RequestMapping(value = "update-image", method = RequestMethod.POST)
 	public String updateImage(@RequestParam("id") Integer maTaiKhoan,
 			@RequestParam(value = "image", required = false) CommonsMultipartFile image, HttpSession s,
-			RedirectAttributes redirectAttributes) {
+			HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		TaiKhoan taiKhoan = accountService.get(maTaiKhoan);
-
+		String message = "";
 		if (image.getOriginalFilename() == "") {
 			taiKhoan.setImage("undraw_profile.svg");
 		} else {
@@ -459,13 +462,22 @@ public class AdminController {
 				fos.close();
 				taiKhoan.setImage(nameImage);
 				accountService.save(taiKhoan);
+				message = "success";
 			} catch (FileNotFoundException e) {
 				e.printStackTrace();
+				message = "error";
 			} catch (IOException e) {
 				e.printStackTrace();
+				message = "error";
 			}
 		}
+		HttpSession session = request.getSession();
+		TaiKhoan tkTemp = (TaiKhoan) session.getAttribute("taiKhoan");
+		TaiKhoan tkMoi = accountService.get(tkTemp.getMaTaiKhoan());
+		s.removeAttribute("taiKhoan");
+		s.setAttribute("taiKhoan", tkMoi);
 
+		redirectAttributes.addFlashAttribute("message", message);
 		return "redirect:/admin/profile";
 	}
 
@@ -586,9 +598,9 @@ public class AdminController {
 
 		try {
 			accountService.save(taiKhoan);
-			message = "Update Success!";
+			message = "success";
 		} catch (Exception e) {
-			message = "Error!";
+			message = "error";
 		}
 
 		// reset current session
@@ -866,6 +878,7 @@ public class AdminController {
 		// thông tin vé tháng
 		List<ThongTinVeThangDetail> listThongTinVeThangDetails = new ArrayList<ThongTinVeThangDetail>();
 		for (ThongTinVeThang i : listThongTinVeThangs) {
+			i.getMaVeThang();
 			List<ThongTinVeThangDetail> thongTinVeThangDetails = monthlyInformationDetailService
 					.getDataByMaxNgayHetHan(i.getMaVeThang());
 			ThongTinVeThangDetail thongTinVeThangDetail = thongTinVeThangDetails.get(thongTinVeThangDetails.size() - 1);
@@ -994,7 +1007,7 @@ public class AdminController {
 				thongTinVeThangDetail.setNgayHetHan(ngayHetHan);
 				thongTinVeThangDetail.setMaGiaThang(Integer.valueOf(maGiaThang));
 				thongTinVeThangDetail.setMaVeThang(highestMaVeThang);
-				thongTinVeThangDetail.setAddNewBy(tkSession.getMaTaiKhoan());
+				thongTinVeThangDetail.setAddNewBy(tkSession.getMaNhanVien());
 				thongTinVeThangDetail.setAddNewDate(ngayMua);
 				monthlyInformationDetailService.save(thongTinVeThangDetail);
 				message = "success";
@@ -1278,13 +1291,13 @@ public class AdminController {
 			System.out.println("Check chuyen: " + lcx.get(i).getId());
 			List<CTChuyen> lctc = detailTripService.checkDeleteChuyenXe(lcx.get(i).getId());
 			if (lctc.size() != 0) {
-				System.out.println("Chuyen "+lcx.get(i).getId()+" dang hoat dong khong the xoa!");
+				System.out.println("Chuyen " + lcx.get(i).getId() + " dang hoat dong khong the xoa!");
 				message = "error";
 				redirectAttributes.addFlashAttribute("message", message);
 				return "redirect:/admin/route";
 			}
 		}
-		System.out.println("Tuyen "+maTuyen+" khong co chuyen nao hoat dong! dang xoa cac chuyen!");
+		System.out.println("Tuyen " + maTuyen + " khong co chuyen nao hoat dong! dang xoa cac chuyen!");
 		System.out.println("==================================Xoa==========================================");
 		for (int i = 0; i < lcx.size(); i++) {
 			System.out.println("Xoa chuyen: " + lcx.get(i).getId());
@@ -1296,7 +1309,7 @@ public class AdminController {
 			}
 		}
 		redirectAttributes.addFlashAttribute("message", message);
-		System.out.println("Dang xoa tuyen "+maTuyen);
+		System.out.println("Dang xoa tuyen " + maTuyen);
 		try {
 			routeService.delete(maTuyen);
 			message = "success";
@@ -1304,7 +1317,7 @@ public class AdminController {
 
 			message = "error";
 		}
-		System.out.println("Xoa thanh cong tuyen "+maTuyen+" !!!");
+		System.out.println("Xoa thanh cong tuyen " + maTuyen + " !!!");
 		redirectAttributes.addFlashAttribute("message", message);
 		redirectAttributes.addFlashAttribute("active", "route");
 		List<TuyenXe> listTuyenXes = routeService.listAll();
@@ -1751,10 +1764,18 @@ public class AdminController {
 //		redirectAttributes.addFlashAttribute("active", "route");
 //		return "redirect:/admin/trip";
 //	}
+//	void showPhanCong(int maNhanVien) {
+//		List<LichPhanCong> lichPhanCongs=phanCongService.lichPhanCong(maNhanVien);
+//		for(int i=0;i<lichPhanCongs.size();i++) {
+//			System.out.println("\n\n"+lichPhanCongs.get(i).getMaTuyen()+"\t\t"+lichPhanCongs.get(i).getNgay()+"\t\t"+lichPhanCongs.get(i).getBienSoXe()+"\t\t"+lichPhanCongs.get(i).getGioXuatPhat().toString()+"\t\t"+lichPhanCongs.get(i).getGioKetThuc().toString());
+//		}
+//	}
+//	
 
 	// Phân công
 	@RequestMapping(value = "/assign", method = RequestMethod.GET)
 	public ModelAndView assignPage() {
+
 		ModelAndView mav = new ModelAndView("admin/assign");
 		List<PhanCong> listPhanCongs = phanCongService.listAll();
 		List<ChuyenXe> listChuyenXes = tripService.listAll();
@@ -1838,14 +1859,67 @@ public class AdminController {
 		return chuyenXe;
 	}
 
+	boolean checkListTuyen(int tuyen) {
+		List<TuyenXe> listTuyenXes = routeService.listAll();
+		for (int i = 0; i < listTuyenXes.size(); i++) {
+			if (tuyen == listTuyenXes.get(i).getMaTuyen()) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	List<NhanVien> getNhanVien() {
+		// check nhan vien co phai admin hay khong
+		List<NhanVien> listAllNhanViens = staffService.listAll();
+		List<TaiKhoan> listalltaiKhoans = accountService.listAll();
+		List<NhanVien> tempListNhanVien = new ArrayList<NhanVien>();// list nhan vien khong phai la admin
+
+		for (NhanVien nv : listAllNhanViens) {
+			boolean flag = true;
+			for (TaiKhoan tk : listalltaiKhoans) {
+				if (tk.getMaRole().equals("admin") && tk.getMaNhanVien().equals(nv.getMaNhanVien())) {
+					flag = false;
+					break;
+				}
+			}
+			if (flag == true) {
+				tempListNhanVien.add(nv);
+			}
+		}
+		return tempListNhanVien;
+	}
+
 	// Vu
 	// loc phan cong tu tuyen va ngay
 	@RequestMapping(value = "/loctuyen", method = RequestMethod.GET)
 	public ModelAndView loctuyen(@RequestParam("tuyen") int tuyen,
 			@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay) {
+
+//		getNhanVien();
 		ModelAndView mav = new ModelAndView("admin/assign");
-		// Huy
-		List<NhanVien> listNhanViens = staffService.listAll();
+		// check nhan vien co phai admin hay khong
+		List<NhanVien> listAllNhanViens = staffService.listAll();
+		List<TaiKhoan> listalltaiKhoans = accountService.listAll();
+		List<NhanVien> tempListNhanVien = new ArrayList<NhanVien>();// list nhan vien khong phai la admin
+
+		for (NhanVien nv : listAllNhanViens) {
+			boolean flag = true;
+			for (TaiKhoan tk : listalltaiKhoans) {
+				if (tk.getMaRole().equals("admin") && tk.getMaNhanVien().equals(nv.getMaNhanVien())) {
+					flag = false;
+					break;
+				}
+			}
+			if (flag == true) {
+				tempListNhanVien.add(nv);
+			}
+		}
+		if (!checkListTuyen(tuyen)) {
+			return mav;
+		}
+
+		/* List<NhanVien> listNhanViens = staffService.getListNhanVienbyRole(); */
 		List<Xe> listXes = busService.listAll();
 		List<TuyenXe> listTuyenXes = routeService.listAll();
 		List<ChuyenXe> listChuyenXeByMaTuyens = tripService.getDataByMaTuyen(tuyen);
@@ -1884,12 +1958,22 @@ public class AdminController {
 
 		mav.addObject("ngay", ngayStr);
 		mav.addObject("listTTPCs", listTTPCs);
-		mav.addObject("listNhanViens", listNhanViens);
+		mav.addObject("listNhanViens", tempListNhanVien);
 		mav.addObject("listXes", listXes);
 		mav.addObject("listTuyenXes", listTuyenXes);
 		mav.addObject("listChuyenXeByMaTuyens", listChuyenXeByMaTuyens);
 		mav.addObject("active", "assign");
 		return mav;
+	}
+
+	boolean checkNhanVien(int maNhanVien) {
+		List<NhanVien> listNhanViens = getNhanVien();
+		for (int i = 0; i < listNhanViens.size(); i++) {
+			if (maNhanVien == listNhanViens.get(i).getMaNhanVien()) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	// Vu
@@ -1898,7 +1982,9 @@ public class AdminController {
 	public String addAssign(@RequestParam("maNhanVien") int maNhanVien, @RequestParam("bienSoXe") String bienSoXe,
 			@RequestParam("ngay") @DateTimeFormat(pattern = "yyyy-MM-dd") Date ngay, @RequestParam("chuyen") int chuyen,
 			@RequestParam("tuyen") int tuyen, RedirectAttributes redirectAttributes) {
+
 		String message = "";
+
 		Calendar cal = Calendar.getInstance(TimeZone.getTimeZone("Asia/Ho_Chi_Minh"));
 		cal.setTime(ngay);
 		int year = cal.get(Calendar.YEAR);
@@ -1915,6 +2001,12 @@ public class AdminController {
 		}
 		String ngayStr = year + "-" + monthStr + "-" + dayStr;
 		if (checkDate(ngay)) {
+			message = "error";
+			redirectAttributes.addFlashAttribute("message", message);
+			return "redirect:/admin/loctuyen?tuyen=" + tuyen + "&ngay=" + ngayStr;
+		}
+
+		if (!checkNhanVien(maNhanVien)) {
 			message = "error";
 			redirectAttributes.addFlashAttribute("message", message);
 			return "redirect:/admin/loctuyen?tuyen=" + tuyen + "&ngay=" + ngayStr;
@@ -2323,6 +2415,26 @@ public class AdminController {
 		mav.addObject("account", account);
 		mav.addObject("ngaySinhStr", ngayStr);
 		return mav;
+	}
+
+	@RequestMapping(value = "change-password")
+	public String changPass(HttpSession session, @RequestParam("old-password") String passCur,
+			@RequestParam("password") String passNew, RedirectAttributes redirectAttributes) {
+		TaiKhoan accountSession = (TaiKhoan) session.getAttribute("taiKhoan");
+		TaiKhoan account = accountService.get(accountSession.getMaTaiKhoan());
+		if (!getMd5(passCur).equals(account.getPassword())) {
+			redirectAttributes.addFlashAttribute("message", "error");
+			return "redirect:/admin/profile";
+
+		}
+		if (passCur.equals(passNew)) {
+			redirectAttributes.addFlashAttribute("message", "error");
+			return "redirect:/admin/profile";
+		}
+		redirectAttributes.addFlashAttribute("message", "success");
+		account.setPassword(getMd5(passNew));
+		accountService.save(account);
+		return "redirect:/admin/profile";
 	}
 
 	@RequestMapping("banve-luot")

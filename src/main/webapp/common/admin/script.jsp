@@ -2,6 +2,32 @@
 	pageEncoding="UTF-8"%>
 <script>
 	
+	const profile = document.querySelector('.card.profile');
+	if(profile){
+		const toggleBtn = profile.querySelector('#toggleBtn');
+		toggleBtn.onclick = function () {
+			const passwordCtrl = profile.querySelector('.password-control');
+			passwordCtrl.classList.toggle("show");
+		}
+	}
+	
+
+
+	const addMonthTicketForm = document.getElementById('addMonthTicketForm');
+	const dateInput = addMonthTicketForm.querySelector('input[name="ngayMua"]');
+	var today = new Date();
+	var dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	 if(dd<10){
+	        dd='0'+dd
+	    } 
+	    if(mm<10){
+	        mm='0'+mm
+	    } 
+
+today = yyyy+'-'+mm+'-'+dd;
+dateInput.setAttribute("min", today);
 	let tabs = document.querySelectorAll('.card .nav-item');
 	for(tab of tabs){
 		tab.onclick = function(e){
@@ -140,22 +166,23 @@
 				]
 	});
 	
-	/* //add staff form
+	 //add staff form
 	Validator({
 		form : '#addStaffForm',
 		formGroupSelector : '.form-group',
 		errorSelector : '.error-message',
 		rules : [ 
-					Validator.isRequired('.hoten'),
-					Validator.isRequired('.namSinh'),
-					Validator.isRequired('.email'),
-					Validator.isEmail('.email'),
-					//Validator.isNumber('.soDienThoai')
+			Validator.isRequired('.hoten'),
+			Validator.isRequired('.ngaysinh'),
+			Validator.isRequired('.email'),
+			Validator.isRequired('.soDienThoai'),
+			Validator.isEmail('.email'),
+			Validator.isNumber('.soDienThoai')
 				]
-	}); */
+	}); 
 	
 	//edit staff form
-/* 	Validator({
+	Validator({
 		form : '#editStaffForm',
 		formGroupSelector : '.form-group',
 		errorSelector : '.error-message',
@@ -163,10 +190,40 @@
 					Validator.isRequired('.hoten'),
 					Validator.isRequired('.ngaysinh'),
 					Validator.isRequired('.email'),
+					Validator.isRequired('.soDienThoai'),
 					Validator.isEmail('.email'),
 					Validator.isNumber('.soDienThoai')
 				]
-	}); */
+	}); 
+	
+	//change password form
+	Validator({
+		form : '#changePasswordForm',
+		formGroupSelector : '.form-group',
+		errorSelector : '.error-message',
+		rules : [ 
+					Validator.isRequired('.old-password'),
+					Validator.isRequired('.new-password'),
+					Validator.minLength('.new-password', 5),
+					Validator.isRequired('.confirm-password'),
+					Validator.isConfirmed('.confirm-password', function () {
+						return document.querySelector('#changePasswordForm .new-password').value;
+					}, 'Mật khẩu không khớp, vui lòng nhập lại!'),
+				]
+	}); 
+	
+	//edit profile form
+	Validator({
+		form : '#editProfileForm',
+		formGroupSelector : '.form-group',
+		errorSelector : '.error-message',
+		rules : [ 
+					Validator.isRequired('.hoten'),
+					Validator.isRequired('.ngaysinh'),
+					Validator.isRequired('.email'),
+					Validator.isEmail('.email'),
+				]
+	}); 
 	
 	//add mode form
 	Validator({
@@ -205,6 +262,18 @@
 					}, 'Mật khẩu không khớp, vui lòng nhập lại!'),
 					Validator.isRequired('.marole'),
 					Validator.isRequired('.manhanvien')
+				]
+	});
+	
+	//edit account form
+	Validator({
+		form : '#editAccountForm',
+		formGroupSelector : '.form-group',
+		errorSelector : '.error-message',
+		rules : [ 
+					Validator.isRequired('.username'),
+					Validator.isRequired('.password'),
+					Validator.minLength('.password', 6)
 				]
 	});
 	
@@ -269,5 +338,7 @@
 					Validator.isRequired('.ngay')
 				]
 	});
+	
+	
 	
 </script>

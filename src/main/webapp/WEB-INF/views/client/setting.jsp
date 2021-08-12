@@ -3,13 +3,13 @@
 <%@include file="/common/taglib.jsp"%>
 <body>
 	<div class="header">
-		<h3 class="header__title">Welcome to Bus station</h3>
+		<h3 class="header__title">Xe Buýt Nhanh Hơn Xe Đạp, Rẻ Hơn Xe Máy</h3>
 	</div>
 	<div
 		style="background-image: url(/BANVEXEBUS/sources/admin/img/station.jpg); background-size: cover; background-repeat: no-repeat; background-position: right;"
 		class="body">
 		<div class="body__left">
-			<form method="post" action="add-customer" class="form form--ticket"
+			<form id="themKhachHangForm" method="post" action="add-customer" class="form form--ticket"
 				modelAttribute="customer">
 				<div class="form-title ">
 					<p>Thêm Khách Hàng Mới</p>
@@ -31,13 +31,13 @@
 					</div>
 				</div>
 				<div class="form--footer ">
-					<button type="button" data-dismiss="modal" class="btn btn-dark">Cancel</button>
-					<button type="submit" class="btn btn-success">Submit</button>
+					<button type="button" data-dismiss="modal" class="btn btn-dark">Hủy</button>
+					<button type="submit" class="btn btn-success">Xác nhận</button>
 				</div>
 			</form>
 		</div>
 		<div class="body__right">
-			<form method="post" action="add-monthly" class="form form--ticket"
+			<form id="muaVeThangForm" method="post" action="add-monthly" class="form form--ticket"
 				modelAttribute="monthly-information-detail">
 				<div class="form-title ">
 					<p>Thêm Vé Tháng</p>
@@ -85,15 +85,15 @@
 					</div>
 				</div>
 				<div class="form--footer">
-					<button type="button" data-dismiss="modal" class="btn btn-dark">Cancel</button>
-					<button type="submit" class="btn btn-success">Submit</button>
+					<button type="button" data-dismiss="modal" class="btn btn-dark">Hủy</button>
+					<button type="submit" class="btn btn-success">Xác nhận</button>
 				</div>
 			</form>
 		</div>
 	</div>
 	<ul class="footer">
-		<li class="footer__item"><a href="index">Home</a></li>
-		<li class="footer__item"><a href="#">Something</a></li>
-		<li class="footer__item active"><a href="setting">Setting</a></li>
+		<li class="footer__item"><a href="index">Trang chủ</a></li>
+		<li class="footer__item"><a href="something">Tổng Kết</a></li>
+		<li class="footer__item active"><a href="setting">Bán Vé</a></li>
 	</ul>
 </body>

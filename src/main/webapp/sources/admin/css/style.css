@@ -504,6 +504,29 @@ a:hover {
 	border-bottom: 1px solid #324462;
 }
 
+/* password control */
+.password-control form{
+	height: 0;
+	overflow: hidden;
+	transition: 0.5s;
+}
+
+#toggleBtn{
+	cursor: pointer;
+	color: #29b3c0;
+	font-size: 16px;
+}
+#toggleBtn:hover{
+	color: #2ec5d3;
+}
+
+.password-control.show form{
+	height: auto;
+}
+
+/* end password control */
+
+
 .toast--success {
 	background-color: #2ec5d3 !important;
 	color: #fff;

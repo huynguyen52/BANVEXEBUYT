@@ -92,7 +92,32 @@
 
 	<!-- Validator -->
 	<script src='<c:url value="/sources/admin/js/validator.js" />'></script>
-
+	
+	<script>
+	//them khach hang ben ngoai client
+	Validator({
+		form : '#themKhachHangForm',
+		formGroupSelector : '.form-group',
+		errorSelector : '.error-message',
+		rules : [ 
+					Validator.isRequired('.hoten'),
+					Validator.isRequired('.ngaysinh')
+				]
+	});
+	//them ve thang ben ngoai client
+	Validator({
+		form : '#muaVeThangForm',
+		formGroupSelector : '.form-group',
+		errorSelector : '.error-message',
+		rules : [ 
+					Validator.isRequired('.makhachhang'),
+					Validator.isRequired('.matuyenxe'),
+					Validator.isRequired('.magiathang'),
+					Validator.isRequired('.ngaymua'),
+				]
+	});
+	
+	</script>
 
 
 	<!-- Bootstrap core JavaScript-->

@@ -13,8 +13,8 @@
 			<div class="card-header text-center">
 				<a data-toggle="tooltip" title="Go back!"
 					class="previous float-left" href="route"><i
-					class="fas fa-chevron-left"></i></a> Tuyến xe buýt số 56 Bến Thành -
-				Bến Xe Chợ Lớn
+					class="fas fa-chevron-left"></i></a> ${tuyenXe.mocTuyen1 } -
+								${tuyenXe.mocTuyen2 }
 			</div>
 			<hr />
 			<div class="card-body card-info">

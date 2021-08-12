@@ -38,9 +38,9 @@ public class TripService {
 		updateById(id, chuyen, maTuyen, gioXuatPhat, gioQuayVe, bienSoXe, maNhanVien);
 	}
 	
-	public List<ChuyenXe> getDataByMaTuyen(Integer maTuyen){
-		
+	public List<ChuyenXe> getDataByMaTuyen(int maTuyen){
 		return repo.getDataByMatuyen(maTuyen);
+		
 	}
 	public List<Integer> listTuyenXes(Date fromDate,Date toDate){
 		return repo.listMaTuyen(fromDate, toDate);

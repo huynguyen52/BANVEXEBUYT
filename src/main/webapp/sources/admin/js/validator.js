@@ -43,6 +43,7 @@ function Validator(options){
 
 	//lấy element của form cần validate
 	var formElement = document.querySelector(options.form);
+	
 
 	if(formElement){
 		//khi submit form
