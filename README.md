@@ -1,2 +1,2 @@
-Đồ án Công nghệ phần mềm: Xây dựng phần mềm bán vé xe buýt TPHCM.
+Đồ án Công nghệ phần mềm: **Phần Mềm Bán Vé Xe Buýt TPHCM**.
  
